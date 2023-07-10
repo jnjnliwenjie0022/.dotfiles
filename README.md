@@ -1,4 +1,2 @@
-info about this project
-
-test
 # .dotfiles
+info about this project
