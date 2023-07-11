@@ -20,7 +20,7 @@ vim.keymap.set("n", "<C-N>",     "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
-vim.keymap.set("n", "<C-q>", "<cmd>tabnew<CR>")
+--vim.keymap.set("n", "<C-q>", "<cmd>tabnew<CR>")
 --Ngt
 --:tabm[N]
 
