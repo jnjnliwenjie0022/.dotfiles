@@ -21,7 +21,7 @@ function ColorConfig()
         vim.cmd [[ hi NormalNC     gui=NONE               guibg=#1c1c1c ]]
         vim.cmd [[ hi LineNr       gui=NONE guifg=#cdd6f4 guibg=#1c1c1c ]]
         vim.cmd [[ hi CursorLine   gui=NONE               guibg=#1c1c1c ]]
-        vim.cmd [[ hi CursorLineNr gui=NONE guifg=#1c1c1c guibg=#d7ff00 ]]
+        vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#1c1c1c ]]
         vim.cmd [[ hi VertSplit    gui=NONE guifg=#cdd6f4 guibg=#1c1c1c ]]
         vim.cmd [[ hi Search       gui=NONE guifg=#1c1c1c guibg=#d7ff00 ]]
         vim.cmd [[ hi IncSearch    gui=NONE guifg=#1c1c1c guibg=#d7ff00 ]]
