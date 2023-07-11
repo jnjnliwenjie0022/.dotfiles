@@ -8,5 +8,5 @@ if [ "$TERM" != "xterm-256color" ]; then
       export TERM=xterm-256color
 fi
 
-#alias fzfy="fzf | xclip -in -selection clipboard" 
-#alias pwdy="echo Copy to clipboard: ; pwd; printf %s "$PWD" | xclip -sel clip"
+alias fzfy="fzf | xclip" 
+alias pwdy="pwd; printf %s "$PWD" | xclip"
