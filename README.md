@@ -3,7 +3,6 @@
 install libfuse2
 ----------------
 sudo add-apt-repository universe
-
 sudo apt install libfuse2
 
 install packer 
