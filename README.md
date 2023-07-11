@@ -1,13 +1,3 @@
 # .dotfiles
 
-install libfuse2
-----------------
-sudo add-apt-repository universe
-sudo apt install libfuse2
-
-install packer 
-----------------
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim 
-
-
+https://www.notion.so/tnvim_workflow-d885d9ff0f2049e4b9ea04e6002b2701#107e22b24f9b4ee9b2be2daf213d0892
