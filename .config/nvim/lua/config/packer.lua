@@ -26,4 +26,6 @@ return require('packer').startup(function(use)
     use { 'junegunn/vim-easy-align' }
     --https://github.com/tpope/vim-fugitive
     use { 'tpope/vim-fugitive'}
+    -- https://github.com/mbbill/undotree
+    use { 'mbbill/undotree'}
 end)
