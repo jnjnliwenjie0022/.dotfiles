@@ -27,10 +27,11 @@ parse_git_branch() {
 # Paste the following configurations in the corresponding place in MobaXterm.ini.
 # Setting->Configuration->Terminal->Default terminal color setting->import catppuccin-mocha.ini
 #
+#
 # Theme: catppuccin-mocha
 # [Colors]
 # DefaultColorScheme=0
-# BackgroundColour=30,30,46
+# BackgroundColour=28,28,28
 # ForegroundColour=205,214,244
 # CursorColour=245,224,220
 # Black=69,71,90
