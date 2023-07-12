@@ -7,7 +7,7 @@ vim.keymap.set("x", "p", "\"_dP")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>")
-vim.keymap.set("n", "<leader><leader>", "<cmd>so<CR>") 
+vim.keymap.set("n", "<leader>so", "<cmd>so<CR>") 
 
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
