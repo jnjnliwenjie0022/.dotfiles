@@ -7,7 +7,7 @@ vim.keymap.set("x", "p", "\"_dP")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "<leader>e", "<cmd>Ex<CR>")
-vim.keymap.set("n", "<leader>so", "<cmd>so<CR>") 
+--vim.keymap.set("n", "<leader>so", "<cmd>so<CR>") 
 
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
@@ -29,3 +29,5 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 --<C-w>| resize to max
 --<C-w>= resize to equal
 --V%= format
+--cd % show current dir 
+--cd %:p set current dir

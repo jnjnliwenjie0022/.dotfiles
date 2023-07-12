@@ -1,5 +1,7 @@
 vim.opt.termguicolors = true
 
+vim.opt.clipboard = "unnamedplus"
+
 vim.opt.nu = true
 vim.opt.numberwidth=4
 vim.opt.relativenumber = true
@@ -22,9 +24,9 @@ vim.opt.scrolloff = 8
 --vim.opt.backup = false
 --vim.opt.undodir = os.getenv("HOME") .. "\.vim\undodir"
 --vim.opt.undofile = true
-
+--
 vim.opt.updatetime = 50
 
-vim.opt.clipboard = "unnamedplus"
-
 vim.cmd [[ set splitbelow splitright ]]
+
+vim.cmd [[ let g:netrw_liststyle = 3]]
