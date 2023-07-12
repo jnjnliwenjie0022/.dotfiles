@@ -29,4 +29,4 @@ vim.opt.updatetime = 50
 
 vim.cmd [[ set splitbelow splitright ]]
 
-vim.cmd [[ let g:netrw_liststyle = 3]]
+vim.cmd [[ let g:netrw_banner = 0 ]]
