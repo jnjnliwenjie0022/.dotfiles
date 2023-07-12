@@ -8,4 +8,7 @@ if [ "$TERM" != "xterm-256color" ]; then
       export TERM=xterm-256color
 fi
 
-alias fzfy="fzf | xclip" 
+if type rg &> /dev/null; then
+   	export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
+  	export FZF_DEFAULT_OPTS='-m'
+fi
