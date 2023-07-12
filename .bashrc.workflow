@@ -9,4 +9,3 @@ if [ "$TERM" != "xterm-256color" ]; then
 fi
 
 alias fzfy="fzf | xclip" 
-alias pwdy="pwd; printf %s "$PWD" | xclip"
