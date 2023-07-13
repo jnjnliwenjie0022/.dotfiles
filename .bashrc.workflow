@@ -13,11 +13,8 @@ if [ "$TERM" != "xterm-256color" ]; then
 fi
 
 # prompt conifg
-function parse_git_dirty {
-    [[ $(git status --porcelain 2> /dev/null) ]] && echo "*"
-}
 function parse_git_branch() {
-     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
+     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1)/"
 }
 export PS1="\[\033[35m\][\t] \[\033[32m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[1;33m\][\j] > \[\033[0m\]"
 
