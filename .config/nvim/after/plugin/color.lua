@@ -15,28 +15,31 @@ function ColorConfig()
         --243 Grey46	#767676	rgb(118,118,118)
         --242 Grey42    #6c6c6c rgb(108,108,108)
         --255 Grey93    #eeeeee rgb(238,238,238)
+
         vim.cmd [[ colorscheme catppuccin-mocha ]]
         vim.cmd [[ set cursorline]]
-        vim.cmd [[ hi Normal       gui=NONE               guibg=#1c1c1c ]]
-        vim.cmd [[ hi NormalNC     gui=NONE               guibg=#1c1c1c ]]
-        vim.cmd [[ hi LineNr       gui=NONE guifg=#cdd6f4 guibg=#1c1c1c ]]
-        vim.cmd [[ hi CursorLine   gui=NONE               guibg=#1c1c1c ]]
-        vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#1c1c1c ]]
-        vim.cmd [[ hi VertSplit    gui=NONE guifg=#cdd6f4 guibg=#1c1c1c ]]
-        vim.cmd [[ hi Search       gui=NONE guifg=#1c1c1c guibg=#d7ff00 ]]
-        vim.cmd [[ hi IncSearch    gui=NONE guifg=#1c1c1c guibg=#d7ff00 ]]
-        vim.cmd [[ hi Folded       gui=NONE guifg=#87ffff guibg=#1c1c1c ]]
-        vim.cmd [[ hi FoldColumn   gui=NONE guifg=#87ffff guibg=#1c1c1c ]]
-        vim.cmd [[ hi Comment      gui=NONE guifg=#87ffff guibg=#1c1c1c ]]
+        vim.cmd [[ hi Normal       gui=NONE               guibg=#000000 ]]
+        vim.cmd [[ hi NormalNC     gui=NONE               guibg=#000000 ]]
+        vim.cmd [[ hi LineNr       gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        vim.cmd [[ hi CursorLine   gui=NONE               guibg=#000000 ]]
+        vim.cmd [[ hi StatusLine   gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        vim.cmd [[ hi StatusLineNC gui=NONE               guibg=#000000 ]]
+        vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        vim.cmd [[ hi VertSplit    gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        vim.cmd [[ hi Search       gui=NONE guifg=#000000 guibg=#d7ff00 ]]
+        vim.cmd [[ hi IncSearch    gui=NONE guifg=#000000 guibg=#d7ff00 ]]
+        vim.cmd [[ hi Folded       gui=NONE guifg=#87ffff guibg=#000000 ]]
+        vim.cmd [[ hi FoldColumn   gui=NONE guifg=#87ffff guibg=#000000 ]]
+        vim.cmd [[ hi Comment      gui=NONE guifg=#87ffff guibg=#000000 ]]
         vim.cmd [[ hi Visual       gui=NONE               guibg=#808080 ]]
         --DiffAdd     diff mode: Added line
         --DiffChange  diff mode: Changed line
         --DiffDelete  diff mode: Deleted line
         --DiffText    diff mode: Changed text within a changed line
-        vim.cmd [[ hi DiffAdd      gui=NONE guifg=NONE    guibg=#005f00 ]]
-        vim.cmd [[ hi DiffDelete   gui=NONE guifg=#1c1c1c guibg=#1c1c1c ]]
-        vim.cmd [[ hi DiffChange   gui=NONE guifg=NONE    guibg=#5f0000 ]]
-        vim.cmd [[ hi DiffText     gui=NONE guifg=NONE    guibg=#5f0000 ]]
+        vim.cmd [[ hi DiffAdd      gui=NONE               guibg=#005f00 ]]
+        vim.cmd [[ hi DiffDelete   gui=NONE guifg=#000000 guibg=#000000 ]]
+        vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]]
+        vim.cmd [[ hi DiffText     gui=NONE               guibg=#5f0000 ]]
     else
         print("Catppuccin is not installed")
         vim.cmd [[ Normal       guifg=#f0f0f8 guibg=#000000 ]]
