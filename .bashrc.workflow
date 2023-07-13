@@ -1,36 +1,3 @@
-# workspace config
-alias vim="nvim -O"
-alias tmux="tmux -u"
-alias rebash='source ~/.bashrc'; echo "source ~/.bashrc"
-export PATH="~/.local/bin:${PATH}"
-
-# tmux config
-if [ "$TERM" != "xterm-256color" ]; then
-    # in root: need terminfo/
-    # or
-    # in user: need .terminfo/
-    export TERM=xterm-256color 
-fi
-
-# prompt conifg
-function parse_git_branch() {
-     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1)/"
-}
-export PS1="\[\033[35m\][\t] \[\033[32m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[1;33m\][\j] > \[\033[0m\]"
-
-#if [ -f "$HOME/.local/share/bash-git-prompt/gitprompt.sh" ]; then
-##    https://github.com/magicmonty/bash-git-prompt
-#     GIT_PROMPT_ONLY_IN_REPO=1
-#     GIT_PROMPT_THEME=Solarized
-#     source $HOME/.local/share/bash-git-prompt/gitprompt.sh
-#fi
-
-# fzf config
-if type rg &> /dev/null; then
-   	export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
-  	export FZF_DEFAULT_OPTS='-m'
-fi
-
 # terminal color scheme config 
 # https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
 #
@@ -59,3 +26,55 @@ fi
 # White=186,194,222
 # BoldBlack=88,91,112
 # BoldRed=243,139,168
+
+# workspace config
+alias rebash='source ~/.bashrc'; echo "source ~/.bashrc"
+alias vim="nvim -O"
+alias tmux="tmux -u"
+export PATH="~/.local/bin:${PATH}"
+alias cin="xclip -selection c"
+alias cout="xclip -selection clipboard -o"
+fcd () {
+    # As others have explained, the directory is changed in the child process of your script,
+    # not in the terminal process from which the script is called. After the child process dies,
+    # you are back in the terminal which is left where it was.
+    cd "$(find -type d | fzf)"
+}
+
+fvim () {
+    vim "$(find -type f | fzf)" 
+}
+
+pwdy () {
+    echo "Copy to clipboard: $(pwd)"
+    pwd | tr -d '\n' | xclip -selection c
+}
+
+# tmux config
+if [ "$TERM" != "xterm-256color" ]; then
+    # in root: need terminfo/
+    # or
+    # in user: need .terminfo/
+    export TERM=xterm-256color 
+fi
+
+# prompt conifg
+function parse_git_branch() {
+     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1)/"
+}
+export PS1="\[\033[35m\][\t] \[\033[32m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[1;33m\][\j] > \[\033[0m\]"
+
+
+#if [ -f "$HOME/.local/share/bash-git-prompt/gitprompt.sh" ]; then
+##    https://github.com/magicmonty/bash-git-prompt
+#     GIT_PROMPT_ONLY_IN_REPO=1
+#     GIT_PROMPT_THEME=Solarized
+#     source $HOME/.local/share/bash-git-prompt/gitprompt.sh
+#fi
+
+# fzf config
+#if type rg &> /dev/null; then
+#   export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
+#  	export FZF_DEFAULT_OPTS='-m'
+#fi
+
