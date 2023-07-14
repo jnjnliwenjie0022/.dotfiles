@@ -6,6 +6,8 @@ vim.opt.nu = true
 vim.opt.numberwidth=4
 vim.opt.relativenumber = true
 vim.opt.foldmethod = "marker"
+vim.cmd [[ set list ]]
+vim.cmd [[ set listchars+=trail:. ]]
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4

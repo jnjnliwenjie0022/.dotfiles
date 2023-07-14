@@ -46,6 +46,8 @@ fvim () {
 }
 
 pwdy () {
+    # clipboard has same problem from time to time
+    # reset the terminal can fix
     echo "Copy to clipboard: $(pwd)"
     pwd | tr -d '\n' | xclip -selection c
 }
