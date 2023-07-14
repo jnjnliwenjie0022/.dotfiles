@@ -32,8 +32,17 @@ alias rebash='source ~/.bashrc'; echo "source ~/.bashrc"
 alias vim="nvim -O"
 alias tmux="tmux -u"
 export PATH="~/.local/bin:${PATH}"
-alias cin="xclip -selection c"
-alias cout="xclip -selection clipboard -o"
+
+source ~/.local/etc/z.sh # https://github.com/rupa/z
+
+cin () {
+    xclip -selection c
+}
+
+cout () {
+    xclip -selection clipboard -o
+}
+
 fcd () {
     # As others have explained, the directory is changed in the child process of your script,
     # not in the terminal process from which the script is called. After the child process dies,
@@ -66,7 +75,6 @@ function parse_git_branch() {
 }
 export PS1="\[\033[35m\][\t] \[\033[32m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[1;33m\][\j] > \[\033[0m\]"
 
-
 #if [ -f "$HOME/.local/share/bash-git-prompt/gitprompt.sh" ]; then
 ##    https://github.com/magicmonty/bash-git-prompt
 #     GIT_PROMPT_ONLY_IN_REPO=1
@@ -80,3 +88,7 @@ export PS1="\[\033[35m\][\t] \[\033[32m\][\w] \[\e[91m\]\$(parse_git_branch) \n\
 #  	export FZF_DEFAULT_OPTS='-m'
 #fi
 
+if [ "$UVM_HOME" == "" ]; then
+    echo UVM_HOME=${UVM_HOME}
+    export UVM_HOME="~/.local/lib/uvm-1.2"; echo "UVM_HOME=~/.local/lib/uvm-1.2"
+fi
