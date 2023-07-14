@@ -32,6 +32,7 @@ alias rebash='source ~/.bashrc'; echo "source ~/.bashrc"
 alias vim="nvim -O"
 alias tmux="tmux -u"
 export PATH="~/.local/bin:${PATH}"
+export PATH="~/.local/script:${PATH}"
 
 source ~/.local/etc/z.sh # https://github.com/rupa/z
 
