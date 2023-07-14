@@ -7,7 +7,7 @@
 # Theme: catppuccin-mocha
 # [Colors]
 # DefaultColorScheme=0
-# BackgroundColour=28,28,28
+# BackgroundColour=0,0,0
 # ForegroundColour=205,214,244
 # CursorColour=245,224,220
 # Black=69,71,90
