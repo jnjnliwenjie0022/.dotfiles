@@ -1,10 +1,22 @@
 local status, packer = pcall(require, 'packer')
 if (not status) then
+    local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+
     print("Packer is not installed")
+    print("Auto-install packer at " .. install_path)
+
+    vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+
+    print("---------------------------------------")
+    print("Following the step and restart neovim!!")
+    print("In packer.lua")
+    print("1. :so")
+    print("2. :PackerSync")
+    print("---------------------------------------")
+
     return
 end
-
-vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
     -- https://github.com/wbthomason/packer.nvim
