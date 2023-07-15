@@ -28,7 +28,7 @@
 # BoldRed=243,139,168
 
 # workspace config
-alias rebash='source ~/.bashrc'; echo "source ~/.bashrc"
+alias rebash='source ~/.bashrc'; echo "source ~/.bashrc"; echo "source ~/.bashrc.workflow"
 alias vim="nvim -O"
 alias tmux="tmux -u"
 export PATH="~/.local/bin:${PATH}"
@@ -89,7 +89,6 @@ export PS1="\[\033[35m\][\t] \[\033[32m\][\w] \[\e[91m\]\$(parse_git_branch) \n\
 #  	export FZF_DEFAULT_OPTS='-m'
 #fi
 
-if [ "$UVM_HOME" == "" ]; then
-    echo UVM_HOME=${UVM_HOME}
-    export UVM_HOME="~/.local/lib/uvm-1.2"; echo "UVM_HOME=~/.local/lib/uvm-1.2"
+if [ -f ~/synopsys/.bashrc.synopsys ]; then
+    . ~/synopsys/.bashrc.synopsys
 fi
