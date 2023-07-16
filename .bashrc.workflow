@@ -32,26 +32,28 @@
 alias rebash='source ~/.bashrc'; echo "source ~/.bashrc"; echo "source ~/.bashrc.workflow"
 alias vim="nvim -O"
 alias tmux="tmux -u"
-export PATH="~/.local/bin:${PATH}"
-export PATH="~/.local/script:${PATH}"
+export PATH="$HOME/.local/bin:${PATH}"
+export PATH="$HOME/.local/script:${PATH}"
 
-# source script
-source ~/.local/script/z.sh
+# enable zoxide 
+eval "$(zoxide init bash)"
 
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
 
 function cin () {
-    xclip -selection c
+    #xclip -selection c
+    xsel -i -b
 }
 
 function cout () {
-    xclip -selection clipboard -o
+    #xclip -selection clipboard -o
+    xsel -o -b
 }
 
-function zi () {
-    cd "$(z | sed -e 's/^[0-9]*\s*//g'| fzf)"
-}
+#function zi () {
+#    cd "$(z | sed -e 's/^[0-9]*\s*//g'| fzf)"
+#}
 
 function fcd () {
     # As others have explained, the directory is changed in the child process of your script,
@@ -68,7 +70,8 @@ function pwdy () {
     # clipboard has same problem from time to time
     # reset the terminal can fix
     echo "Copy to clipboard: $(pwd)"
-    pwd | tr -d '\n' | xclip -selection c
+    #pwd | tr -d '\n' | xclip -selection c
+    pwd | tr -d '\n' | xsel -i -b
 }
 
 # tmux config
@@ -98,6 +101,6 @@ export PS1="\[\033[35m\][\t] \[\033[32m\][\w] \[\e[91m\]\$(parse_git_branch) \n\
 #  	export FZF_DEFAULT_OPTS='-m'
 #fi
 
-if [ -f ~/synopsys/.bashrc.synopsys ]; then
-    . ~/synopsys/.bashrc.synopsys
+if [ -f $HOME/synopsys/.bashrc.synopsys ]; then
+    . $HOME/synopsys/.bashrc.synopsys
 fi
