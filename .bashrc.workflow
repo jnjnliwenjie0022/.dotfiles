@@ -49,6 +49,10 @@ function cout () {
     xclip -selection clipboard -o
 }
 
+function zi () {
+    cd "$(z | sed -e 's/^[0-9]*\s*//g'| fzf)"
+}
+
 function fcd () {
     # As others have explained, the directory is changed in the child process of your script,
     # not in the terminal process from which the script is called. After the child process dies,
