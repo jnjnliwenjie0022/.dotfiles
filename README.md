@@ -22,10 +22,6 @@ git push --set-upstream origin master
 ```
 ##AppImage
 1. --appimage-extract and amend the AppRun file
-2. installed libfus2
+2. installed libfuse2
 https://github.com/AppImage/AppImageKit/wiki/FUSE
-```
-```
-##Packer
-git clone --depth 1 https://github.com/wbthomason/packer.nvim  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 ```
