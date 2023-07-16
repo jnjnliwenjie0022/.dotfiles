@@ -1,3 +1,4 @@
+
 # terminal color scheme config 
 # https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
 #
@@ -34,32 +35,32 @@ alias tmux="tmux -u"
 export PATH="~/.local/bin:${PATH}"
 export PATH="~/.local/script:${PATH}"
 
-# enable zoxide
-eval "$(zoxide init bash)"
+# source script
+source ~/.local/script/z.sh
 
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
 
-cin () {
+function cin () {
     xclip -selection c
 }
 
-cout () {
+function cout () {
     xclip -selection clipboard -o
 }
 
-fcd () {
+function fcd () {
     # As others have explained, the directory is changed in the child process of your script,
     # not in the terminal process from which the script is called. After the child process dies,
     # you are back in the terminal which is left where it was.
     cd "$(find -type d | fzf)"
 }
 
-fvim () {
+function fvim () {
     vim "$(find -type f | fzf)" 
 }
 
-pwdy () {
+function pwdy () {
     # clipboard has same problem from time to time
     # reset the terminal can fix
     echo "Copy to clipboard: $(pwd)"
@@ -68,10 +69,10 @@ pwdy () {
 
 # tmux config
 #if [ "$TERM" != "xterm-256color" ]; then
-    # in root: need terminfo/
-    # or
-    # in user: need .terminfo/
-    export TERM=xterm-256color; echo "TERM=${TERM}"
+   # in root: need terminfo/
+   # or
+   # in user: need .terminfo/
+   export TERM=xterm-256color; echo "TERM=${TERM}"
 #fi
 
 # prompt conifg
