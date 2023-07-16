@@ -20,11 +20,12 @@ vim.keymap.set("n", "<C-N>",     "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>") --tmux-sessionizer
+
 --vim.keymap.set("n", "<C-q>", "<cmd>tabnew<CR>")
 --Ngt
 --:tabm[N]
 
---vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 --<C-w>| resize to max
 --<C-w>= resize to equal

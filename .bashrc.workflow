@@ -34,7 +34,11 @@ alias tmux="tmux -u"
 export PATH="~/.local/bin:${PATH}"
 export PATH="~/.local/script:${PATH}"
 
-source ~/.local/etc/z.sh # https://github.com/rupa/z
+# enable zoxide
+eval "$(zoxide init bash)"
+
+# bind key
+bind '"\C-af":"tmux-sessionizer\n"'
 
 cin () {
     xclip -selection c
@@ -67,7 +71,7 @@ if [ "$TERM" != "xterm-256color" ]; then
     # in root: need terminfo/
     # or
     # in user: need .terminfo/
-    export TERM=xterm-256color 
+    export TERM=xterm-256color; echo "${TERM}"
 fi
 
 # prompt conifg
