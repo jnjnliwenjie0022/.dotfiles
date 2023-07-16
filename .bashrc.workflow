@@ -29,7 +29,7 @@
 # BoldRed=243,139,168
 
 # workspace config
-alias rebash='source ~/.bashrc'; echo "source ~/.bashrc"; echo "source ~/.bashrc.workflow"
+alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
 alias vim="nvim -O"
 alias tmux="tmux -u"
 export PATH="$HOME/.local/bin:${PATH}"
