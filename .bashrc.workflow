@@ -67,12 +67,12 @@ pwdy () {
 }
 
 # tmux config
-if [ "$TERM" != "xterm-256color" ]; then
+#if [ "$TERM" != "xterm-256color" ]; then
     # in root: need terminfo/
     # or
     # in user: need .terminfo/
-    export TERM=xterm-256color; echo "${TERM}"
-fi
+    export TERM=xterm-256color; echo "TERM=${TERM}"
+#fi
 
 # prompt conifg
 function parse_git_branch() {
