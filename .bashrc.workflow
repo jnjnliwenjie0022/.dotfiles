@@ -39,6 +39,7 @@
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
 alias vim="nvim -O"
 alias tmux="tmux -u"
+alias ls="exa"
 
 # workspace config
 export PATH="$HOME/.local/bin:${PATH}"
@@ -50,12 +51,20 @@ eval "$(zoxide init bash)"
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
 
+# create function call
 function cin () {
     xsel -i -b
 }
 
 function cout () {
     xsel -o -b
+}
+
+function pwdy () {
+    # clipboard has same problem from time to time
+    # reset the terminal can fix
+    echo "Copy to clipboard: $(pwd)"
+    pwd | tr -d '\n' | xsel -i -b
 }
 
 #function fcd () {
@@ -68,13 +77,6 @@ function cout () {
 #function fvim () {
 #    vim "$(find -type f | fzf)" 
 #}
-
-function pwdy () {
-    # clipboard has same problem from time to time
-    # reset the terminal can fix
-    echo "Copy to clipboard: $(pwd)"
-    pwd | tr -d '\n' | xsel -i -b
-}
 
 # tmux config
 export TERM=xterm-256color; echo "TERM=${TERM}" # in root: need terminfo/
