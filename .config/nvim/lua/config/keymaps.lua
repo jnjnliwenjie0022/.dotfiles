@@ -26,9 +26,9 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>") --tm
 --Ngt
 --:tabm[N]
 
-
 --<C-w>| resize to max
 --<C-w>= resize to equal
 --V%= format
 --cd % show current dir 
 --cd %:p set current dir
+--:CheckHealth check nvim health
