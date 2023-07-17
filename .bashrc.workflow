@@ -28,10 +28,19 @@
 # BoldBlack=88,91,112
 # BoldRed=243,139,168
 
-# workspace config
+# if you can't open tmux and nvim appimage
+#   if you can has the root authoirty
+#       sudo apt update
+#       sudo apt-get install libfuse2
+#   if can't
+#       -appimage-extract and amend the AppRun file
+
+# create command
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
 alias vim="nvim -O"
 alias tmux="tmux -u"
+
+# workspace config
 export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.local/script:${PATH}"
 
@@ -42,58 +51,51 @@ eval "$(zoxide init bash)"
 bind '"\C-af":"tmux-sessionizer\n"'
 
 function cin () {
-    #xclip -selection c
     xsel -i -b
 }
 
 function cout () {
-    #xclip -selection clipboard -o
     xsel -o -b
 }
 
-#function zi () {
-#    cd "$(z | sed -e 's/^[0-9]*\s*//g'| fzf)"
+#function fcd () {
+#    # As others have explained, the directory is changed in the child process of your script,
+#    # not in the terminal process from which the script is called. After the child process dies,
+#    # you are back in the terminal which is left where it was.
+#    cd "$(find -type d | fzf)"
 #}
-
-function fcd () {
-    # As others have explained, the directory is changed in the child process of your script,
-    # not in the terminal process from which the script is called. After the child process dies,
-    # you are back in the terminal which is left where it was.
-    cd "$(find -type d | fzf)"
-}
-
-function fvim () {
-    vim "$(find -type f | fzf)" 
-}
+#
+#function fvim () {
+#    vim "$(find -type f | fzf)" 
+#}
 
 function pwdy () {
     # clipboard has same problem from time to time
     # reset the terminal can fix
     echo "Copy to clipboard: $(pwd)"
-    #pwd | tr -d '\n' | xclip -selection c
     pwd | tr -d '\n' | xsel -i -b
 }
 
 # tmux config
-#if [ "$TERM" != "xterm-256color" ]; then
-   # in root: need terminfo/
-   # or
-   # in user: need .terminfo/
-   export TERM=xterm-256color; echo "TERM=${TERM}"
-#fi
+export TERM=xterm-256color; echo "TERM=${TERM}" # in root: need terminfo/
 
 # prompt conifg
 function parse_git_branch() {
-     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1)/"
+     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
 }
-export PS1="\[\033[35m\][\t] \[\033[32m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[1;33m\][\j] > \[\033[0m\]"
+export PS1="\[\033[32m\]✔ \[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
 
-#if [ -f "$HOME/.local/share/bash-git-prompt/gitprompt.sh" ]; then
-##    https://github.com/magicmonty/bash-git-prompt
-#     GIT_PROMPT_ONLY_IN_REPO=1
-#     GIT_PROMPT_THEME=Solarized
-#     source $HOME/.local/share/bash-git-prompt/gitprompt.sh
-#fi
+# bash-git-promt config
+# https://github.com/magicmonty/bash-git-prompt
+# git clone https://github.com/magicmonty/bash-git-prompt.git ~/.local/script/.bash-git-prompt --depth=1
+if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
+    GIT_PROMPT_ONLY_IN_REPO=1
+    GIT_PROMPT_START_ROOT="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
+    GIT_PROMPT_START_USER="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
+    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
+    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
+    source $HOME/.local/script/.bash-git-prompt/gitprompt.sh
+fi
 
 # fzf config
 #if type rg &> /dev/null; then

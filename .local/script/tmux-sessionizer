@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+tmux="tmux -u" # imperative
 
 if [[ $# -eq 1 ]]; then
     selected=$2
@@ -14,15 +15,15 @@ fi
 selected_name=$(basename "$selected" | tr . _)
 
 # check if the tmux session exists
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
+if ! ${tmux} has-session -t=$selected_name 2> /dev/null; then
     # create the tmux session
-    tmux new-session -ds $selected_name -c $selected
+    ${tmux} new-session -ds $selected_name -c $selected
 fi
 
 if [[ "${TMUX-}" != '' ]];
     # if not in tmux
-    tmux attach -t $selected_name
+    ${tmux} attach -t $selected_name
 then
     # if in tmux
-    tmux switch-client -t $selected_name
+    ${tmux} switch-client -t $selected_name
 fi
