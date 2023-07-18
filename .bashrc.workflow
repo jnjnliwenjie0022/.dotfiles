@@ -1,4 +1,3 @@
-
 # terminal color scheme config 
 # https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
 #
@@ -35,6 +34,7 @@
 #   if can't
 #       -appimage-extract and amend the AppRun file
 
+set -o vi
 # create command
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
 alias vim="nvim -O"
