@@ -19,20 +19,10 @@ if ! ${tmux} has-session -t=$selected_name 2> /dev/null; then
     ${tmux} new-session -ds $selected_name -c $selected
 fi
 
-#if [[ "${TMUX-}" != '' ]]; then
-#    # if not in tmux
-#    ${tmux} attach -t $selected_name
-#else
-#    # if in tmux
-#    ${tmux} switch-client -t $selected_name
-#fi
-
-if [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; then
-    # if in tmux
-    echo "in tmux" 
-else
+if [[ -z "${TMUX}" ]]; then
     # if not in tmux
-    echo "not in tmux" 
     ${tmux} attach -t $selected_name
-fi
+else
+    # if in tmux
     ${tmux} switch-client -t $selected_name
+fi
