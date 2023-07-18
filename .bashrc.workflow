@@ -39,7 +39,7 @@
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
 alias vim="nvim -O"
 alias tmux="tmux -u"
-alias ls="exa"
+alias ls="lsd --icon never"
 
 # workspace config
 export PATH="$HOME/.local/bin:${PATH}"
