@@ -79,6 +79,7 @@ function pwdy () {
 #
 #function fvim () {
 #    vim "$(find -type f | fzf)" 
+#    vim "$(fd | fzf)"
 #}
 
 # tmux config
