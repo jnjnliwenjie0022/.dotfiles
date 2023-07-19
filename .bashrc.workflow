@@ -48,6 +48,9 @@ export PATH="$HOME/.local/script:${PATH}"
 # enable zoxide 
 eval "$(zoxide init bash)"
 
+# enable starship
+eval "$(starship init bash)"
+
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
 
@@ -82,22 +85,22 @@ function pwdy () {
 export TERM=xterm-256color; echo "TERM=${TERM}" # in root: need terminfo/
 
 # prompt conifg
-function parse_git_branch() {
-     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
-}
-export PS1="\[\033[32m\]✔ \[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
-
-# bash-git-promt config
-# https://github.com/magicmonty/bash-git-prompt
-# git clone https://github.com/magicmonty/bash-git-prompt.git ~/.local/script/.bash-git-prompt --depth=1
-if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
-    GIT_PROMPT_ONLY_IN_REPO=1
-    GIT_PROMPT_START_ROOT="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
-    GIT_PROMPT_START_USER="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
-    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
-    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
-    source $HOME/.local/script/.bash-git-prompt/gitprompt.sh
-fi
+#function parse_git_branch() {
+#     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
+#}
+#export PS1="\[\033[32m\]✔ \[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
+#
+## bash-git-promt config
+## https://github.com/magicmonty/bash-git-prompt
+## git clone https://github.com/magicmonty/bash-git-prompt.git ~/.local/script/.bash-git-prompt --depth=1
+#if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
+#    GIT_PROMPT_ONLY_IN_REPO=1
+#    GIT_PROMPT_START_ROOT="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
+#    GIT_PROMPT_START_USER="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
+#    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
+#    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
+#    source $HOME/.local/script/.bash-git-prompt/gitprompt.sh
+#fi
 
 # fzf config
 #if type rg &> /dev/null; then
