@@ -31,7 +31,7 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 
 [git_status]
 format = '([$ahead_behind | $all_status](yellow))'
-conflicted = "[✘${count}](red)"
+conflicted = "💥[${count}](red)"
 ahead = "⇡·${count}"
 behind = "⇣·${count}"
 diverged = "⇕⇡·${ahead_count}⇣·${behind_count}"
@@ -41,4 +41,5 @@ stashed = "[$${count}](red)"
 modified = "[!${count}](purple)"
 staged = "[+${count}](purple)"
 renamed= "[»${count}](purple)"
-deleted = "[♻${count}](purple)"
+deleted = "[✘${count}](purple)"
+
