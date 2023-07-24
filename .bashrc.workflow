@@ -83,7 +83,7 @@ function pwdy () {
 #}
 
 # tmux config
-export TERM=xterm-256color; echo "TERM=${TERM}" # in root: need terminfo/
+export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
 
 # prompt conifg
 #function parse_git_branch() {
