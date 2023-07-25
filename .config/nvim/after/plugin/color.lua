@@ -40,6 +40,10 @@ function ColorConfig()
         vim.cmd [[ hi DiffDelete   gui=NONE guifg=#000000 guibg=#000000 ]]
         vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]]
         vim.cmd [[ hi DiffText     gui=NONE               guibg=#5f0000 ]]
+        --vim.cmd [[ hi Title        gui=NONE guifg=#87ffff               ]]
+        vim.cmd [[ hi TabLine      gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        vim.cmd [[ hi TabLineFill  gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        vim.cmd [[ hi TabLineSel   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
     else
         print("Catppuccin is not installed")
         vim.cmd [[ Normal       guifg=#f0f0f8 guibg=#000000 ]]
