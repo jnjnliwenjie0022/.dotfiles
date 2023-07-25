@@ -16,3 +16,15 @@ vim.keymap.set("n", "<leader>j", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<leader>k", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<leader>l", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<leader>;", function() ui.nav_file(4) end)
+
+require('harpoon').setup({
+    tabline = true,
+    tabline_prefix = " ",
+    tabline_suffix = " ",
+})
+
+vim.cmd [[ hi HarpoonNumberActive   guifg=#000000 guibg=#d7ff00 ]]
+vim.cmd [[ hi HarpoonActive         guifg=#000000 guibg=#d7ff00 ]]
+vim.cmd [[ hi HarpoonInactive       guifg=#cdd6f4 guibg=#000000 ]]
+vim.cmd [[ hi HarpoonNumberInactive guifg=#cdd6f4 guibg=#000000 ]]
+vim.cmd [[ hi TabLineFill           guifg=#cdd6f4 guibg=#000000 ]]

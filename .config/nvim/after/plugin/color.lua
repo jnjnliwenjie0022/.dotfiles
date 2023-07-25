@@ -22,7 +22,7 @@ function ColorConfig()
         vim.cmd [[ hi NormalNC     gui=NONE               guibg=#000000 ]]
         vim.cmd [[ hi LineNr       gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
         vim.cmd [[ hi CursorLine   gui=NONE               guibg=#000000 ]]
-        vim.cmd [[ hi StatusLine   gui=NONE guifg=#1c1c1c guibg=#d7ff00 ]]
+        vim.cmd [[ hi StatusLine   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
         vim.cmd [[ hi StatusLineNC gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
         vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
         vim.cmd [[ hi VertSplit    gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
@@ -41,9 +41,9 @@ function ColorConfig()
         vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]]
         vim.cmd [[ hi DiffText     gui=NONE               guibg=#5f0000 ]]
         --vim.cmd [[ hi Title        gui=NONE guifg=#87ffff               ]]
-        vim.cmd [[ hi TabLine      gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
-        vim.cmd [[ hi TabLineFill  gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
-        vim.cmd [[ hi TabLineSel   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
+        --vim.cmd [[ hi TabLine      gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        --vim.cmd [[ hi TabLineFill  gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        --vim.cmd [[ hi TabLineSel   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
     else
         print("Catppuccin is not installed")
         vim.cmd [[ Normal       guifg=#f0f0f8 guibg=#000000 ]]
