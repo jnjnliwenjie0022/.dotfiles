@@ -36,6 +36,14 @@
 
 # fundimantal config
 set -o vi
+# https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
+# language config
+# local -a
+# local
+# if en_US.utf-8 does not exist
+#   sudo locale-gen en_US.UTF-8
+export LANG="en_US.utf-8"
+export LC_ALL=
 
 # create command
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
