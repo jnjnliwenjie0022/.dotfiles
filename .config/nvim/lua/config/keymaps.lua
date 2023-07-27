@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
 
+vim.keymap.set("n", "<C-a>", "<nop>") -- avoid comflict with tmux
+
 vim.keymap.set("n", "x", "\"_x")
 vim.keymap.set("x", "x", "\"_x")
 
