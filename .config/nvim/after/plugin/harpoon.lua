@@ -25,6 +25,6 @@ require('harpoon').setup({
 
 vim.cmd [[ hi HarpoonNumberActive   guifg=#000000 guibg=#d7ff00 ]]
 vim.cmd [[ hi HarpoonActive         guifg=#000000 guibg=#d7ff00 ]]
-vim.cmd [[ hi HarpoonInactive       guifg=#cdd6f4 guibg=#000000 ]]
-vim.cmd [[ hi HarpoonNumberInactive guifg=#cdd6f4 guibg=#000000 ]]
-vim.cmd [[ hi TabLineFill           guifg=#cdd6f4 guibg=#000000 ]]
+vim.cmd [[ hi HarpoonInactive       guifg=#cdd6f4 guibg=#262626 ]]
+vim.cmd [[ hi HarpoonNumberInactive guifg=#cdd6f4 guibg=#262626 ]]
+vim.cmd [[ hi TabLineFill           guifg=#cdd6f4 guibg=#262626 ]]
