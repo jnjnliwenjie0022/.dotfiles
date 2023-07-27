@@ -36,9 +36,6 @@
 
 # fundimantal config
 set -o vi
-export LANGUAGE="en_US.UTF-8"
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
 
 # create command
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
