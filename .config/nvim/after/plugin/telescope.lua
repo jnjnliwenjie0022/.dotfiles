@@ -19,5 +19,4 @@ local builtin = require('telescope.builtin')
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<leader>f', builtin.find_files, opts) 
 vim.keymap.set('n', '<leader>/', builtin.live_grep, opts)
-
---vim.keymap.set('n', '<C-p>', builtin.git_files, {}) 
+vim.keymap.set('n', '<leader>g', builtin.git_files, opts) 
