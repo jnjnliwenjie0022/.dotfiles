@@ -74,11 +74,16 @@ function cout () {
     xsel -o -b
 }
 
-function pwdy () {
+function pwdc () {
     # clipboard has same problem from time to time
     # reset the terminal can fix
     echo "Copy to clipboard: $(pwd)"
     pwd | tr -d '\n' | xsel -i -b
+}
+
+function cdc () {
+    echo "Paste from clipboard: $(cout)" 
+    cd $(cout)
 }
 
 #function fcd () {
