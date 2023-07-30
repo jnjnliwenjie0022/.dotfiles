@@ -50,6 +50,7 @@ alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $
 alias vim="nvim -O"
 alias tmux="tmux -u"
 alias ls="lsd --icon never"
+alias exit="exit"
 
 # workspace config
 export PATH="$HOME/.local/bin:${PATH}"

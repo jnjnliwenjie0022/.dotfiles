@@ -1,8 +1,6 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>e", function()
-   vim.cmd[[Ex]]
-end)
+vim.keymap.set("n", "<leader>e", "<CMD>Ex<CR>")
 
 vim.keymap.set("n", "<C-a>", "<nop>") -- avoid comflict with tmux
 vim.keymap.set("i", "<C-c>", "<Esc>")
