@@ -85,6 +85,14 @@ function cdc () {
     echo "Paste from clipboard: $(cout)" 
     cd $(cout)
 }
+function bak () {
+    CUR_TIME=`date +%Y%m%d_%H%M%S`
+    if [ $# != 1 ]; then
+        echo "usage: backup dir/file"
+    else
+        eval `cp -r $1 $1.bak.$CUR_TIME`
+    fi
+}
 
 #function fcd () {
 #    # As others have explained, the directory is changed in the child process of your script,
