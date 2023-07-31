@@ -74,17 +74,18 @@ function cout () {
     xsel -o -b
 }
 
-function pwdc () {
+function pwdx () {
     # clipboard has same problem from time to time
     # reset the terminal can fix
     echo "Copy to clipboard: $(pwd)"
     pwd | tr -d '\n' | xsel -i -b
 }
 
-function cdc () {
+function cdx () {
     echo "Paste from clipboard: $(cout)" 
-    cd $(cout)
+    cd "$(cout)"
 }
+
 function bak () {
     CUR_TIME=`date +%Y%m%d_%H%M%S`
     if [ $# != 1 ]; then
