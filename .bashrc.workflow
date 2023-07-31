@@ -36,6 +36,13 @@
 
 # fundimantal config
 set -o vi
+#bind '"jk":vi-movement-mode'
+# set editing-mode vi 
+# # vi settings 
+# $if mode=vi 
+#     set keymap vi-insert 
+#     "kj" # remap escape
+# $endif
 # https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
 # language config
 # local -a
