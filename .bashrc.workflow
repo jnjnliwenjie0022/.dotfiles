@@ -34,7 +34,6 @@
 #   if can't
 #       -appimage-extract and amend the AppRun file
 
-# fundimantal config
 set -o vi
 #bind '"jk":vi-movement-mode'
 # set editing-mode vi 
@@ -53,6 +52,7 @@ export LANG="en_US.utf-8"
 export LC_ALL=
 
 # create command
+echo "Shell=$SHELL $BASH_VERSION"
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
 alias vim="nvim -O"
 alias tmux="tmux -u"
@@ -67,7 +67,7 @@ export PATH="$HOME/.local/script:${PATH}"
 eval "$(zoxide init bash)"
 
 # enable starship
-eval "$(starship init bash)"
+#eval "$(starship init bash)"
 
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
@@ -120,22 +120,22 @@ export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
 # infocmp tmux-256color
 
 # prompt conifg
-#function parse_git_branch() {
-#     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
-#}
-#export PS1="\[\033[32m\]✔ \[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
-#
-## bash-git-promt config
-## https://github.com/magicmonty/bash-git-prompt
-## git clone https://github.com/magicmonty/bash-git-prompt.git ~/.local/script/.bash-git-prompt --depth=1
-#if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
-#    GIT_PROMPT_ONLY_IN_REPO=1
-#    GIT_PROMPT_START_ROOT="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
-#    GIT_PROMPT_START_USER="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
-#    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
-#    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
-#    source $HOME/.local/script/.bash-git-prompt/gitprompt.sh
-#fi
+function parse_git_branch() {
+     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
+}
+export PS1="\[\033[32m\]✔ \[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
+
+# bash-git-promt config
+# https://github.com/magicmonty/bash-git-prompt
+# git clone https://github.com/magicmonty/bash-git-prompt.git ~/.local/script/.bash-git-prompt --depth=1
+if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
+    GIT_PROMPT_ONLY_IN_REPO=1
+    GIT_PROMPT_START_ROOT="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
+    GIT_PROMPT_START_USER="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
+    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
+    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
+    source $HOME/.local/script/.bash-git-prompt/gitprompt.sh
+fi
 
 # fzf config
 #if type rg &> /dev/null; then
