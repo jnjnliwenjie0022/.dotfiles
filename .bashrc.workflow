@@ -125,6 +125,8 @@ function parse_git_branch() {
 }
 export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
 
+#bind 'set show-mode-in-prompt on'
+
 # bash-git-promt config
 # https://github.com/magicmonty/bash-git-prompt
 # git clone https://github.com/magicmonty/bash-git-prompt.git ~/.local/script/.bash-git-prompt --depth=1
