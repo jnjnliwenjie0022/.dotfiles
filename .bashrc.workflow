@@ -102,17 +102,17 @@ function bak () {
     fi
 }
 
-#function fcd () {
-#    # As others have explained, the directory is changed in the child process of your script,
-#    # not in the terminal process from which the script is called. After the child process dies,
-#    # you are back in the terminal which is left where it was.
-#    cd "$(find -type d | fzf)"
-#}
-#
-#function fvim () {
-#    vim "$(find -type f | fzf)" 
-#    vim "$(fd | fzf)"
-#}
+function cdf () {
+    # As others have explained, the directory is changed in the child process of your script,
+    # not in the terminal process from which the script is called. After the child process dies,
+    # you are back in the terminal which is left where it was.
+    cd "$(find -type d | fzf)"
+}
+
+function vimf () {
+    vim "$(find -type f | fzf)" 
+    vim "$(fd | fzf)"
+}
 
 # tmux config
 export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
@@ -129,7 +129,9 @@ export PS1="\[\033[32m\]✔ \[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[
 # https://github.com/magicmonty/bash-git-prompt
 # git clone https://github.com/magicmonty/bash-git-prompt.git ~/.local/script/.bash-git-prompt --depth=1
 if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
-    GIT_PROMPT_ONLY_IN_REPO=1
+    GIT_PROMPT_ONLY_IN_REPO=0
+    GIT_PROMPT_SHOW_UPSTREAM=1
+    GIT_PROMPT_FETCH_REMOTE_STATUS=1
     GIT_PROMPT_START_ROOT="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
     GIT_PROMPT_START_USER="\[\033[32m\]✔ \[\033[33m\][\w]\[\033[0m\]"
     GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
