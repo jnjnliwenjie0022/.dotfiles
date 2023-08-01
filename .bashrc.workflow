@@ -35,7 +35,7 @@
 #       -appimage-extract and amend the AppRun file
 
 set -o vi
-bind '"jj":vi-movement-mode'
+#bind '"jj":vi-movement-mode'
 # set editing-mode vi 
 # # vi settings 
 # $if mode=vi 
