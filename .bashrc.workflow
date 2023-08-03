@@ -85,13 +85,18 @@ function cout () {
 function pwdx () {
     # clipboard has same problem from time to time
     # reset the terminal can fix
-    echo "Copy to clipboard: $(pwd)"
     pwd | tr -d '\n' | xsel -i -b
+    echo "Copy to clipboard: $(pwd)"
 }
 
 function cdx () {
-    echo "Paste from clipboard: $(cout)" 
     cd "$(cout)"
+    echo "Paste from clipboard: $(cout)" 
+}
+
+function fzfx () {
+    fzf | tr -d '\n' | xsel -i -b
+    echo "Copy to clipboard: $(cout)"
 }
 
 function bak () {
