@@ -20,6 +20,15 @@ git pull git@github.com:jnjnliwenjie0022/.dotfiles.git master
 git push --set-upstream origin master
 ```
 ```
+##without ssh
+git init
+git remote add origin https://github.com/jnjnliwenjie0022/.dotfiles.git 
+git pull https://github.com/jnjnliwenjie0022/.dotfiles.git master
+git push --set-upstream origin master
+
+#github(https://github.com/jnjnliwenjie0022) -> Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
+```
+```
 ##AppImage
 1. --appimage-extract and amend the AppRun file
 2. installed libfuse2
