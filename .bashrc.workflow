@@ -4,6 +4,7 @@
 # Paste the following configurations in the corresponding place in MobaXterm.ini.
 # Setting->Configuration->Terminal->Default terminal color setting->import catppuccin-mocha.ini
 #
+#
 # Theme: catppuccin-mocha
 # [Colors]
 # DefaultColorScheme=0
