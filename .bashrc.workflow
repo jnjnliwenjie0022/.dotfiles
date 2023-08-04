@@ -113,7 +113,8 @@ function bak () {
 function fcd () {
     if [ $# != 1 ]; then
         if [ -z $1 ]; then
-            selection="$(ls -a | fzf --height 40% --reverse)"
+            #selection="$(ls -a | fzf-tmux --reverse -p -w 80% -h 50% -m)"
+            selection="$(ls -a | fzf --reverse --height 45%)"
             if [[ -d "$selection" ]]
             then
                 cd "$selection"
