@@ -95,7 +95,10 @@ function cdx () {
 }
 
 function fzfx () {
-    fzf | tr -d '\n' | xsel -i -b
+    target="$(fzf | tr -d '\n')"
+    target=""$(pwd)"/${target}"
+
+    echo "${target}" | xsel -i -b
     echo "Copy to clipboard: $(cout)"
 }
 
@@ -108,17 +111,20 @@ function bak () {
     fi
 }
 
-function cdf () {
-    # As others have explained, the directory is changed in the child process of your script,
-    # not in the terminal process from which the script is called. After the child process dies,
-    # you are back in the terminal which is left where it was.
-    cd "$(find -type d | fzf)"
-}
-
-function vimf () {
-    vim "$(find -type f | fzf)" 
-    vim "$(fd | fzf)"
-}
+#function cdf () {
+#    cd $1
+#    if [ -z $1 ]
+#    then
+#        selection="$(ls -a | fzf --height 40% --reverse)"
+#        if [[ -d "$selection" ]]
+#        then
+#            cd "$selection"
+#        elif [[ -f "$selection" ]]
+#        then
+#            vim "$selection"
+#        fi
+#    fi
+#}
 
 # tmux config
 export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
