@@ -111,20 +111,20 @@ function bak () {
     fi
 }
 
-#function cdf () {
-#    cd $1
-#    if [ -z $1 ]
-#    then
-#        selection="$(ls -a | fzf --height 40% --reverse)"
-#        if [[ -d "$selection" ]]
-#        then
-#            cd "$selection"
-#        elif [[ -f "$selection" ]]
-#        then
-#            vim "$selection"
-#        fi
-#    fi
-#}
+function cdf () {
+    cd $1
+    if [ -z $1 ]
+    then
+        selection="$(ls -a | fzf --height 40% --reverse)"
+        if [[ -d "$selection" ]]
+        then
+            cd "$selection"
+        elif [[ -f "$selection" ]]
+        then
+            vim "$selection"
+        fi
+    fi
+}
 
 # tmux config
 export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
