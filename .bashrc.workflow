@@ -111,18 +111,20 @@ function bak () {
     fi
 }
 
-function cdf () {
-    cd $1
-    if [ -z $1 ]
-    then
-        selection="$(ls -a | fzf --height 40% --reverse)"
-        if [[ -d "$selection" ]]
-        then
-            cd "$selection"
-        elif [[ -f "$selection" ]]
-        then
-            vim "$selection"
+function fcd () {
+    if [ $# != 1 ]; then
+        if [ -z $1 ]; then
+            selection="$(ls -a | fzf --height 40% --reverse)"
+            if [[ -d "$selection" ]]
+            then
+                cd "$selection"
+            elif [[ -f "$selection" ]]
+            then
+                vim "$selection"
+            fi
         fi
+    else
+        cd $1
     fi
 }
 
