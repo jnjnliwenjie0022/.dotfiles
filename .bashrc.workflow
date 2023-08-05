@@ -50,8 +50,8 @@ alias vim="nvim -O"
 alias tmux="tmux -u"
 alias ls="lsd --icon never"
 alias eixt="exit"
-# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-alias run_tmp="source $HOME/.tmux/plugins/tpm/tpm";
+# git clone https://github.com/tmux-plugins/tpm $HOME/.local/script/.tmux/plugins/tpm
+alias run_tmp="source $HOME/.local/script/.tmux/plugins/tpm/tpm";
 
 # workspace config
 export PATH="$HOME/.local/bin:${PATH}"
