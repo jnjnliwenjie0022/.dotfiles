@@ -34,14 +34,6 @@
 #   if can't
 #       -appimage-extract and amend the AppRun file
 
-set -o vi
-#bind '"jj":vi-movement-mode'
-# set editing-mode vi 
-# # vi settings 
-# $if mode=vi 
-#     set keymap vi-insert 
-#     "kj" # remap escape
-# $endif
 # https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
 # language config
 # local -a
@@ -57,8 +49,9 @@ alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $
 alias vim="nvim -O"
 alias tmux="tmux -u"
 alias ls="lsd --icon never"
-alias exit="exit"
-alias runtmp="source $HOME/.tmux/plugins/tpm/tpm"; echo "source $HOME/.tmux/plugins/tpm/tpm"
+alias eixt="exit"
+# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+alias run_tmp="source $HOME/.tmux/plugins/tpm/tpm";
 
 # workspace config
 export PATH="$HOME/.local/bin:${PATH}"
@@ -132,7 +125,7 @@ function ff () {
 }
 
 # tmux config
-export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
+export TERM=screen-256color; echo "TERM=${TERM}" # in root: need terminfo/
 # check terminfo
 # infocmp tmux-256color
 
