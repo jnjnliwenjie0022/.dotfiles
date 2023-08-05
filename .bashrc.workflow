@@ -58,6 +58,7 @@ alias vim="nvim -O"
 alias tmux="tmux -u"
 alias ls="lsd --icon never"
 alias exit="exit"
+alias runtmp="source $HOME/.tmux/plugins/tpm/tpm"; echo "source $HOME/.tmux/plugins/tpm/tpm"
 
 # workspace config
 export PATH="$HOME/.local/bin:${PATH}"
