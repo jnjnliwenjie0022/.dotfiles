@@ -109,7 +109,7 @@ function ff () {
         if [ -z $1 ]; then
             #selection="$(ls -a | fzf-tmux --reverse -p -w 80% -h 50% -m)"
             #selection="$(ls -a | fzf --reverse --height 45%)"
-            ls
+            clear; echo "At: $(pwd)"; ls -a;
             selection="$(ls -a | fzf --reverse --height 70%)"
             if [[ -d "$selection" ]]
             then
