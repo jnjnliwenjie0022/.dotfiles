@@ -6,8 +6,8 @@ vim.opt.nu = true
 vim.opt.numberwidth=4
 vim.opt.relativenumber = true
 vim.opt.foldmethod = "marker"
-vim.cmd [[ set list ]]
-vim.cmd [[ set listchars+=trail:. ]]
+vim.opt.list = true
+vim.opt.listchars = 'trail:·'
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -29,5 +29,7 @@ vim.opt.scrolloff = 8
 
 vim.opt.updatetime = 50
 
-vim.cmd [[ set splitbelow splitright ]]
-vim.cmd [[ let g:netrw_banner = 0 ]]
+vim.g['netrw_banner'] = 0
+
+vim.opt.splitright = true
+vim.opt.splitbelow = true
