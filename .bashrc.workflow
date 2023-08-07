@@ -48,7 +48,7 @@ echo "Shell=$SHELL $BASH_VERSION"
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
 alias vim="nvim -O"
 alias tmux="tmux -u"
-alias ls="lsd --icon never"
+alias ls="exa"
 alias eixt="exit"
 
 # workspace config
