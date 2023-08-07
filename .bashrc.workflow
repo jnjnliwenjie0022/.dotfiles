@@ -152,7 +152,7 @@ fi
 # fzf config
 #if type rg &> /dev/null; then
 #   export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
-#  	export FZF_DEFAULT_OPTS='-m'
+#   export FZF_DEFAULT_OPTS='-m'
 #fi
 
 if [ -f $HOME/synopsys/.bashrc.synopsys ]; then
