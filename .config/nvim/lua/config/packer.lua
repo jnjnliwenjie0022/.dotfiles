@@ -34,6 +34,7 @@ return require('packer').startup(function(use)
         tag = '0.1.2',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
+    use {'nvim-tree/nvim-tree.lua'}
     -- https://github.com/junegunn/vim-easy-align
     use { 'junegunn/vim-easy-align' }
     -- https://github.com/tpope/vim-fugitive
