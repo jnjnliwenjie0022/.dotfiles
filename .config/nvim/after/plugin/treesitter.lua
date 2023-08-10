@@ -1,7 +1,7 @@
 require'nvim-treesitter.configs'.setup {
-    --ensure_installed = { "c", "lua", "bash" },
     sync_install = false,
     auto_install = false,
+    parser_install_dir = "$HOME/.local/parser",
     highlight = {
         enable = true,
 
@@ -12,3 +12,10 @@ require'nvim-treesitter.configs'.setup {
         additional_vim_regex_highlighting = false,
     },
 }
+vim.opt.runtimepath:append("$HOME/.local/parser")
+
+-- FIXED WARNING:
+-- OK `tree-sitter` found 0.20.8 (d4c1bf7ce78051b7f4a381d1508d68928512ed5f) (parser generator, only needed for :TSInstallFromGrammar)
+-- OK `node` found v12.22.9 (only needed for :TSInstallFromGrammar)
+-- sudo apt-get install npm
+-- sudo npm install -g tree-sitter-cli
