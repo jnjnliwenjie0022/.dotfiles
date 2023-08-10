@@ -26,13 +26,17 @@ return require('packer').startup(function(use)
     -- https://github.com/ThePrimeagen/harpoon
     use {
         'ThePrimeagen/harpoon',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = {
+            {'nvim-lua/plenary.nvim'}
+        }
     }
     -- https://github.com/nvim-telescope/telescope.nvim
     use {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.2',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = {
+            {'nvim-lua/plenary.nvim'}
+        }
     }
     -- https://github.com/junegunn/vim-easy-align
     use { 'junegunn/vim-easy-align' }
@@ -42,7 +46,14 @@ return require('packer').startup(function(use)
     use { 'dstein64/vim-startuptime' }
     -- https://github.com/ludovicchabant/vim-gutentags
     --use { 'ludovicchabant/vim-gutentags' }
-
+    --https://github.com/nvim-treesitter/nvim-treesitter
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end,
+    }
     --use {
     --    'VonHeikemen/lsp-zero.nvim',
     --    branch = 'v2.x',

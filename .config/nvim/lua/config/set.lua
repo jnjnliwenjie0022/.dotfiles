@@ -30,6 +30,14 @@ vim.opt.incsearch = true
 
 vim.opt.guicursor = "" --always has fat cursor
 
+vim.cmd [[
+augroup prewrites
+    autocmd!
+    autocmd BufWritePre,FileWritePre * :%s/\s\+$//e | %s/\r$//e
+augroup END 
+]]
+
+
 --vim.opt.swapfile = false
 --vim.opt.backup = false
 --vim.opt.undodir = os.getenv("HOME") .. "\.vim\undodir"
