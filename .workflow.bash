@@ -1,4 +1,4 @@
-# terminal color scheme config 
+# terminal color scheme config
 # https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
 #
 # Paste the following configurations in the corresponding place in MobaXterm.ini.
@@ -45,7 +45,7 @@ export LC_ALL=
 
 # create command
 echo "Shell=$SHELL $BASH_VERSION"
-alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.bashrc.workflow"
+alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.workflow.bash"
 alias vim="nvim -O"
 alias tmux="tmux -u"
 alias ls="exa"
@@ -55,7 +55,7 @@ alias eixt="exit"
 export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.local/script:${PATH}"
 
-# enable zoxide 
+# enable zoxide
 eval "$(zoxide init bash)"
 
 # enable starship
@@ -82,7 +82,7 @@ function pwdx () {
 
 function cdx () {
     cd "$(cout)"
-    echo "Paste from clipboard: $(cout)" 
+    echo "Paste from clipboard: $(cout)"
 }
 
 function fzfx () {
@@ -105,13 +105,10 @@ function bak () {
 function ff () {
     if [ $# != 1 ]; then
         if [ -z $1 ]; then
-            #selection="$(ls -a | fzf-tmux --reverse -p -w 80% -h 50% -m)"
-            #selection="$(ls -a | fzf --reverse --height 45%)"
             clear; echo "[$(pwd)]"; ls -a;
             selection="$(ls -a | fzf --reverse --height 70%)"
             if [[ -d "$selection" ]]; then
                 cd "$selection"
-            #elif [[ -f "$selection" ]]; then
             else
                 vim "$selection"
             fi

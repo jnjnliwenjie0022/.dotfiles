@@ -23,13 +23,6 @@ return require('packer').startup(function(use)
     use { 'wbthomason/packer.nvim' }
     -- https://vimcolorschemes.com/
     use { 'catppuccin/nvim' }
-    -- https://github.com/ThePrimeagen/harpoon
-    use {
-        'ThePrimeagen/harpoon',
-        requires = {
-            {'nvim-lua/plenary.nvim'}
-        }
-    }
     -- https://github.com/nvim-telescope/telescope.nvim
     use {
         'nvim-telescope/telescope.nvim',
@@ -38,10 +31,19 @@ return require('packer').startup(function(use)
             {'nvim-lua/plenary.nvim'}
         }
     }
-    -- https://github.com/junegunn/vim-easy-align
-    use { 'junegunn/vim-easy-align' }
+    -- https://github.com/ThePrimeagen/harpoon
+    use {
+        'ThePrimeagen/harpoon',
+        requires = {
+            {'nvim-lua/plenary.nvim'}
+        }
+    }
     -- https://github.com/tpope/vim-fugitive
     use { 'tpope/vim-fugitive'}
+    -- https://github.com/junegunn/vim-easy-align
+    use { 'junegunn/vim-easy-align' }
+    --https://github.com/mbbill/undotree
+    use {"mbbill/undotree" }
     -- https://github.com/dstein64/vim-startuptime
     use { 'dstein64/vim-startuptime' }
     -- https://github.com/ludovicchabant/vim-gutentags
