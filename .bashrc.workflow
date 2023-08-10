@@ -109,11 +109,10 @@ function ff () {
             #selection="$(ls -a | fzf --reverse --height 45%)"
             clear; echo "[$(pwd)]"; ls -a;
             selection="$(ls -a | fzf --reverse --height 70%)"
-            if [[ -d "$selection" ]]
-            then
+            if [[ -d "$selection" ]]; then
                 cd "$selection"
-            elif [[ -f "$selection" ]]
-            then
+            #elif [[ -f "$selection" ]]; then
+            else
                 vim "$selection"
             fi
         fi
