@@ -120,14 +120,14 @@ export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
 # check terminfo
 # infocmp tmux-256color
 
-function run_install_workflow_widget (
+function run_install_workflow_widget() {
     # https://github.com/magicmonty/bash-git-prompt
     folder="${HOME}/.local/script/.bash-git-prompt"
     url="https://github.com/magicmonty/bash-git-prompt.git"
     if [ ! -d "$folder" ] ; then
         git clone "$url" "$folder" --depth=1
     fi
-)
+}
 
 # prompt conifg
 function parse_git_branch() {
