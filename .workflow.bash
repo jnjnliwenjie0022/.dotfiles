@@ -34,6 +34,8 @@
 #   if can't
 #       -appimage-extract and amend the AppRun file
 
+echo "Shell=$SHELL $BASH_VERSION"
+
 # https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
 # language config
 # local -a
@@ -43,20 +45,45 @@
 export LANG="en_US.utf-8"
 export LC_ALL=
 
+# workspace config
+export PATH="$HOME/.local/bin:${PATH}"
+export PATH="$HOME/.local/script:${PATH}"
+
+# tmux config
+export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
+# check terminfo
+# infocmp tmux-256color
+
+# enable zoxide
+eval "$(zoxide init bash)"
+
+# bash-git-promt config
+function parse_git_branch() {
+     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
+}
+export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
+
+file="${HOME}/.local/lib/bash-git-prompt/gitprompt.sh"
+if [ -f ${file} ]; then
+    GIT_PROMPT_ONLY_IN_REPO=0
+    GIT_PROMPT_SHOW_UPSTREAM=1
+    GIT_PROMPT_FETCH_REMOTE_STATUS=1
+    GIT_PROMPT_START_ROOT="\[\033[33m\][\w]\[\033[0m\]"
+    GIT_PROMPT_START_USER="\[\033[33m\][\w]\[\033[0m\]"
+    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
+    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
+    source ${file}
+    echo "Prompt ${file}"
+else
+    echo "Prompt [Warning] ${file} not exist"
+fi
+
 # create command
-echo "Shell=$SHELL $BASH_VERSION"
 alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.workflow.bash"
 alias vim="nvim -O"
 alias tmux="tmux -u"
 alias ls="exa"
 alias eixt="exit"
-
-# workspace config
-export PATH="$HOME/.local/bin:${PATH}"
-export PATH="$HOME/.local/script:${PATH}"
-
-# enable zoxide
-eval "$(zoxide init bash)"
 
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
@@ -82,11 +109,17 @@ function cdx () {
     echo "Paste from clipboard: $(cout)"
 }
 
-function fzfx () {
-    target="$(fzf | tr -d '\n')"
-    target=""$(pwd)"/${target}"
+# fzf config
+#if type rg &> /dev/null; then
+#   export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
+#   export FZF_DEFAULT_OPTS='-m'
+#fi
 
-    echo "${target}" | xsel -i -b
+function fzfx () {
+    selection="$(fzf | tr -d '\n')"
+    selection=""$(pwd)"/${selection}"
+
+    echo "${selection}" | xsel -i -b
     echo "Copy to clipboard: $(cout)"
 }
 
@@ -115,10 +148,6 @@ function ff () {
     fi
 }
 
-# tmux config
-export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
-# check terminfo
-# infocmp tmux-256color
 
 function run_install_workflow_widget() {
     # https://github.com/magicmonty/bash-git-prompt
@@ -129,31 +158,9 @@ function run_install_workflow_widget() {
     fi
 }
 
-# prompt conifg
-function parse_git_branch() {
-     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
-}
-export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
 
-# bash-git-promt config
-file="${HOME}/.local/lib/bash-git-prompt/gitprompt.sh"
+# synopsys tool conifg
+file="${HOME}/synopsys/.bashrc.synopsys"
 if [ -f ${file} ]; then
-    GIT_PROMPT_ONLY_IN_REPO=0
-    GIT_PROMPT_SHOW_UPSTREAM=1
-    GIT_PROMPT_FETCH_REMOTE_STATUS=1
-    GIT_PROMPT_START_ROOT="\[\033[33m\][\w]\[\033[0m\]"
-    GIT_PROMPT_START_USER="\[\033[33m\][\w]\[\033[0m\]"
-    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
-    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
     source ${file}
-fi
-
-# fzf config
-#if type rg &> /dev/null; then
-#   export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
-#   export FZF_DEFAULT_OPTS='-m'
-#fi
-
-if [ -f $HOME/synopsys/.bashrc.synopsys ]; then
-    . $HOME/synopsys/.bashrc.synopsys
 fi
