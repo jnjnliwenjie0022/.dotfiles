@@ -122,7 +122,7 @@ export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
 
 function run_install_workflow_widget() {
     # https://github.com/magicmonty/bash-git-prompt
-    folder="${HOME}/.local/script/.bash-git-prompt"
+    folder="${HOME}/.local/lib/bash-git-prompt"
     url="https://github.com/magicmonty/bash-git-prompt.git"
     if [ ! -d "$folder" ] ; then
         git clone "$url" "$folder" --depth=1
@@ -136,7 +136,8 @@ function parse_git_branch() {
 export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
 
 # bash-git-promt config
-if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
+file="${HOME}/.local/lib/bash-git-prompt/gitprompt.sh"
+if [ -f ${file} ]; then
     GIT_PROMPT_ONLY_IN_REPO=0
     GIT_PROMPT_SHOW_UPSTREAM=1
     GIT_PROMPT_FETCH_REMOTE_STATUS=1
@@ -144,7 +145,7 @@ if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
     GIT_PROMPT_START_USER="\[\033[33m\][\w]\[\033[0m\]"
     GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
     GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
-    source $HOME/.local/script/.bash-git-prompt/gitprompt.sh
+    source ${file}
 fi
 
 # fzf config

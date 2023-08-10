@@ -1,7 +1,7 @@
 require'nvim-treesitter.configs'.setup {
     sync_install = false,
     auto_install = false,
-    parser_install_dir = "$HOME/.local/parser",
+    parser_install_dir = "$HOME/.local/lib/nvim/parser",
     highlight = {
         enable = true,
 
@@ -12,7 +12,7 @@ require'nvim-treesitter.configs'.setup {
         additional_vim_regex_highlighting = false,
     },
 }
-vim.opt.runtimepath:append("$HOME/.local/parser")
+vim.opt.runtimepath:append("$HOME/.local/lib/nvim/parser")
 
 -- FIXED WARNING:
 -- OK `tree-sitter` found 0.20.8 (d4c1bf7ce78051b7f4a381d1508d68928512ed5f) (parser generator, only needed for :TSInstallFromGrammar)
