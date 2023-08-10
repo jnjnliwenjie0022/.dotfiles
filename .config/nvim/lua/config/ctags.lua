@@ -1,4 +1,4 @@
-function run_ctags()
+function run_ctags_uvm()
     vim.cmd [[!rm -rf $HOME/.local/tags ]]
     vim.cmd [[!mkdir $HOME/.local/tags ]]
 
@@ -13,5 +13,5 @@ function run_ctags()
     vim.cmd [[ set tags+=$HOME/.local/tags/.tags ]]
 end
 
-vim.keymap.set("n", "<leader>rt", run_ctags)
+vim.keymap.set("n", "<leader>rt", run_ctags_uvm)
 
