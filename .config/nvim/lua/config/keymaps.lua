@@ -11,7 +11,20 @@ vim.keymap.set("v", ">", ">gv")
 
 vim.keymap.set("n", "x", "\"_x")
 vim.keymap.set("v", "x", "\"_x")
-vim.keymap.set("v", "p", "\"_dP")
+
+vim.keymap.set("n", "p", "\"+p")
+vim.keymap.set("n", "P", "\"+P")
+vim.keymap.set("v", "p", "\"_d\"+P")
+
+vim.keymap.set("n", "y", "\"+y")
+vim.keymap.set("v", "y", "\"+y")
+vim.keymap.set("n", "Y", "\"+Y")
+vim.keymap.set("v", "Y", "\"+Y")
+
+vim.keymap.set("n", "d", "\"+d")
+vim.keymap.set("v", "d", "\"+d")
+vim.keymap.set("n", "D", "\"+D")
+vim.keymap.set("v", "D", "\"+D")
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
@@ -36,6 +49,68 @@ vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 --<C-w>| resize to max
 --<C-w>= resize to equal
 --V%= format
---cd % show current dir 
+--cd % show current dir
 --cd %:p set current dir
 --:CheckHealth check nvim health
+
+---- https://www.reddit.com/r/neovim/comments/1293o2y/vimoptclipboard_unnamedplus_is_very_slow/
+--vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+--  once = true,
+--  callback = function()
+--    if vim.fn.has("win32") == 1 then
+--      vim.g.clipboard = {
+--        copy = {
+--          ["+"] = "win32yank.exe -i --crlf",
+--          ["*"] = "win32yank.exe -i --crlf",
+--        },
+--        paste = {
+--          ["+"] = "win32yank.exe -o --lf",
+--          ["*"] = "win32yank.exe -o --lf",
+--        },
+--      }
+--    elseif vim.fn.has("unix") == 1 then
+--      if vim.fn.executable("xclip") == 1 then
+--        vim.g.clipboard = {
+--          copy = {
+--            ["+"] = "xclip -selection clipboard",
+--            ["*"] = "xclip -selection clipboard",
+--          },
+--          paste = {
+--            ["+"] = "xclip -selection clipboard -o",
+--            ["*"] = "xclip -selection clipboard -o",
+--          },
+--        }
+--      elseif vim.fn.executable("xsel") == 1 then
+--        vim.g.clipboard = {
+--          copy = {
+--            ["+"] = "xsel --clipboard --input",
+--            ["*"] = "xsel --clipboard --input",
+--          },
+--          paste = {
+--            ["+"] = "xsel --clipboard --output",
+--            ["*"] = "xsel --clipboard --output",
+--          },
+--        }
+--      end
+--    end
+--
+--    vim.opt.clipboard = "unnamedplus"
+--  end,
+--  desc = "Lazy load clipboard",
+--})
+--
+--vim.opt.clipboard = "unnamedplus"
+--vim.cmd [[
+--let g:clipboard = {
+--        \   'name': 'xsel - bin',
+--        \   'copy': {
+--        \      '+': $HOME.'/.local/bin/xsel -i -b',
+--        \      '*': $HOME.'/.local/bin/xsel -i -p',
+--        \    },
+--        \   'paste': {
+--        \      '+': $HOME.'/.local/bin/xsel -o -b',
+--        \      '*': $HOME.'/.local/bin/xsel -o -p',
+--        \   },
+--        \   'cache_enabled': 0,
+--\ }
+--]]

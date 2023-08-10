@@ -1,7 +1,5 @@
 vim.opt.termguicolors = true
 
-vim.opt.clipboard = "unnamedplus"
-
 vim.opt.updatetime = 50
 
 vim.g.netrw_browse_split = 0
