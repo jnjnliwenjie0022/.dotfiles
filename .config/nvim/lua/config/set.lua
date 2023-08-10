@@ -25,7 +25,7 @@ vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.scrolloff = 8
 
-vim.opt.hlsearch = true 
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.guicursor = "" --always has fat cursor
@@ -34,7 +34,7 @@ vim.cmd [[
 augroup prewrites
     autocmd!
     autocmd BufWritePre,FileWritePre * :%s/\s\+$//e | %s/\r$//e
-augroup END 
+augroup END
 ]]
 
 
