@@ -58,9 +58,6 @@ export PATH="$HOME/.local/script:${PATH}"
 # enable zoxide
 eval "$(zoxide init bash)"
 
-# enable starship
-#eval "$(starship init bash)"
-
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
 
@@ -123,17 +120,22 @@ export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
 # check terminfo
 # infocmp tmux-256color
 
+function run_install_workflow_widget (
+    # https://github.com/magicmonty/bash-git-prompt
+    folder="${HOME}/.local/script/.bash-git-prompt"
+    url="https://github.com/magicmonty/bash-git-prompt.git"
+    if [ ! -d "$folder" ] ; then
+        git clone "$url" "$folder" --depth=1
+    fi
+)
+
 # prompt conifg
 function parse_git_branch() {
      git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
 }
 export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
 
-#bind 'set show-mode-in-prompt on'
-
 # bash-git-promt config
-# https://github.com/magicmonty/bash-git-prompt
-# git clone https://github.com/magicmonty/bash-git-prompt.git ~/.local/script/.bash-git-prompt --depth=1
 if [ -f "$HOME/.local/script/.bash-git-prompt/gitprompt.sh" ]; then
     GIT_PROMPT_ONLY_IN_REPO=0
     GIT_PROMPT_SHOW_UPSTREAM=1
