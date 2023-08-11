@@ -3,8 +3,9 @@ tmux="tmux -u" # imperative
 if [[ $# -eq 1 ]]; then
     selected=$2
 else
-    selected=$(find ~ -mindepth 1 -maxdepth 1 -type d | fzf)
-    #selected=$(find /NOBACKUP/$HOSTNAME/jasonli -mindepth 1 -maxdepth 1 -type d | fzf)
+    #selected=$(find $HOME -mindepth 1 -maxdepth 1 -type d | fzf)
+    #selected=$(find $HOME /NOBACKUP/$HOSTNAME/jasonli -mindepth 1 -maxdepth 1 -type d | fzf)
+    #selected=$(zoxide query -l | fzf)
 fi
 
 if [[ -z $selected ]]; then
