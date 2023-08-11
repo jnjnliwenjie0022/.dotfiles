@@ -1,21 +1,13 @@
-local status, n = pcall(require, "plenary")
-if (not status) then
-    print("Plenary is not installed, Harpoon can't work")
-    return 
-end
-
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
 
-vim.keymap.set("n", "<leader>a", function() 
+vim.keymap.set("n", "<leader>a", function()
     mark.add_file()
     ui.toggle_quick_menu()
     ui.toggle_quick_menu()
 end)
 vim.keymap.set("n", "<leader>m", ui.toggle_quick_menu)
 vim.keymap.set("n", "<leader>n", ui.nav_next)
---vim.keymap.set("n", "<C-e>", Telescope harpoon marks<CR>)
-
 vim.keymap.set("n", "<leader>j", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<leader>k", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<leader>l", function() ui.nav_file(3) end)

@@ -1,8 +1,5 @@
 local status, telescope = pcall(require, 'telescope')
-if (not status) then
-    print("Telescope is not installed")
-    return
-end
+if (not status) then return end
 
 --keymaps: $HOME/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/mappings.lua
 local actions = require('telescope.actions')
