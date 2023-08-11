@@ -7,7 +7,7 @@ function run_ctags_uvm()
     -- --fields=+i - Enable class inheritance extraction.
     -- -n          - (Optional) Use line number instead of Ex: patterns to identify declaration.
     vim.cmd [[!ctags --extras=+q --fields=+i -n --tag-relative=never --languages=systemverilog -R --exclude=.git -f $HOME/.local/tags/.uvm.tags $UVM_HOME/src ]]
-    vim.cmd [[!ctags --extras=+q --fields=+i -n --tag-relative=never --languages=systemverilog -R --exclude=.git -f $HOME/.local/tags/.tags  .]]
+    vim.cmd [[!ctags --extras=+q --fields=+i -n --tag-relative=never                           -R --exclude=.git -f $HOME/.local/tags/.tags  .]]
 
     vim.cmd [[ set tags=$HOME/.local/tags/.uvm.tags ]]
     vim.cmd [[ set tags+=$HOME/.local/tags/.tags ]]
