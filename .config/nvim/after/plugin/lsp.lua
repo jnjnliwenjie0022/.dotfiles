@@ -1,8 +1,8 @@
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
---lua-language-server
-lsp.nvim_workspace() -- Fix Undefined global 'vim'
+--need into install lua-language-server
+--lsp.nvim_workspace() -- Fix Undefined global 'vim'
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
