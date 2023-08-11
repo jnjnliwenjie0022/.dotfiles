@@ -36,6 +36,11 @@
 
 echo "Shell=$SHELL $BASH_VERSION"
 
+# sudo apt-get install npm
+# https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
+# https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
+# sudo npm install -g tree-sitter-cli
+
 # https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
 # language config
 # local -a
@@ -98,8 +103,6 @@ function cout () {
 }
 
 function pwdx () {
-    # clipboard has same problem from time to time
-    # reset the terminal can fix
     pwd | tr -d '\n' | xsel -i -b
     echo "Copy to clipboard: $(pwd)"
 }
@@ -148,16 +151,13 @@ function ff () {
     fi
 }
 
-
 function run_install_workflow_widget() {
-    # https://github.com/magicmonty/bash-git-prompt
     folder="${HOME}/.local/lib/bash-git-prompt"
     url="https://github.com/magicmonty/bash-git-prompt.git"
     if [ ! -d "$folder" ] ; then
         git clone "$url" "$folder" --depth=1
     fi
 }
-
 
 # synopsys tool conifg
 file="${HOME}/synopsys/.bashrc.synopsys"
