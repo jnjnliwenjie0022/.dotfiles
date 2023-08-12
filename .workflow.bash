@@ -36,9 +36,9 @@
 
 echo "Shell=$SHELL $BASH_VERSION"
 
-# sudo apt-get install npm
 # https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
 # https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
+# sudo apt-get install npm
 # sudo npm install -g tree-sitter-cli
 
 # https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
