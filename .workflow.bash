@@ -64,6 +64,11 @@
 #sudo apt-get install tar
 #sudo apt-get install wget
 
+#sudo npm install -g n
+#sudo n stable
+#sudo npm install -g emmet-ls
+
+
 echo "Shell=$SHELL $BASH_VERSION"
 # language config
 # https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
