@@ -32,6 +32,12 @@
 #       sudo apt update
 #       sudo apt-get install libfuse2
 #   if can't
+#       sudo apt install fuse libfuse2
+#       sudo modprobe fuse
+#       sudo groupadd fuse
+#       user="$(whoami)"
+#       sudo usermod -a -G fuse $user
+#   if can't
 #       -appimage-extract and amend the AppRun file
 
 echo "Shell=$SHELL $BASH_VERSION"
@@ -53,6 +59,9 @@ export LC_ALL=
 # workspace config
 export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.local/script:${PATH}"
+
+# xsel conifg
+export DISPLAY=:0
 
 # tmux config
 export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
@@ -88,6 +97,7 @@ alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $
 alias vim="nvim -O"
 alias tmux="tmux -u"
 alias ls="exa"
+alias ll="ls -al"
 alias eixt="exit"
 
 # bind key
