@@ -42,13 +42,13 @@ return packer.startup(function(use)
     use { 'tpope/vim-fugitive'}
     -- https://github.com/junegunn/vim-easy-align
     use { 'junegunn/vim-easy-align' }
-    --https://github.com/mbbill/undotree
+    -- https://github.com/mbbill/undotree
     use {"mbbill/undotree" }
     -- https://github.com/dstein64/vim-startuptime
     use { 'dstein64/vim-startuptime' }
     -- https://github.com/ludovicchabant/vim-gutentags
     --use { 'ludovicchabant/vim-gutentags' }
-    --https://github.com/nvim-treesitter/nvim-treesitter
+    -- https://github.com/nvim-treesitter/nvim-treesitter
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
@@ -61,20 +61,20 @@ return packer.startup(function(use)
         branch = 'v2.x',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            {'neovim/nvim-lspconfig'}, -- A collection of configurations for Neovim's built-in LSP
+            {'williamboman/mason.nvim'}, -- Portable package manager for Neovim that runs everywhere Neovim runs
+            {'williamboman/mason-lspconfig.nvim'}, -- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
+            {'hrsh7th/nvim-cmp'}, -- A completion engine plugin for neovim written in Lua
+            {'hrsh7th/cmp-buffer'}, -- nvim-cmp source for buffer words
+            {'hrsh7th/cmp-path'}, -- nvim-cmp source for path words
             {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
+            {'hrsh7th/cmp-nvim-lsp'}, -- nvim-cmp source for neovim's built-in LSP
             {'hrsh7th/cmp-nvim-lua'},
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
+            {'L3MON4D3/LuaSnip'}, -- Snippet Engine for Neovim written in Lua
             {'rafamadriz/friendly-snippets'},
         }
     }

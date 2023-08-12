@@ -30,7 +30,6 @@ lsp.set_preferences({
     }
 })
 
---https://www.youtube.com/watch?v=twPSC3sZguY&ab_channel=PragmaticKaos
 lsp.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
 
