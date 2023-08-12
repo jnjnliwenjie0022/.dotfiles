@@ -27,6 +27,12 @@
 # BoldBlack=88,91,112
 # BoldRed=243,139,168
 
+
+# prerequisite
+#sudo apt-get update
+#sudo apt-get install build-essential
+
+# appimage prerequisite
 # if you can't open tmux and nvim appimage
 #   if you can has the root authoirty
 #       sudo apt update
@@ -40,17 +46,28 @@
 #   if can't
 #       -appimage-extract and amend the AppRun file
 
-echo "Shell=$SHELL $BASH_VERSION"
-
+# treesitter prerequisite
 # https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
 # https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
-# sudo apt-get install npm
-# sudo npm install -g tree-sitter-cli
+#sudo apt-get install g++
+#sudo apt-get install npm
+#sudo npm install -g tree-sitter-cli
 
-# https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
+# mason prerequisite
+#sudo apt-get install ninja-build
+#sudo apt-get install gettext
+#sudo apt-get install cmake
+#sudo apt-get install unzip
+#sudo apt-get install gzip
+#sudo apt-get install curl
+#sudo apt-get install tar
+#sudo apt-get install wget
+
+echo "Shell=$SHELL $BASH_VERSION"
 # language config
-# local -a
-# local
+# https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
+# locale -a
+# locale
 # if en_US.utf-8 does not exist
 #   sudo locale-gen en_US.UTF-8
 export LANG="en_US.utf-8"
