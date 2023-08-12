@@ -50,6 +50,7 @@
 # https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
 # https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
 #sudo apt-get install g++
+#sudo apt-get install nodejs
 #sudo apt-get install npm
 #sudo npm install -g tree-sitter-cli
 
