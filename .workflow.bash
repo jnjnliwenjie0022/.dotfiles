@@ -152,15 +152,16 @@ function run_install_widget() {
 
 function run_install_tool() {
 # prerequisite
+sudo hwclock --hctosys
 sudo apt-get update
 sudo apt-get install build-essential
 
 # appimage prerequisite
 # if you can't open tmux and nvim appimage
 #   if you can has the root authoirty
-       sudo apt-get install libfuse2
+#       sudo apt-get install libfuse2
 #   if can't
-#       sudo apt install fuse libfuse2
+       sudo apt-get install fuse libfuse2
 #       sudo modprobe fuse
 #       sudo groupadd fuse
 #       user="$(whoami)"
@@ -189,6 +190,8 @@ sudo apt-get install wget
 #sudo npm install -g n
 #sudo npm stable
 #sudo npm install -g emmet-ls
+
+# mason install bash
 sudo apt-get install shellcheck
 }
 
