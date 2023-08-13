@@ -28,10 +28,12 @@ function ColorConfig()
         vim.cmd [[ hi VertSplit    gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
         vim.cmd [[ hi Search       gui=NONE guifg=#000000 guibg=#d7ff00 ]]
         vim.cmd [[ hi IncSearch    gui=NONE guifg=#000000 guibg=#d7ff00 ]]
+        vim.cmd [[ hi Substitute   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
         vim.cmd [[ hi Folded       gui=NONE guifg=#87ffff guibg=#000000 ]]
         vim.cmd [[ hi FoldColumn   gui=NONE guifg=#87ffff guibg=#000000 ]]
         vim.cmd [[ hi Comment      gui=NONE guifg=#87ffff guibg=#000000 ]]
         vim.cmd [[ hi Visual       gui=NONE               guibg=#808080 ]]
+
         --DiffAdd     diff mode: Added line
         --DiffChange  diff mode: Changed line
         --DiffDelete  diff mode: Deleted line
@@ -113,7 +115,7 @@ function ColorConfig()
     end
 end
 
-function ColorCommentEn() 
+function ColorCommentEn()
     vim.cmd [[ hi Comment      gui=NONE guifg=#87ffff guibg=#1c1c1c ]]
 end
 
