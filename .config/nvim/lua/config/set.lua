@@ -29,10 +29,13 @@ vim.opt.incsearch = true
 vim.opt.guicursor = "" --always has fat cursor
 
 vim.cmd [[
-augroup prewrites
-    autocmd!
-    autocmd BufWritePre,FileWritePre * :%s/\s\+$//e | %s/\r$//e
-augroup END
+    augroup preWrite
+        autocmd!
+        autocmd BufWritePre,FileWritePre * :%s/\s\+$//e | %s/\r$//e
+    augroup END
+]]
+vim.cmd [[
+    autocmd TermOpen * setlocal nonumber norelativenumber
 ]]
 
 vim.g.loaded_node_provider = 0

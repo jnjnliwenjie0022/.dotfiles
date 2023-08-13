@@ -35,6 +35,11 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-o>", "<C-o>zz")
 vim.keymap.set("n", "<C-i>", "<C-i>zz")
 
+vim.keymap.set("t", "<C-w>h", "<C-\\><C-n><C-w>h")
+vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j")
+vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k")
+vim.keymap.set("t", "<C-w>l", "<C-\\><C-n><C-w>l")
+
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 
