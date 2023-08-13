@@ -27,6 +27,7 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.guicursor = "" --always has fat cursor
+--vim.opt.laststatus = 3
 
 vim.cmd [[
     augroup preWrite
