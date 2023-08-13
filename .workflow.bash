@@ -111,7 +111,7 @@ function cdx () {
 
 function fzfx () {
     selection="$(fzf | tr -d '\n')"
-    selection=""$(pwd)"/${selection}"
+    selection="$(pwd)/${selection}"
 
     echo "${selection}" | xsel -i -b
     echo "Copy to clipboard: $(cout)"
@@ -192,6 +192,6 @@ function run_install_tool() {
 
 # synopsys tool conifg
 file="${HOME}/synopsys/.bashrc.synopsys"
-if [ -f ${file} ]; then
-    source ${file}
+if [ -f "${file}" ]; then
+    source "${file}"
 fi
