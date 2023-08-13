@@ -27,48 +27,6 @@
 # BoldBlack=88,91,112
 # BoldRed=243,139,168
 
-
-# prerequisite
-#sudo apt-get update
-#sudo apt-get install build-essential
-
-# appimage prerequisite
-# if you can't open tmux and nvim appimage
-#   if you can has the root authoirty
-#       sudo apt update
-#       sudo apt-get install libfuse2
-#   if can't
-#       sudo apt install fuse libfuse2
-#       sudo modprobe fuse
-#       sudo groupadd fuse
-#       user="$(whoami)"
-#       sudo usermod -a -G fuse $user
-#   if can't
-#       -appimage-extract and amend the AppRun file
-
-# treesitter prerequisite
-# https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
-# https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
-#sudo apt-get install g++
-#sudo apt-get install nodejs
-#sudo apt-get install npm
-#sudo npm install -g tree-sitter-cli
-
-# mason prerequisite
-#sudo apt-get install ninja-build
-#sudo apt-get install gettext
-#sudo apt-get install cmake
-#sudo apt-get install unzip
-#sudo apt-get install gzip
-#sudo apt-get install curl
-#sudo apt-get install tar
-#sudo apt-get install wget
-
-#sudo npm install -g n
-#sudo n stable
-#sudo npm install -g emmet-ls
-
-
 echo "Shell=$SHELL $BASH_VERSION"
 # language config
 # https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
@@ -184,12 +142,54 @@ function ff () {
     fi
 }
 
-function run_install_workflow_widget() {
+function run_install_widget() {
     folder="${HOME}/.local/lib/bash-git-prompt"
     url="https://github.com/magicmonty/bash-git-prompt.git"
     if [ ! -d "$folder" ] ; then
         git clone "$url" "$folder" --depth=1
     fi
+}
+
+function run_install_tool() {
+# prerequisite
+sudo apt-get update
+sudo apt-get install build-essential
+
+# appimage prerequisite
+# if you can't open tmux and nvim appimage
+#   if you can has the root authoirty
+       sudo apt-get install libfuse2
+#   if can't
+#       sudo apt install fuse libfuse2
+#       sudo modprobe fuse
+#       sudo groupadd fuse
+#       user="$(whoami)"
+#       sudo usermod -a -G fuse $user
+#   if can't
+#       -appimage-extract and amend the AppRun file
+
+# treesitter prerequisite
+# https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
+# https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
+sudo apt-get install g++
+sudo apt-get install nodejs
+sudo apt-get install npm
+sudo npm install -g tree-sitter-cli
+
+# mason prerequisite
+sudo apt-get install ninja-build
+sudo apt-get install gettext
+sudo apt-get install cmake
+sudo apt-get install unzip
+sudo apt-get install gzip
+sudo apt-get install curl
+sudo apt-get install tar
+sudo apt-get install wget
+
+#sudo npm install -g n
+#sudo npm stable
+#sudo npm install -g emmet-ls
+sudo apt-get install shellcheck
 }
 
 # synopsys tool conifg
