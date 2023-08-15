@@ -35,10 +35,15 @@ vim.cmd [[
         autocmd BufWritePre,FileWritePre * :%s/\s\+$//e | %s/\r$//e
     augroup END
 ]]
+vim.cmd [[
+    augroup termConfig
+        autocmd!
+        autocmd TermOpen * startinsert
+        autocmd TermOpen * setlocal nonumber
+        autocmd TermEnter * setlocal signcolumn=no
+   augroup END
+]]
 
-vim.api.nvim_command("autocmd TermOpen * startinsert") -- starts in insert mode
-vim.api.nvim_command("autocmd TermOpen * setlocal nonumber") -- no numbers
-vim.api.nvim_command("autocmd TermEnter * setlocal signcolumn=no") -- no sign column
 
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
