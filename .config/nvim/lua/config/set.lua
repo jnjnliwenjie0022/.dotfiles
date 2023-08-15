@@ -45,6 +45,14 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_python3_provider = 0
 
+--vim.cmd [[
+--    let gitBranch=system("git rev-parse --abbrev-ref HEAD")
+--    set laststatus=2
+--    set statusline=%F%m%r%h%w\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
+--
+--    execute "set statusline +=" . gitBranch
+--    ]]
+
 --vim.opt.swapfile = false
 --vim.opt.backup = false
 --vim.opt.undodir = os.getenv("HOME") .. "\.vim\undodir"

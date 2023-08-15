@@ -12,7 +12,7 @@ function ColorConfig()
         --190 Yellow2   #d7ff00 rgb(215,255,0)
         --233 Grey7     #121212 rgb(18,18,18)
         --234 Grey11    #1c1c1c rgb(28,28,28)
-        --243 Grey46	#767676	rgb(118,118,118)
+        --243 Grey46    #767676 rgb(118,118,118)
         --242 Grey42    #6c6c6c rgb(108,108,108)
         --255 Grey93    #eeeeee rgb(238,238,238)
 
@@ -33,6 +33,7 @@ function ColorConfig()
         vim.cmd [[ hi FoldColumn   gui=NONE guifg=#87ffff guibg=#000000 ]]
         vim.cmd [[ hi Comment      gui=NONE guifg=#87ffff guibg=#000000 ]]
         vim.cmd [[ hi Visual       gui=NONE               guibg=#808080 ]]
+        --vim.cmd [[hi PmenuSel gui=NONE guifg=#000000 guibg=#d7ff00 ]]
 
         --DiffAdd     diff mode: Added line
         --DiffChange  diff mode: Changed line

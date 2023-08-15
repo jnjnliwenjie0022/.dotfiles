@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.vp set filetype=verilog
+au BufNewFile,BufRead *.vp set filetype=perl
