@@ -35,13 +35,9 @@ vim.cmd [[
         autocmd BufWritePre,FileWritePre * :%s/\s\+$//e | %s/\r$//e
     augroup END
 ]]
+
 vim.cmd [[
-    augroup termConfig
-        autocmd!
-        autocmd TermOpen * startinsert
-        autocmd TermOpen * setlocal nonumber
-        autocmd TermEnter * setlocal signcolumn=no
-   augroup END
+    autocmd TermOpen * :setlocal nonumber norelativenumber
 ]]
 
 
