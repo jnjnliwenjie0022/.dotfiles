@@ -15,3 +15,6 @@ end
 
 vim.keymap.set("n", "<leader>rt", run_ctags_uvm)
 
+-- :ltag(:lt) to load tag to quitfixlist
+-- :lope to open quitfixlist with tag
+
