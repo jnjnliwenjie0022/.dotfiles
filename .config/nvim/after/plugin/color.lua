@@ -15,7 +15,6 @@ function ColorConfig()
         --243 Grey46    #767676 rgb(118,118,118)
         --242 Grey42    #6c6c6c rgb(108,108,108)
         --255 Grey93    #eeeeee rgb(238,238,238)
-
         vim.cmd [[ colorscheme catppuccin-mocha ]]
         vim.cmd [[ set cursorline]]
         vim.cmd [[ hi Normal       gui=NONE               guibg=#000000 ]]
@@ -34,7 +33,8 @@ function ColorConfig()
         vim.cmd [[ hi Comment      gui=NONE guifg=#87ffff guibg=#000000 ]]
         vim.cmd [[ hi Visual       gui=NONE               guibg=#808080 ]]
         vim.cmd [[ hi PmenuSel     gui=NONE guifg=#000000 guibg=#d7ff00 ]]
-
+        --vim.cmd [[ hi SpecialWord  gui=NONE guifg=NONE guibg=#000000 ]]
+        --vim.cmd [[ syntax match SpecialWord /TODO/ ]]
         --DiffAdd     diff mode: Added line
         --DiffChange  diff mode: Changed line
         --DiffDelete  diff mode: Deleted line

@@ -1,5 +1,9 @@
-vim.opt.termguicolors = true
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_python3_provider = 0
 
+vim.opt.termguicolors = true
 vim.opt.updatetime = 50
 
 vim.g.netrw_browse_split = 0
@@ -29,6 +33,11 @@ vim.opt.incsearch = true
 vim.opt.guicursor = "" --always has fat cursor
 --vim.opt.laststatus = 3
 
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
+--vim.opt.undodir = os.getenv("HOME") .. "\.vim\undodir"
+
 vim.cmd [[
     augroup preWrite
         autocmd!
@@ -40,21 +49,18 @@ vim.cmd [[
     autocmd TermOpen * :setlocal nonumber norelativenumber
 ]]
 
-
-vim.g.loaded_node_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_python3_provider = 0
-
---vim.cmd [[
---    let gitBranch=system("git rev-parse --abbrev-ref HEAD")
---    set laststatus=2
---    set statusline=%F%m%r%h%w\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
---
---    execute "set statusline +=" . gitBranch
---    ]]
-
---vim.opt.swapfile = false
---vim.opt.backup = false
---vim.opt.undodir = os.getenv("HOME") .. "\.vim\undodir"
---vim.opt.undofile = true
+vim.opt.clipboard = "unnamedplus"
+vim.cmd [[
+    let g:clipboard = {
+            \   'name': 'local bin xsel',
+            \   'copy': {
+            \      '+': $HOME.'/.local/bin/xsel -i -b',
+            \      '*': $HOME.'/.local/bin/xsel -i -p',
+            \    },
+            \   'paste': {
+            \      '+': $HOME.'/.local/bin/xsel -o -b',
+            \      '*': $HOME.'/.local/bin/xsel -o -p',
+            \   },
+            \   'cache_enabled': 0,
+    \ }
+]]
