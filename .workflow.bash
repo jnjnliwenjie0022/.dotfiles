@@ -65,6 +65,7 @@ if [ -f ${file} ]; then
     GIT_PROMPT_ONLY_IN_REPO=0
     GIT_PROMPT_SHOW_UPSTREAM=1
     GIT_PROMPT_FETCH_REMOTE_STATUS=1
+    GIT_PROMPT_IGNORE_SUBMODULES=1
     GIT_PROMPT_START_ROOT="\[\033[33m\][\w]\[\033[0m\]"
     GIT_PROMPT_START_USER="\[\033[33m\][\w]\[\033[0m\]"
     GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
@@ -82,7 +83,6 @@ alias tmux="tmux -u"
 alias ls="exa"
 alias ll="ls -al"
 alias eixt="exit"
-alias xsel="xsel --display :0"
 
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
@@ -116,7 +116,7 @@ function fzfx () {
     selection="$(fzf | tr -d '\n')"
     selection="$(pwd)/${selection}"
 
-    echo "${selection}" | xsel -i -b
+    echo "${selection}" | tr -d '\n' |xsel -i -b
     echo "Copy to clipboard: $(cout)"
 }
 

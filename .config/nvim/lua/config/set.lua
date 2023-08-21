@@ -50,17 +50,18 @@ vim.cmd [[
 ]]
 
 vim.opt.clipboard = "unnamedplus"
-vim.cmd [[
-    let g:clipboard = {
-            \   'name': 'local bin xsel',
-            \   'copy': {
-            \      '+': $HOME.'/.local/bin/xsel --display :0 -i -b',
-            \      '*': $HOME.'/.local/bin/xsel --display :0 -i -p',
-            \    },
-            \   'paste': {
-            \      '+': $HOME.'/.local/bin/xsel --display :0 -o -b',
-            \      '*': $HOME.'/.local/bin/xsel --display :0 -o -p',
-            \   },
-            \   'cache_enabled': 0,
-    \ }
-]]
+--vim.cmd [[
+--    let g:clipboard = {
+--            \   'name': 'local bin xsel',
+--            \   'copy': {
+--            \      '+': $HOME.'/.local/bin/xsel -i -b',
+--            \      '*': $HOME.'/.local/bin/xsel -i -p',
+--            \    },
+--            \   'paste': {
+--            \      '+': $HOME.'/.local/bin/xsel -o -b',
+--            \      '*': $HOME.'/.local/bin/xsel -o -p',
+--            \   },
+--            \   'cache_enabled': 0,
+--    \ }
+--]]
+--
