@@ -49,7 +49,7 @@ vim.cmd [[
     autocmd TermOpen * :setlocal nonumber norelativenumber
 ]]
 
-vim.opt.clipboard = "unnamedplus"
+--vim.opt.clipboard = "unnamedplus"
 --vim.cmd [[
 --    let g:clipboard = {
 --            \   'name': 'local bin xsel',
@@ -64,15 +64,15 @@ vim.opt.clipboard = "unnamedplus"
 --            \   'cache_enabled': 0,
 --    \ }
 --]]
-vim.g.clipboard = {
- name = "xsel",
- copy = {
-  ["+"] = "xsel --nodetach -i -b",
-  ["*"] = "xsel --nodetach -i -p",
- },
- paste = {
-  ["+"] = "xsel  -o -b",
-  ["*"] = "xsel  -o -p",
- },
- cache_enabled = 1,
-}
+--vim.g.clipboard = {
+-- name = "xsel",
+-- copy = {
+--  ["+"] = "xsel -i -b",
+--  ["*"] = "xsel -i -p",
+-- },
+-- paste = {
+--  ["+"] = "xsel  -o -b",
+--  ["*"] = "xsel  -o -p",
+-- },
+-- cache_enabled = 0,
+--}
