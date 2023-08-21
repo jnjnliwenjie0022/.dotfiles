@@ -72,7 +72,7 @@ vim.g.clipboard = {
  },
  paste = {
   ["+"] = "xsel  -o -b",
-  ["*"] = "xsel  -o -b",
+  ["*"] = "xsel  -o -p",
  },
  cache_enabled = 1,
 }
