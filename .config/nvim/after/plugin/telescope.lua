@@ -13,6 +13,7 @@ telescope.setup {
     },
     pickers = {
         tags = {
+            show_line = true,
             only_sort_tags = true,
             fname_width = 100
         },

@@ -4,6 +4,9 @@ vim.keymap.set("n", "<leader>e", "<CMD>Ex<CR>")
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-a>", "<nop>") -- avoid comflict with tmux
+vim.keymap.set("n", "<Space>", "<nop>")
+vim.keymap.set("v", "<Space>", "<nop>")
+
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("v", "<", "<gv")
