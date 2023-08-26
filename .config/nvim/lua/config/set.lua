@@ -1,3 +1,49 @@
+-- IMPROVE NEOVIM STARTUP
+-- https://github.com/editorconfig/editorconfig-vim/issues/50
+vim.g.loaded_python_provier = 0
+vim.g.loaded_python3_provider = 0
+vim.g.python_host_skip_check = 1
+vim.g.python_host_prog='/bin/python2'
+vim.g.python3_host_skip_check = 1
+vim.g.python3_host_prog='/bin/python3'
+vim.opt.pyxversion=3
+vim.g.EditorConfig_core_mode = 'external_command'
+-- https://vi.stackexchange.com/a/5318/7339
+vim.g.matchparen_timeout = 20
+vim.g.matchparen_insert_timeout = 20
+
+-- Disable nvim intro
+vim.opt.shortmess:append "sI"
+
+-- Disable builtin plugins
+local disabled_built_ins = {
+    "2html_plugin",
+    "getscript",
+    "getscriptPlugin",
+    "gzip",
+    "logipat",
+    "matchit",
+    "tar",
+    "tarPlugin",
+    "rrhelper",
+    "spellfile_plugin",
+    "vimball",
+    "vimballPlugin",
+    "zip",
+    "zipPlugin",
+    "tutor",
+    "rplugin",
+    "synmenu",
+    "optwin",
+    "compiler",
+    "bugreport",
+    "ftplugin",
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
+
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0

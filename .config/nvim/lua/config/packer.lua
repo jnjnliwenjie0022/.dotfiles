@@ -59,21 +59,21 @@ return packer.startup(function(use)
         branch = 'v2.x',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'}, -- A collection of configurations for Neovim's built-in LSP
+            {'neovim/nvim-lspconfig'}, -- LSP configurations "Engine" (Required)
             {'williamboman/mason.nvim'}, -- Portable package manager for Neovim that runs everywhere Neovim runs
             {'williamboman/mason-lspconfig.nvim'}, -- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'}, -- Completion "Engine" for Neovim written in Lua
-            {'hrsh7th/cmp-buffer'}, -- nvim-cmp source for current buffer
-            {'hrsh7th/cmp-path'}, -- nvim-cmp source for path
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'}, -- nvim-cmp source for neovim's built-in LSP content
-            {'hrsh7th/cmp-nvim-lua'}, -- nvim-cmp source for neovim's bulit-in lua content
+            {'hrsh7th/nvim-cmp'}, -- Completion "Engine" (Required)
+            {'hrsh7th/cmp-nvim-lsp'}, -- nvim-cmp source plugin for auto-completion from lsp (Required)
+            {'hrsh7th/cmp-nvim-lua'}, -- nvim-cmp source plugin for lua auto-completion
+            {'hrsh7th/cmp-buffer'}, -- nvim-cmp source plugin for auto-completion from buffer
+            {'hrsh7th/cmp-path'}, -- nvim-cmp source plugin for auto-completion from path
+            {'saadparwaiz1/cmp_luasnip'}, -- nvim-cmp plugin for auto-completion from snip
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'}, -- Snippet "Engine" for Neovim written in Lua
-            {'rafamadriz/friendly-snippets'},
+            {'L3MON4D3/LuaSnip'}, -- Snippet "Engine" (Required)
+            {'rafamadriz/friendly-snippets'}, -- a bunch of snippets to use
         }
     }
 end)
