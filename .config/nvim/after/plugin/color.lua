@@ -34,56 +34,38 @@ function ColorConfig()
         vim.cmd [[ hi Visual       gui=NONE               guibg=#808080 ]]
         vim.cmd [[ hi PmenuSel     gui=NONE guifg=#000000 guibg=#d7ff00 ]]
         vim.cmd [[ hi Todo         gui=NONE guifg=#000000 guibg=#87ffff ]]
-        --vim.cmd [[ hi SpecialWord  gui=NONE guifg=NONE guibg=#000000 ]]
-        --vim.cmd [[ syntax match SpecialWord /TODO/ ]]
-        --DiffAdd     diff mode: Added line
-        --DiffChange  diff mode: Changed line
-        --DiffDelete  diff mode: Deleted line
-        --DiffText    diff mode: Changed text within a changed line
-        vim.cmd [[ hi DiffAdd      gui=NONE               guibg=#005f00 ]]
-        vim.cmd [[ hi DiffDelete   gui=NONE guifg=#000000 guibg=#000000 ]]
-        vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]]
-        vim.cmd [[ hi DiffText     gui=NONE               guibg=#5f0000 ]]
-        --vim.cmd [[ hi Title        gui=NONE guifg=#87ffff               ]]
-        --vim.cmd [[ hi TabLine      gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
-        --vim.cmd [[ hi TabLineFill  gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
-        --vim.cmd [[ hi TabLineSel   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
+        vim.cmd [[ hi DiffAdd      gui=NONE               guibg=#005f00 ]] -- diff mode: Added line
+        vim.cmd [[ hi DiffDelete   gui=NONE guifg=#000000 guibg=#000000 ]] -- diff mode: Deleted line
+        vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed line
+        vim.cmd [[ hi DiffText     gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed text within a changed line
     else
-        print("Catppuccin is not installed")
         vim.cmd [[ Normal       guifg=#f0f0f8 guibg=#000000 ]]
-
         -- Search
         vim.cmd [[ IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0 ]]
         vim.cmd [[ Search       gui=NONE guifg=#f0f0f8 guibg=#0060c0 ]]
-
         -- Messages
         vim.cmd [[ ErrorMsg     gui=BOLD guifg=#ffa0ff guibg=NONE ]]
         vim.cmd [[ WarningMsg   gui=BOLD guifg=#ffa0ff guibg=NONE ]]
         vim.cmd [[ ModeMsg      gui=BOLD guifg=#40f0d0 guibg=NONE ]]
         vim.cmd [[ MoreMsg      gui=BOLD guifg=#00ffff guibg=#008070 ]]
         vim.cmd [[ Question     gui=BOLD guifg=#e8e800 guibg=NONE ]]
-
         -- Split area
         vim.cmd [[ StatusLine   gui=NONE guifg=#000000 guibg=#c8c8d8 ]]
         vim.cmd [[ StatusLineNC gui=NONE guifg=#707080 guibg=#c8c8d8 ]]
         vim.cmd [[ VertSplit    gui=NONE guifg=#606080 guibg=#c8c8d8 ]]
         vim.cmd [[ WildMenu     gui=NONE guifg=#000000 guibg=#a0a0ff ]]
-
         -- Diff
         vim.cmd [[ DiffText     gui=NONE guifg=#ff78f0 guibg=#a02860 ]]
         vim.cmd [[ DiffChange   gui=NONE guifg=#e03870 guibg=#601830 ]]
         vim.cmd [[ DiffDelete   gui=NONE guifg=#a0d0ff guibg=#0020a0 ]]
         vim.cmd [[ DiffAdd      gui=NONE guifg=#a0d0ff guibg=#0020a0 ]]
-
         -- Cursor
         vim.cmd [[ Cursor       gui=NONE guifg=#00ffff guibg=#008070 ]]
         vim.cmd [[ lCursor      gui=NONE guifg=#ffffff guibg=#8800ff ]]
         vim.cmd [[ CursorIM     gui=NONE guifg=#ffffff guibg=#8800ff ]]
-
         -- Fold
         vim.cmd [[ Folded       gui=NONE guifg=#40f0f0 guibg=#005080 ]]
         vim.cmd [[ FoldColumn   gui=NONE guifg=#40c0ff guibg=#00305c ]]
-
         -- Other
         vim.cmd [[ Directory    gui=NONE guifg=#40f0d0 guibg=NONE ]]
         vim.cmd [[ LineNr       gui=NONE guifg=#9090a0 guibg=NONE ]]
@@ -91,7 +73,6 @@ function ColorConfig()
         vim.cmd [[ SpecialKey   gui=BOLD guifg=#8080ff guibg=NONE ]]
         vim.cmd [[ Title        gui=BOLD guifg=#f0f0f8 guibg=NONE ]]
         vim.cmd [[ Visual       gui=NONE guifg=#e0e0f0 guibg=#707080 ]]
-
         -- Syntax group
         vim.cmd [[ Comment      gui=NONE guifg=#90d0ff guibg=NONE ]]
         vim.cmd [[ Constant     gui=NONE guifg=#90d0ff guibg=NONE ]]
@@ -104,7 +85,6 @@ function ColorConfig()
         vim.cmd [[ Todo         gui=BOLD guifg=#ffa0a0 guibg=NONE ]]
         vim.cmd [[ Type         gui=NONE guifg=#ffc864 guibg=NONE ]]
         vim.cmd [[ Underlined   gui=UNDERLINE guifg=#f0f0f8 guibg=NONE ]]
-
         -- HTML
         vim.cmd [[ htmlLink                 gui=UNDERLINE ]]
         vim.cmd [[ htmlBold                 gui=BOLD ]]
@@ -114,6 +94,11 @@ function ColorConfig()
         vim.cmd [[ htmlItalic               gui=ITALIC ]]
         vim.cmd [[ htmlUnderline            gui=UNDERLINE ]]
         vim.cmd [[ htmlUnderlineItalic      gui=UNDERLINE,ITALIC ]]
+        -- Tab
+        vim.cmd [[ hi Title        gui=NONE guifg=#87ffff               ]]
+        vim.cmd [[ hi TabLine      gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        vim.cmd [[ hi TabLineFill  gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+        vim.cmd [[ hi TabLineSel   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
     end
 end
 

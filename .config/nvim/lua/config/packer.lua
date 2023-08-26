@@ -38,13 +38,6 @@ return packer.startup(function(use)
             {'nvim-lua/plenary.nvim'}
         }
     }
-    -- https://github.com/folke/todo-comments.nvim
-    use {
-        'folke/todo-comments.nvim',
-        require = {
-            {'nvim-lua/plenary.nvim'}
-        }
-    }
     -- https://github.com/tpope/vim-fugitive
     use { 'tpope/vim-fugitive'}
     -- https://github.com/junegunn/vim-easy-align
