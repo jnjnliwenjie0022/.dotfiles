@@ -125,6 +125,7 @@ function bak () {
     if [ $# != 1 ]; then
         echo "usage: backup dir/file"
     else
+        echo "Backup: $1.bak.$CUR_TIME"
         eval `cp -r $1 $1.bak.$CUR_TIME`
     fi
 }
