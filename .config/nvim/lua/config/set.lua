@@ -49,6 +49,17 @@ vim.cmd [[
     autocmd TermOpen * :setlocal nonumber norelativenumber
 ]]
 
+--" 快速匹配Todo
+--command TODO :call FindFile1()
+--func FindFile1()
+--  " 可以根据自己的开发习惯来设置管理path， 从当前项目的根目录匹配
+--  let a = substitute(matchstr(expand("%:p"), 'dev/\(.*\)/'), '/src.*', '', 'g')
+--  execute ':vimgrep /TODO/gj ~/Documents/'.a.'/src/** |copen'
+--endfunc
+--
+--" 高亮显示
+--hi Todo term=bold ctermfg=0 ctermbg=15 gui=none guifg=none
+
 --vim.opt.clipboard = "unnamedplus"
 --vim.cmd [[
 --    let g:clipboard = {

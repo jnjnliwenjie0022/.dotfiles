@@ -181,6 +181,8 @@ function run_install_tool() {
     sudo apt-get install curl
     sudo apt-get install tar
     sudo apt-get install wget
+    #sudo apt-get install python3
+    #sudo apt-get install python3-venv
 
     # mason install bash
     sudo apt-get install shellcheck
