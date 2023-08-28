@@ -112,7 +112,7 @@ function cdx () {
 #   export FZF_DEFAULT_OPTS='-m'
 #fi
 
-function fzfx () {
+function fx () {
     selection="$(fzf | tr -d '\n')"
     selection="$(pwd)/${selection}"
 

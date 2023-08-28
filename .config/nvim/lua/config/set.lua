@@ -46,8 +46,11 @@ for _, plugin in pairs(disabled_built_ins) do
     vim.g["loaded_" .. plugin] = 1
 end
 
-vim.opt.termguicolors = true
 vim.opt.updatetime = 50
+
+vim.opt.termguicolors = true
+vim.opt.background = 'dark'
+vim.opt.cursorline = true
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
