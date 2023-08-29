@@ -188,6 +188,12 @@ function run_install_tool() {
     # mason install bash
     sudo apt-get install shellcheck
 
+    # python3 provider
+    sudo apt-get install python3-pip
+    sudo pip3 install neovim
+    # nodejs porvider
+    sudo npm install -g neovim
+
     # install bash-git-promt
     folder="${HOME}/.local/lib/bash-git-prompt"
     url="https://github.com/magicmonty/bash-git-prompt.git"
@@ -201,3 +207,8 @@ file="${HOME}/synopsys/.bashrc.synopsys"
 if [ -f "${file}" ]; then
     source "${file}"
 fi
+
+#sudo apt install -y gcc wget iputils-ping python3-pip git bear tig shellcheck ripgrep
+#
+## 安装 neovim 的各种依赖 https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites
+#sudo apt install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
