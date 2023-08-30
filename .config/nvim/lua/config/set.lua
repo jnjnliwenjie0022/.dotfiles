@@ -76,7 +76,7 @@ vim.opt.scrolloff = 8
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
-vim.opt.guicursor = "" --always has fat cursor
+--vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20" --always has fat cursor
 --vim.opt.laststatus = 3
 
 vim.opt.swapfile = false
