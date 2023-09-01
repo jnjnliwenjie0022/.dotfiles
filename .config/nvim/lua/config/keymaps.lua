@@ -14,22 +14,11 @@ vim.keymap.set("v", ">", ">gv")
 
 vim.keymap.set("n", "x", "\"_x")
 vim.keymap.set("v", "x", "\"_x")
-vim.keymap.set("v", "p", "\"_dP")
 
---vim.keymap.set("n", "p", "\"+p")
---vim.keymap.set("v", "p", "\"_d\"+P")
---vim.keymap.set("n", "P", "\"+P")
---vim.keymap.set("v", "P", "\"+P")
---
---vim.keymap.set("n", "y", "\"+y")
---vim.keymap.set("v", "y", "\"+y")
---vim.keymap.set("n", "Y", "\"+Y")
---vim.keymap.set("v", "Y", "\"+Y")
---
---vim.keymap.set("n", "d", "\"+d")
---vim.keymap.set("v", "d", "\"+d")
---vim.keymap.set("n", "D", "\"+D")
---vim.keymap.set("v", "D", "\"+D")
+vim.keymap.set("n", "p", "\"+p")
+vim.keymap.set("v", "p", "\"_d\"+P")
+vim.keymap.set("n", "P", "\"+P")
+vim.keymap.set("v", "P", "\"+P")
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
@@ -56,12 +45,9 @@ vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 --Ngt
 --:tabm[N]
 
---<C-w>| resize to max
---<C-w>= resize to equal
 --V%= format
 --cd % show current dir
 --cd %:p set current dir
---:CheckHealth check nvim health
 
 ---- https://www.reddit.com/r/neovim/comments/1293o2y/vimoptclipboard_unnamedplus_is_very_slow/
 --vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {

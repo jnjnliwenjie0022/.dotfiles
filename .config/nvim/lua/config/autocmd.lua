@@ -3,6 +3,7 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
+-- write event
 augroup('write_event', { clear = true})
 autocmd('BufWrite', {
     group = 'write_event',
@@ -15,6 +16,7 @@ autocmd('BufWrite', {
     end,
 })
 
+-- yank event
 augroup('yank_event', { clear = true })
 autocmd('TextYankPost', {
     group = 'yank_event',
@@ -36,6 +38,8 @@ autocmd('TextYankPost', {
     end
 })
 
+-- terminal event
+augroup('write_event', { clear = true})
 augroup('terminal_event', { clear = true})
 autocmd('TermOpen', {
     group = 'terminal_event',
@@ -46,6 +50,7 @@ autocmd('TermOpen', {
     end
 })
 
+-- read event
 augroup('read_event', { clear = true})
 autocmd('BufRead',  {
     group    = 'read_event',
