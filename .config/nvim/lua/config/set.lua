@@ -76,7 +76,7 @@ vim.opt.scrolloff = 8
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
-vim.opt.guicursor = "" --always has fat cursor
+--vim.opt.guicursor = "" --always has fat cursor
 
 vim.opt.swapfile = false
 vim.opt.backup = false

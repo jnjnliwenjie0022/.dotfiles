@@ -76,6 +76,24 @@ if has('autocmd') && v:version > 701
 endif
 ]]
 
+autocmd('InsertEnter',  {
+    group    = 'read_event',
+    pattern  = '*',
+    callback = function()
+        vim.cmd [[ hi CursorLine   gui=NONE               guibg=#000000 ]]
+        vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
+    end
+})
+
+autocmd('InsertLeave',  {
+    group    = 'read_event',
+    pattern  = '*',
+    callback = function()
+        vim.cmd [[ hi CursorLine   gui=NONE               guibg=#262626 ]]
+        vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#262626 ]]
+    end
+})
+
 
 --" 快速匹配Todo
 --command TODO :call FindFile1()
