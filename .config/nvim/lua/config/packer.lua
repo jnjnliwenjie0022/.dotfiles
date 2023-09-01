@@ -60,13 +60,12 @@ return packer.startup(function(use)
         requires = {
             -- LSP Support
             {'neovim/nvim-lspconfig'}, -- LSP configurations "Engine" (Required)
-            {'williamboman/mason.nvim'}, -- Portable package manager for Neovim that runs everywhere Neovim runs
-            {'williamboman/mason-lspconfig.nvim'}, -- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim
+            --{'williamboman/mason.nvim'}, -- Portable package manager for Neovim that runs everywhere Neovim runs
+            --{'williamboman/mason-lspconfig.nvim'}, -- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim
 
             -- Autocompletion
             {'hrsh7th/nvim-cmp'}, -- Completion "Engine" (Required)
             {'hrsh7th/cmp-nvim-lsp'}, -- nvim-cmp source plugin for auto-completion from lsp (Required)
-            {'hrsh7th/cmp-nvim-lua'}, -- nvim-cmp source plugin for lua auto-completion
             {'hrsh7th/cmp-buffer'}, -- nvim-cmp source plugin for auto-completion from buffer
             {'hrsh7th/cmp-path'}, -- nvim-cmp source plugin for auto-completion from path
             {'saadparwaiz1/cmp_luasnip'}, -- nvim-cmp plugin for auto-completion from snip

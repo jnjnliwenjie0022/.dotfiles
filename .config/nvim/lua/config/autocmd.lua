@@ -39,7 +39,6 @@ autocmd('TextYankPost', {
 })
 
 -- terminal event
-augroup('write_event', { clear = true})
 augroup('terminal_event', { clear = true})
 autocmd('TermOpen', {
     group = 'terminal_event',
