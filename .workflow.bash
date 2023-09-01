@@ -214,3 +214,6 @@ fi
 ## 安装 neovim 的各种依赖 https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites
 #sudo apt install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
 #brew install autossh
+#curl -LO https://invisible-island.net/datafiles/current/terminfo.src.gz
+#gunzip terminfo.src.gz
+#tic terminfo.src
