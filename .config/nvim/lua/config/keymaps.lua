@@ -14,21 +14,22 @@ vim.keymap.set("v", ">", ">gv")
 
 vim.keymap.set("n", "x", "\"_x")
 vim.keymap.set("v", "x", "\"_x")
+vim.keymap.set("v", "p", "\"_dP")
 
-vim.keymap.set("n", "p", "\"+p")
-vim.keymap.set("v", "p", "\"_d\"+P")
-vim.keymap.set("n", "P", "\"+P")
-vim.keymap.set("v", "P", "\"+P")
-
-vim.keymap.set("n", "y", "\"+y")
-vim.keymap.set("v", "y", "\"+y")
-vim.keymap.set("n", "Y", "\"+Y")
-vim.keymap.set("v", "Y", "\"+Y")
-
-vim.keymap.set("n", "d", "\"+d")
-vim.keymap.set("v", "d", "\"+d")
-vim.keymap.set("n", "D", "\"+D")
-vim.keymap.set("v", "D", "\"+D")
+--vim.keymap.set("n", "p", "\"+p")
+--vim.keymap.set("v", "p", "\"_d\"+P")
+--vim.keymap.set("n", "P", "\"+P")
+--vim.keymap.set("v", "P", "\"+P")
+--
+--vim.keymap.set("n", "y", "\"+y")
+--vim.keymap.set("v", "y", "\"+y")
+--vim.keymap.set("n", "Y", "\"+Y")
+--vim.keymap.set("v", "Y", "\"+Y")
+--
+--vim.keymap.set("n", "d", "\"+d")
+--vim.keymap.set("v", "d", "\"+d")
+--vim.keymap.set("n", "D", "\"+D")
+--vim.keymap.set("v", "D", "\"+D")
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")

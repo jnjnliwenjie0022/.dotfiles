@@ -27,14 +27,50 @@ autocmd('TextYankPost', {
     end,
 })
 
+autocmd('TextYankPost', {
+    group    = 'yank_event',
+    pattern  = '*',
+    callback = function()
+        vim.fn.setreg('+', vim.fn.getreg('"')) -- pass '"' register to '+' register
+        vim.fn.setreg('*', vim.fn.getreg('"')) -- pass '"' register to '*' register
+    end
+})
+
 augroup('terminal_event', { clear = true})
 autocmd('TermOpen', {
     group = 'terminal_event',
     pattern = '*',
     callback = function ()
         vim.cmd('setlocal nonumber norelativenumber')
+        vim.cmd('startinsert')
     end
 })
+
+augroup('read_event', { clear = true})
+autocmd('BufRead',  {
+    group    = 'read_event',
+    pattern  = '*',
+    callback = function()
+        if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
+            vim.fn.setpos('.', vim.fn.getpos("'\""))
+            vim.cmd('silent! foldopen')
+        end
+    end
+})
+
+--https://gitlab.com/simonced/dotfiles/blob/master/vim/plugin/ced.vim#L62
+vim.cmd [[
+if has('autocmd') && v:version > 701
+    augroup todo
+        autocmd!
+        autocmd Syntax * call matchadd(
+                    \ 'Todo',
+                    \ '\v\W\zs<(WARNING|INFO|TODO|FIXME|CHANGED)>'
+                    \ )
+    augroup END
+endif
+]]
+
 
 --" 快速匹配Todo
 --command TODO :call FindFile1()
