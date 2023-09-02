@@ -2,24 +2,32 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-require('lspconfig').lua_ls.setup({
-    cmd = {os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server"};
-    settings = {
-        Lua = {
-            -- Tell the language server which version of Lua you're using
-            runtime = {
-                version = 'LuaJIT'
-            },
-            diagnostic = {
-                global = { 'vim' }
-            },
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-                library = { vim.env.VIMRUNTIME }
+function file_exists(name)
+   local f = io.open(name, "r")
+   return f ~= nil and io.close(f)
+end
+
+local file = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server"
+if file_exists(file) then
+    require('lspconfig').lua_ls.setup({
+        cmd = {os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server"};
+        settings = {
+            Lua = {
+                -- Tell the language server which version of Lua you're using
+                runtime = {
+                    version = 'LuaJIT'
+                },
+                diagnostic = {
+                    global = { 'vim' }
+                },
+                -- Make the server aware of Neovim runtime files
+                workspace = {
+                    library = { vim.env.VIMRUNTIME }
+                }
             }
         }
-    }
-})
+    })
+end
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
