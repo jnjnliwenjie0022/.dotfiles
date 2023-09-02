@@ -1,11 +1,24 @@
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
---need into install lua-language-server
---lsp.nvim_workspace() -- Fix Undefined global 'vim'
 
 require('lspconfig').lua_ls.setup({
-    cmd = {"/home/jnjn0022/.local/share/nvim/mason/bin/lua-language-server"};
+    cmd = {os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server"};
+    settings = {
+        Lua = {
+            -- Tell the language server which version of Lua you're using
+            runtime = {
+                version = 'LuaJIT'
+            },
+            diagnostic = {
+                global = { 'vim' }
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+                library = { vim.env.VIMRUNTIME }
+            }
+        }
+    }
 })
 
 local cmp = require('cmp')
@@ -18,7 +31,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<S-Tab>'] = nil,
 })
 
-
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
     preselect = true,
@@ -27,7 +39,7 @@ lsp.setup_nvim_cmp({
     },
 })
 
-vim.cmd [[set signcolumn=no]]
+--vim.cmd [[set signcolumn=no]]
 lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
@@ -55,53 +67,7 @@ end)
 
 lsp.setup()
 
+--vim.diagnostic.disable()
 vim.diagnostic.config({
     virtual_text = true
-})
---vim.diagnostic.disable()
-
-local ls = require("luasnip")
--- some shorthands...
-local snip = ls.snippet
-local node = ls.snippet_node
-local text = ls.text_node
-local insert = ls.insert_node
-local func = ls.function_node
-local choice = ls.choice_node
-local dynamicn = ls.dynamic_node
-
-local date = function() return {os.date('%Y-%m-%d')} end
-
---ls.add_snippets(nil, {
---    all = {
---        snip({
---            trig = "date",
---            namr = "Date",
---            dscr = "Date in the form of YYYY-MM-DD",
---        }, {
---            func(date, {}),
---        }),
---    },
---})
-
-ls.add_snippets(nil, {
-    all = {
-snip({
-    trig = "meta",
-    namr = "Metadata",
-    dscr = "Yaml metadata format for markdown"
-},
-{
-    text({"---",
-    "title: "}), insert(1, "note_title"), text({"",
-    "author: "}), insert(2, "author"), text({"",
-    "date: "}), func(date, {}), text({"",
-    "categories: ["}), insert(3, ""), text({"]",
-    "lastmod: "}), func(date, {}), text({"",
-    "tags: ["}), insert(4), text({"]",
-    "comments: true",
-    "---", ""}),
-    insert(0)
-  }),
-    },
 })
