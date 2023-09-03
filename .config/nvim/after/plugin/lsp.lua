@@ -1,16 +1,13 @@
-local lsp = require("lsp-zero")
-
-lsp.preset("recommended")
-
 function file_exists(name)
    local f = io.open(name, "r")
    return f ~= nil and io.close(f)
 end
 
-local file = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server"
-if file_exists(file) then
+local lua_lsp_path = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server"
+
+if file_exists(lua_lsp_path) then
     require('lspconfig').lua_ls.setup({
-        cmd = {os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server"};
+        cmd = {lua_lsp_path};
         settings = {
             Lua = {
                 -- Tell the language server which version of Lua you're using
@@ -28,6 +25,10 @@ if file_exists(file) then
         }
     })
 end
+
+local lsp = require("lsp-zero")
+
+lsp.preset("recommended")
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
