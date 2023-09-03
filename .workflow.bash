@@ -33,6 +33,10 @@
 #}}}
 
 #{{{ Alacritty
+#https://stackoverflow.com/questions/34932495/forward-x11-failed-network-error-connection-refused
+#
+# $env:DISPLAY="localhost:0"
+# ssh.exe -Y jasonli@atcpcw10
 #
 # C:\Windows\System32\wsl.exe -d Ubuntu
 # C:\Windows\System32\wsl.exe -d Debian
