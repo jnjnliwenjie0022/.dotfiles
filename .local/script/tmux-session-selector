@@ -2,6 +2,12 @@
 
 tmux="tmux -u"
 
+selected=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}')
+if [[ -z ${selected} ]]; then
+    exec 'tmux-sessionizer'
+    exit 0
+fi
+
 selected=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' |\
     sed '/^$/d' |\
     fzf --reverse --header jump-to-session
