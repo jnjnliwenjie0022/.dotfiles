@@ -184,6 +184,7 @@ alias eixt="exit"
 
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
+bind '"\C-ae":"tmux-session-selector\n"'
 
 # create function call
 function cin () {

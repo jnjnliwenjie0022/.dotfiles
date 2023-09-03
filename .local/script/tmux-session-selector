@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+tmux="tmux -u"
+
+selected=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' |\
+    sed '/^$/d' |\
+    fzf --reverse --header jump-to-session
+)
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+selected_name=${selected}
+
+if [[ -z "${TMUX}" ]]; then
+    # if not in tmux
+    ${tmux} attach -t $selected_name
+else
+    # if in tmux
+    ${tmux} switch-client -t $selected_name
+fi

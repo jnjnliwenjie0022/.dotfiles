@@ -1,6 +1,8 @@
 --https://sbulav.github.io/vim/neovim-setting-up-luasnip/
 --https://www.youtube.com/watch?v=ub0REXjhpmk&ab_channel=ziontee113-Healthy-Director-702
-local ls = require("luasnip")
+local status, ls = pcall(require, 'luasnip')
+if (not status) then return end
+
 local s = ls.snippet
 local i = ls.insert_node
 local t = ls.text_node
