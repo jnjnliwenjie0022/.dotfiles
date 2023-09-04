@@ -63,7 +63,7 @@ lsp.setup_nvim_cmp({
     },
 })
 
-vim.cmd [[set signcolumn=yes]]
+vim.cmd [[set signcolumn=no]]
 lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
