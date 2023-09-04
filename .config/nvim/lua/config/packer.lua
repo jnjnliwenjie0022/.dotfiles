@@ -68,6 +68,7 @@ return packer.startup(function(use)
             {'hrsh7th/cmp-nvim-lsp'}, -- nvim-cmp source plugin for auto-completion from lsp (Required)
             {'hrsh7th/cmp-nvim-lua'}, -- nvim-cmp source plugin for auto-completion form lua
             {'hrsh7th/cmp-buffer'}, -- nvim-cmp source plugin for auto-completion from buffer
+            {'hrsh7th/cmp-cmdline'}, -- nvim-cmp source plugin for auto-completion from buffer
             {'hrsh7th/cmp-path'}, -- nvim-cmp source plugin for auto-completion from path
             {'saadparwaiz1/cmp_luasnip'}, -- nvim-cmp plugin for auto-completion from snip
 

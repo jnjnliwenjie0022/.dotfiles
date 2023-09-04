@@ -31,6 +31,21 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 local cmp = require('cmp')
+
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        {
+          name = 'cmdline',
+          option = {
+            ignore_cmds = { 'Man', '!' }
+          }
+        }
+      })
+    })
+
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
@@ -48,7 +63,7 @@ lsp.setup_nvim_cmp({
     },
 })
 
-vim.cmd [[set signcolumn=no]]
+vim.cmd [[set signcolumn=yes]]
 lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
