@@ -28,19 +28,16 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-o>", "<C-o>zz")
 vim.keymap.set("n", "<C-i>", "<C-i>zz")
 
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-J>", "<cmd>lnext<CR>zz") -- TODO:
+vim.keymap.set("n", "<C-K>", "<cmd>lprevious<CR>zz") -- TODO:
+
 vim.keymap.set("t", "<C-w>h", "<C-\\><C-n><C-w>h")
 vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j")
 vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k")
 vim.keymap.set("t", "<C-w>l", "<C-\\><C-n><C-w>l")
 
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-
---https://gist.github.com/seanh/a866462a27cb3ad7b084c8e6000a06b9
---vim.keymap.set("n", "<leader>n", "<cmd>lnext<CR>zz")
---vim.keymap.set("n", "<leader>N", "<cmd>lprev<CR>zz")
-
---vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>") --tmux-sessionizer
 --vim.keymap.set("n", "<C-q>", "<cmd>tabnew<CR>")
 --Ngt
 --:tabm[N]
