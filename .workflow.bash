@@ -211,6 +211,7 @@ function cdx () {
 #   export FZF_DEFAULT_OPTS='-m'
 #fi
 
+#https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
 function fx () {
     selection="$(fzf | tr -d '\n')"
     selection="$(pwd)/${selection}"
