@@ -15,7 +15,7 @@ fi
 
 selected=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' |\
     sed '/^$/d' |\
-    fzf --reverse --header jump-to-session
+    fzf
 )
 if [[ -z $selected ]]; then
     exit 0
