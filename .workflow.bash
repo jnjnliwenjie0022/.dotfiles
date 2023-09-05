@@ -181,6 +181,7 @@ alias tmux="tmux -u"
 alias ls="exa"
 alias ll="ls -al"
 alias eixt="exit"
+alias exti="exit"
 
 # bind key
 bind '"\C-af":"tmux-sessionizer\n"'
