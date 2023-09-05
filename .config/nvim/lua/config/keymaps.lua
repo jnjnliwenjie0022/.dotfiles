@@ -31,13 +31,20 @@ vim.keymap.set("n", "<C-i>", "<C-i>zz")
 --https://www.youtube.com/watch?v=AuXZA-xCv04&ab_channel=AndrewCourter
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<C-J>", "<cmd>lnext<CR>zz") -- TODO:
-vim.keymap.set("n", "<C-K>", "<cmd>lprevious<CR>zz") -- TODO:
 
 vim.keymap.set("t", "<C-w>h", "<C-\\><C-n><C-w>h")
 vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j")
 vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k")
 vim.keymap.set("t", "<C-w>l", "<C-\\><C-n><C-w>l")
+
+--dp             diffput: puts changes under the cursor into the other file
+--                        making them identical (thus removing the diff).
+--do             diffget: (o => obtain). The change under the cursor is replaced
+--                        by the content of the other file making them identical.
+--
+--
+--]c             Jump to the next diff
+--[c             Jump to the previous diff
 
 --vim.keymap.set("n", "<C-q>", "<cmd>tabnew<CR>")
 --Ngt
