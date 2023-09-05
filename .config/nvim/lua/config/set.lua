@@ -5,14 +5,15 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_python_provier = 0
 vim.g.loaded_python3_provider = 0
-vim.g.python_host_skip_check = 1
-vim.g.python_host_prog='/bin/python2'
-vim.g.python3_host_skip_check = 1
-vim.g.python3_host_prog='/bin/python3'
+vim.g.python_host_skip_check=1
+vim.g.python_host_prog = '/usr/local/bin/python'
+vim.g.python3_host_skip_check=1
+vim.g.python3_host_prog = '/usr/local/bin/python3'
 vim.opt.pyxversion=3
 -- https://vi.stackexchange.com/a/5318/7339
 vim.g.matchparen_timeout = 20
 vim.g.matchparen_insert_timeout = 20
+
 
 -- Disable nvim intro
 --vim.opt.shortmess:append "sI"
