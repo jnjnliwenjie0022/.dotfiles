@@ -23,8 +23,6 @@ return packer.startup(function(use)
     use { 'wbthomason/packer.nvim' }
     -- https://vimcolorschemes.com/
     use { 'catppuccin/nvim' }
-    -- https://github.com/lewis6991/impatient.nvim
-    use {'lewis6991/impatient.nvim'}
     -- https://github.com/nvim-telescope/telescope.nvim
     use {
         'nvim-telescope/telescope.nvim',
