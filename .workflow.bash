@@ -224,7 +224,7 @@ function pp () {
 
 #https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
 function ff () {
-    selection="$(fzf | tr -d '\n')"
+    selection="$(fd | fzf | tr -d '\n')"
     selection="$(pwd)/${selection}"
 
     echo "${selection}" | tr -d '\n' |xsel -i -b
