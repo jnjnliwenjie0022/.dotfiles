@@ -1,4 +1,4 @@
-function run_ctags_uvm()
+local function run_ctags_uvm()
     vim.cmd [[!rm -rf $HOME/.local/tags ]]
     vim.cmd [[!mkdir $HOME/.local/tags ]]
 
