@@ -196,14 +196,24 @@ function cout () {
     xsel -o -b
 }
 
-function pwdx () {
-    pwd | tr -d '\n' | xsel -i -b
-    echo "Copy to clipboard: $(pwd)"
+function yy () {
+    if [[ $# != 1 ]]; then
+        pwd | tr -d '\n' | xsel -i -b
+        echo "Copy to clipboard: $(pwd)"
+    else
+        readlink -f $1 | tr -d '\n' | xsel -i -b
+        echo "Copy to clipboard: $(pwd)/${1}"
+    fi
 }
 
-function cdx () {
-    cd "$(cout)"
-    echo "Paste from clipboard: $(cout)"
+function pp () {
+    if [ -d "$(cout)" ]; then
+        cd "$(cout)"
+        echo "Paste from clipboard: $(cout)"
+    else
+        vim "$(cout)"
+        echo "Paste from clipboard: $(cout)"
+    fi
 }
 
 # fzf config
@@ -213,7 +223,7 @@ function cdx () {
 #fi
 
 #https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
-function fx () {
+function ff () {
     selection="$(fzf | tr -d '\n')"
     selection="$(pwd)/${selection}"
 
@@ -231,21 +241,21 @@ function bak () {
     fi
 }
 
-function ff () {
-    if [ $# != 1 ]; then
-        if [ -z $1 ]; then
-            clear; echo "[$(pwd)]"; ls -a;
-            selection="$(ls -a | fzf --reverse --height 70%)"
-            if [[ -d "$selection" ]]; then
-                cd "$selection"
-            else
-                vim "$selection"
-            fi
-        fi
-    else
-        cd $1
-    fi
-}
+#function ff () {
+#    if [ $# != 1 ]; then
+#        if [ -z $1 ]; then
+#            clear; echo "[$(pwd)]"; ls -a;
+#            selection="$(ls -a | fzf --reverse --height 70%)"
+#            if [[ -d "$selection" ]]; then
+#                cd "$selection"
+#            else
+#                vim "$selection"
+#            fi
+#        fi
+#    else
+#        cd $1
+#    fi
+#}
 
 function run_install_tool() {
     # prerequisite

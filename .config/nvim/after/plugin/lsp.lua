@@ -1,10 +1,9 @@
-function file_exists(name)
+local function file_exists(name)
    local f = io.open(name, "r")
    return f ~= nil and io.close(f)
 end
 
 local lua_lsp_path = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/lua-language-server"
-
 if file_exists(lua_lsp_path) then
     require('lspconfig').lua_ls.setup({
         cmd = {lua_lsp_path};
@@ -19,32 +18,49 @@ if file_exists(lua_lsp_path) then
                 },
                 -- Make the server aware of Neovim runtime files
                 workspace = {
-                    library = { vim.env.VIMRUNTIME }
-                }
-            }
-        }
+                    library = {
+                        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                        [vim.fn.stdpath("config") .. "/lua"] = true,
+                    },
+                },
+            },
+        },
     })
 end
 
-local lsp = require("lsp-zero")
+local perl_lsp_path = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/perlnavigator"
+if file_exists(perl_lsp_path) then
+    require'lspconfig'.perlnavigator.setup{
+        cmd = {perl_lsp_path, '--stdio'},
+        settings = {
+            perlnavigator = {
+                perlPath = 'perl',
+                enableWarnings = true,
+                perltidyProfile = '',
+                perlcriticProfile = '',
+                perlcriticEnabled = true,
+            }
+        }
+    }
+end
 
+local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 local cmp = require('cmp')
-
-    cmp.setup.cmdline(':', {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = 'path' }
-      }, {
-        {
-          name = 'cmdline',
-          option = {
-            ignore_cmds = { 'Man', '!' }
-          }
-        }
-      })
-    })
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
+  })
+})
 
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
