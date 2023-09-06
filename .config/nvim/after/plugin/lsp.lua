@@ -75,7 +75,7 @@ lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
     preselect = true,
     completion = {
-        completeopt = 'menu,menuone,noinsert' -- highlighted the first completion item automatically
+        completeopt = 'menu,menuone,noinsert,noselect' -- highlighted the first completion item automatically
     },
 })
 

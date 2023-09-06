@@ -14,7 +14,6 @@ vim.opt.pyxversion=3
 vim.g.matchparen_timeout = 20
 vim.g.matchparen_insert_timeout = 20
 
-
 -- Disable nvim intro
 --vim.opt.shortmess:append "sI"
 
@@ -48,23 +47,18 @@ for _, plugin in pairs(disabled_built_ins) do
 end
 
 vim.opt.updatetime = 50
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
 
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
-vim.opt.cursorline = true
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-
-vim.opt.nu = true
-vim.opt.numberwidth=4
-vim.opt.relativenumber = true
-vim.opt.foldmethod = "marker"
-vim.opt.list = true
-vim.opt.listchars = 'trail:·'
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -73,12 +67,30 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 vim.opt.scrolloff = 8
-
+vim.opt.cursorline = true
+vim.opt.guicursor = ""
+vim.opt.number = true
+vim.opt.numberwidth=4
+vim.opt.relativenumber = true
+vim.opt.foldmethod = "marker"
+vim.opt.list = true
+vim.opt.listchars = 'trail:·'
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
---vim.opt.guicursor = "" --always has fat cursor
-
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undofile = true
+--vim.opt.completeopt    = {
+--  "menu",
+--  "menuone",
+--  "noselect",
+--  "noinsert",
+--} -- better completion
+--vim.opt.listchars      = {
+--  eol = "↲",
+--  tab= "» ",
+--} -- set listchars
+--vim.opt.fillchars      = {
+--  vert = "│",
+--  eob = " ",
+--  fold = " ",
+--  diff = " ",
+--} -- make vertical split sign better
