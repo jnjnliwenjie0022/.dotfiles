@@ -18,7 +18,7 @@ if file_exists(lua_lsp_path) then
                 },
                 -- Make the server aware of Neovim runtime files
                 workspace = {
-                    library = {
+                    library = { -- TODO: check rtp problems
                         [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                         [vim.fn.stdpath("config") .. "/lua"] = true,
                     },
