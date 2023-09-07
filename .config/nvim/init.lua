@@ -1,2 +1,3 @@
-vim.loader.enable()
+--vim.loader.enable()
+require('impatient')
 require("config.init")

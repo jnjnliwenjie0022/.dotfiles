@@ -21,6 +21,8 @@ end
 return packer.startup(function(use)
     -- https://github.com/wbthomason/packer.nvim
     use { 'wbthomason/packer.nvim' }
+    --https://github.com/lewis6991/impatient.nvim
+    use {'lewis6991/impatient.nvim'}
     -- https://vimcolorschemes.com/
     use { 'catppuccin/nvim' }
     -- https://github.com/nvim-telescope/telescope.nvim
