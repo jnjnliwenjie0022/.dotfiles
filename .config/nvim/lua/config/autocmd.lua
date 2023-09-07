@@ -55,6 +55,25 @@ autocmd('BufRead',  {
     end
 })
 
+-- insert event
+augroup('insert_event', { clear = true})
+autocmd('InsertEnter',  {
+    group    = 'insert_event',
+    pattern  = '*',
+    callback = function()
+        vim.cmd('hi CursorLine   gui=NONE               guibg=#000000')
+        vim.cmd('hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#000000')
+    end
+})
+autocmd('InsertLeave',  {
+    group    = 'insert_event',
+    pattern  = '*',
+    callback = function()
+        vim.cmd('hi CursorLine   gui=NONE               guibg=#262626')
+        vim.cmd('hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#262626')
+    end
+})
+
 --https://gitlab.com/simonced/dotfiles/blob/master/vim/plugin/ced.vim#L62
 vim.cmd [[
 if has('autocmd') && v:version > 701
@@ -67,25 +86,6 @@ if has('autocmd') && v:version > 701
     augroup END
 endif
 ]]
-
-autocmd('InsertEnter',  {
-    group    = 'read_event',
-    pattern  = '*',
-    callback = function()
-        vim.cmd [[ hi CursorLine   gui=NONE               guibg=#000000 ]]
-        vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
-    end
-})
-
-autocmd('InsertLeave',  {
-    group    = 'read_event',
-    pattern  = '*',
-    callback = function()
-        vim.cmd [[ hi CursorLine   gui=NONE               guibg=#262626 ]]
-        vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#262626 ]]
-    end
-})
-
 
 --" 快速匹配Todo
 --command TODO :call FindFile1()
