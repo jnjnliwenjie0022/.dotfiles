@@ -32,6 +32,7 @@ return packer.startup(function(use)
         requires = {
             {'nvim-lua/plenary.nvim'}
         }
+        event =
     }
     -- https://github.com/ThePrimeagen/harpoon
     use {
