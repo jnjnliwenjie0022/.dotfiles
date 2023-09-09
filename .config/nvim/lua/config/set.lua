@@ -75,7 +75,9 @@ vim.opt.numberwidth=4
 vim.opt.relativenumber = true
 vim.opt.foldmethod = "marker"
 vim.opt.list = true
-vim.opt.listchars = 'trail:·'
+vim.opt.listchars = {
+    trail="·",
+}
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
@@ -85,13 +87,3 @@ vim.opt.incsearch = true
 --  "noselect",
 --  "noinsert",
 --} -- better completion
---vim.opt.listchars      = {
---  eol = "↲",
---  tab= "» ",
---} -- set listchars
---vim.opt.fillchars      = {
---  vert = "│",
---  eob = " ",
---  fold = " ",
---  diff = " ",
---} -- make vertical split sign better
