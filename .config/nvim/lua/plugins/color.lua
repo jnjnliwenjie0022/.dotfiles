@@ -14,6 +14,7 @@
 return {
     -- https://vimcolorschemes.com/
     'catppuccin/nvim',
+    lazy = false,
     priority = 1000,
     config = function()
         local status, n = pcall(require, "catppuccin")
@@ -32,7 +33,7 @@ return {
             vim.cmd [[ hi Substitute   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
             vim.cmd [[ hi Folded       gui=NONE guifg=#87ffff guibg=#000000 ]]
             vim.cmd [[ hi FoldColumn   gui=NONE guifg=#87ffff guibg=#000000 ]]
-            vim.cmd [[ hi Comment      gui=NONE guifg=#87ffff guibg=NONE    ]]
+            vim.cmd [[ hi Comment      gui=NONE guifg=#87ffff               ]]
             vim.cmd [[ hi Visual       gui=NONE               guibg=#808080 ]]
             vim.cmd [[ hi PmenuSel     gui=NONE guifg=#000000 guibg=#d7ff00 ]]
             vim.cmd [[ hi Todo         gui=NONE guifg=#000000 guibg=#87ffff ]]

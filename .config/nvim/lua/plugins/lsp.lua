@@ -1,5 +1,6 @@
 return {
     'VonHeikemen/lsp-zero.nvim',
+    event = { "BufReadPre", "BufNewFile" },
     branch = 'v2.x',
     dependencies = {
         -- LSP Support
@@ -43,14 +44,14 @@ return {
                         -- Make the server aware of Neovim runtime files
                         workspace = {
                             library = { -- TODO: check rtp problems
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.stdpath("config") .. "/lua"] = true,
+                                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                                [vim.fn.stdpath("config") .. "/lua"] = true,
+                            },
                         },
                     },
                 },
-            },
-        })
-    end
+            })
+        end
 
     local perl_lsp_path = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/perlnavigator"
     if file_exists(perl_lsp_path) then

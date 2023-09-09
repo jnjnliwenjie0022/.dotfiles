@@ -15,7 +15,7 @@ vim.g.matchparen_timeout = 20
 vim.g.matchparen_insert_timeout = 20
 
 -- Disable nvim intro
---vim.opt.shortmess:append "sI"
+vim.opt.shortmess:append "sI"
 
 -- Disable builtin plugins
 local disabled_built_ins = {
