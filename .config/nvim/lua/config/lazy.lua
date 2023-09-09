@@ -18,4 +18,40 @@ end
 vim.opt.rtp:prepend(path)
 
 -- https://github.com/josean-dev/dev-environment-files/blob/main/.config/nvim/lua/josean/lazy.lua
-require("lazy").setup({import = "plugins"})
+-- https://github.com/MuhametSmaili/nvim/tree/main/lua/smaili/plugins
+require("lazy").setup({import = "plugins"},{
+    performance = {
+        cache = { enabled = true,},
+        checker = { enabled = true },
+        debug = false,
+        ui = { border = "rounded" },
+        rtp = {
+            disabled_plugins = {
+                "editorconfig",
+                "matchit",
+                "spellfile",
+                "tohtml",
+                "2html_plugin",
+                "getscript",
+                "getscriptPlugin",
+                "gzip",
+                "logipat",
+                "tar",
+                "tarPlugin",
+                "rrhelper",
+                "spellfile_plugin",
+                "vimball",
+                "vimballPlugin",
+                "zip",
+                "zipPlugin",
+                "tutor",
+                "rplugin",
+                "synmenu",
+                "optwin",
+                "compiler",
+                "bugreport",
+                "ftplugin",
+            },
+        },
+    },
+})
