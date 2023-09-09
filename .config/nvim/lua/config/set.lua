@@ -1,3 +1,4 @@
+vim.loader.enable()
 -- IMPROVE NEOVIM STARTUP
 -- https://github.com/editorconfig/editorconfig-vim/issues/50
 vim.g.loaded_node_provider = 0
