@@ -1,0 +1,11 @@
+return {}
+--vim.cmd [[
+--    let s:vim_tags = expand('~/.cache/tags')
+--    let g:gutentags_cache_dir = s:vim_tags
+--    if !isdirectory(s:vim_tags)
+--        silent! call mkdir(s:vim_tags, 'p')
+--    endif
+--]]
+--vim.cmd [[ let g:gutentags_project_root = ['.root', '.git'] ]]
+--vim.cmd [[ let g:gutentags_ctags_tagfile = '.tags' ]]
+--vim.cmd [[ let g:gutentags_ctags_extra_args = ['-R', '--languages=systemverilog', '--extra=+q', '--fields=+i'] ]]
