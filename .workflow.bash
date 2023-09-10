@@ -4,6 +4,16 @@
 # terminal color scheme config
 # https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
 #
+#{{{ CentOS
+# sudo yum update -y
+# sudo yum install libX11
+# vim /etc/ssh/sshd_config
+# X11Forwarding yes
+# X11DisplayOffset 10
+# X11UseLocalhost yes
+# systemctl restart sshd
+#}}}
+
 #{{{ MobaXterm
 # Paste the following configurations in the corresponding place in MobaXterm.ini.
 # Setting->Configuration->Terminal->Default terminal color setting->import catppuccin-mocha.ini
