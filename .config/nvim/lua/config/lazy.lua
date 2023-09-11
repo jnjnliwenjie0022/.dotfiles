@@ -19,7 +19,8 @@ vim.opt.rtp:prepend(path)
 
 -- https://github.com/josean-dev/dev-environment-files/blob/main/.config/nvim/lua/josean/lazy.lua
 -- https://github.com/MuhametSmaili/nvim/tree/main/lua/smaili/plugins
-require("lazy").setup({import = "plugins"},{
+require("lazy").setup({
+    spec = { import = "plugins" },
     performance = {
         cache = { enabled = true,},
         checker = { enabled = true },
