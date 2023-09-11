@@ -75,9 +75,7 @@ vim.opt.numberwidth=4
 vim.opt.relativenumber = true
 vim.opt.foldmethod = "marker"
 vim.opt.list = true
-vim.opt.listchars = {
-    trail="·",
-}
+
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
