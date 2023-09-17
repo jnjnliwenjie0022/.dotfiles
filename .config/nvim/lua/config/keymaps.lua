@@ -15,10 +15,12 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "x", "\"_x")
 vim.keymap.set("v", "x", "\"_x")
 
-vim.keymap.set("n", "p", "\"+p")
-vim.keymap.set("v", "p", "\"_d\"+P")
-vim.keymap.set("n", "P", "\"+P")
-vim.keymap.set("v", "P", "\"+P")
+--vim.keymap.set("n", "p", "\"+p")
+--vim.keymap.set("v", "p", "\"_d\"+P")
+--vim.keymap.set("n", "P", "\"+P")
+--vim.keymap.set("v", "P", "\"+P")
+
+vim.keymap.set("v", "p", "_dP")
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
