@@ -41,6 +41,7 @@ return {
             vim.cmd [[ hi DiffDelete   gui=NONE guifg=#000000 guibg=#000000 ]] -- diff mode: Deleted line
             vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed line
             vim.cmd [[ hi DiffText     gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed text within a changed line
+            vim.cmd [[ hi MatchParen   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
         else
             vim.cmd [[ Normal       guifg=#f0f0f8 guibg=#000000 ]]
             -- Search
