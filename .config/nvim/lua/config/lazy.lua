@@ -26,18 +26,18 @@ require("lazy").setup({
         checker = { enabled = true },
         debug = false,
         ui = { border = "rounded" },
-        rtp = {
-            disabled_plugins = {
-                "editorconfig",
-                "matchit",
-                "spellfile",
-                "tohtml",
-                "gzip",
-                "tarPlugin",
-                "zipPlugin",
-                "tutor",
-                "rplugin",
-            },
-        },
+        --rtp = {
+        --    disabled_plugins = {
+        --        "editorconfig",
+        --        "matchit",
+        --        "spellfile",
+        --        "tohtml",
+        --        "gzip",
+        --        "tarPlugin",
+        --        "zipPlugin",
+        --        "tutor",
+        --        "rplugin",
+        --    },
+        --},
     },
 })

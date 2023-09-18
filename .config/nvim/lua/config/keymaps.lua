@@ -1,50 +1,47 @@
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
-vim.keymap.set("n", "<leader>e", "<CMD>Ex<CR>")
+vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR>')
+vim.keymap.set('n', '<leader>yy','<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR>')
 
-vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-a>", "<nop>") -- avoid comflict with tmux
-vim.keymap.set("n", "<Space>", "<nop>")
-vim.keymap.set("v", "<Space>", "<nop>")
+vim.keymap.set('n', 'Q', '<nop>')
+vim.keymap.set('n', '<C-a>', '<nop>')
+vim.keymap.set('n', '<Space>', '<nop>')
+vim.keymap.set('v', '<Space>', '<nop>')
 
-vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set('i', '<C-c>', '<Esc>')
 
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
 
-vim.keymap.set("n", "x", "\"_x")
-vim.keymap.set("v", "x", "\"_x")
+vim.keymap.set('n', 'x', '\"_x')
+vim.keymap.set('v', 'x', '\"_x')
 
---vim.keymap.set("n", "p", "\"+p")
---vim.keymap.set("v", "p", "\"_d\"+P")
---vim.keymap.set("n", "P", "\"+P")
---vim.keymap.set("v", "P", "\"+P")
+--vim.keymap.set('n', 'p', '\"+p')
+--vim.keymap.set('v', 'p', '\"_d\"+P')
+--vim.keymap.set('n', 'P', '\"+P')
+--vim.keymap.set('v', 'P', '\"+P')
 
-vim.keymap.set("v", "p", "_dP")
+vim.keymap.set('v', 'p', '\"_dP')
 
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
 
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "<C-o>", "<C-o>zz")
-vim.keymap.set("n", "<C-i>", "<C-i>zz")
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-o>', '<C-o>zz')
+vim.keymap.set('n', '<C-i>', '<C-i>zz')
+vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>zz')
+vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>zz')
 
---https://www.youtube.com/watch?v=AuXZA-xCv04&ab_channel=AndrewCourter
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-
-vim.keymap.set("t", "<C-w>h", "<C-\\><C-n><C-w>h")
-vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j")
-vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k")
-vim.keymap.set("t", "<C-w>l", "<C-\\><C-n><C-w>l")
+vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h')
+vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j')
+vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k')
+vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
 
 --dp             diffput: puts changes under the cursor into the other file
 --                        making them identical (thus removing the diff).
 --do             diffget: (o => obtain). The change under the cursor is replaced
 --                        by the content of the other file making them identical.
---
---
 --]c             Jump to the next diff
 --[c             Jump to the previous diff
 
