@@ -18,7 +18,8 @@ vim.g.matchparen_insert_timeout = 20
 -- Disable nvim intro
 vim.opt.shortmess:append "sI"
 
-vim.opt.updatetime = 50
+vim.opt.timeoutlen=300 --Time in milliseconds to wait for a mapped sequence to complete.
+
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
