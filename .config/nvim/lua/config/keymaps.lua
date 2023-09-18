@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 
 vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR>')
-vim.keymap.set('n', '<leader>yy','<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR>')
+vim.keymap.set('n', '<leader>yy','<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "Copy to clipboard:"expand("%:p")<CR>')
 
 vim.keymap.set('n', 'Q', '<nop>')
 vim.keymap.set('n', '<C-a>', '<nop>')
@@ -16,12 +16,12 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', 'x', '\"_x')
 vim.keymap.set('v', 'x', '\"_x')
 
---vim.keymap.set('n', 'p', '\"+p')
---vim.keymap.set('v', 'p', '\"_d\"+P')
---vim.keymap.set('n', 'P', '\"+P')
---vim.keymap.set('v', 'P', '\"+P')
+vim.keymap.set('n', 'p', '\"+p')
+vim.keymap.set('v', 'p', '\"_d\"+P')
+vim.keymap.set('n', 'P', '\"+P')
+vim.keymap.set('v', 'P', '\"+P')
 
-vim.keymap.set('v', 'p', '\"_dP')
+--vim.keymap.set('v', 'p', '\"_dP')
 
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
