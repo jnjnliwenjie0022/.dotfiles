@@ -10,8 +10,11 @@ return {
 
         vim.keymap.set("n", "<leader>,", function()
             mark.add_file()
-            ui.toggle_quick_menu()
-            ui.toggle_quick_menu()
+            require('harpoon').setup({
+                tabline = true,
+                tabline_prefix = " ",
+                tabline_suffix = " ",
+            })
         end)
 
         vim.keymap.set("n", "<leader>m", ui.toggle_quick_menu)
