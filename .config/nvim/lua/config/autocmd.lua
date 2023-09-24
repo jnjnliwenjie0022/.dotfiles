@@ -24,10 +24,10 @@ autocmd('TextYankPost', {
     callback = function()
         vim.fn.setreg('+', vim.fn.getreg('"')) -- pass '"' register to '+' register
         vim.fn.setreg('*', vim.fn.getreg('"')) -- pass '"' register to '*' register
-        --vim.highlight.on_yank {
-        --    higroup = 'IncSearch',
-        --    timeout = '60'
-        --}
+        vim.highlight.on_yank {
+            higroup = 'IncSearch',
+            timeout = '60'
+        }
     end
 })
 
@@ -71,6 +71,7 @@ autocmd('InsertLeave',  {
     callback = function()
         vim.cmd('hi CursorLine   gui=NONE               guibg=#262626')
         vim.cmd('hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#262626')
+        --vim.cmd [[ hi CursorLineNr gui=NONE guifg=#000000 guibg=#87ffff ]]
     end
 })
 

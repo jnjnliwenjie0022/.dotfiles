@@ -26,6 +26,7 @@ return {
             vim.cmd [[ hi CursorLine   gui=NONE               guibg=#262626 ]]
             vim.cmd [[ hi StatusLine   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
             vim.cmd [[ hi StatusLineNC gui=NONE guifg=#cdd6f4 guibg=#262626 ]]
+            --vim.cmd [[ hi CursorLineNr gui=NONE guifg=#000000 guibg=#87ffff ]]
             vim.cmd [[ hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#262626 ]]
             vim.cmd [[ hi VertSplit    gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
             vim.cmd [[ hi Search       gui=NONE guifg=#000000 guibg=#d7ff00 ]]
