@@ -12,8 +12,6 @@ return {
             mark.add_file()
             require('harpoon').setup({
                 tabline = true,
-                tabline_prefix = " ",
-                tabline_suffix = " ",
             })
         end)
 
@@ -27,8 +25,6 @@ return {
 
         require('harpoon').setup({
             tabline = true,
-            tabline_prefix = " ",
-            tabline_suffix = " ",
         })
 
         vim.cmd [[ hi HarpoonNumberActive   guifg=#000000 guibg=#d7ff00 ]]
