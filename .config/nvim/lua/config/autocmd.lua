@@ -24,10 +24,10 @@ autocmd('TextYankPost', {
     callback = function()
         --vim.fn.setreg('+', vim.fn.getreg('"')) -- pass '"' register to '+' register
         --vim.fn.setreg('*', vim.fn.getreg('"')) -- pass '"' register to '*' register
-        --vim.highlight.on_yank {
-        --    higroup = 'IncSearch',
-        --    timeout = '60'
-        --}
+        vim.highlight.on_yank {
+            higroup = 'IncSearch',
+            timeout = '60'
+        }
     end
 })
 
