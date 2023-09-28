@@ -1,12 +1,8 @@
 -- http://yyq123.github.io/learn-vim/learn-vi-49-01-autocmd.html
 -- https://dev.to/voyeg3r/my-lazy-neovim-config-3h6o
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
 
 -- write event
-augroup('write_event', { clear = true})
-autocmd('BufWrite', {
-    group = 'write_event',
+vim.api.nvim_create_autocmd({ "BufWrite" }, {
     pattern = '*',
     callback = function()
         local cursor_pos = vim.fn.getpos('.')  -- get current cursor position
@@ -17,9 +13,7 @@ autocmd('BufWrite', {
 })
 
 -- yank event
-augroup('yank_event', { clear = true })
-autocmd('TextYankPost', {
-    group    = 'yank_event',
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     pattern  = '*',
     callback = function()
         --vim.fn.setreg('+', vim.fn.getreg('"')) -- pass '"' register to '+' register
@@ -32,9 +26,7 @@ autocmd('TextYankPost', {
 })
 
 -- terminal event
-augroup('terminal_event', { clear = true})
-autocmd('TermOpen', {
-    group = 'terminal_event',
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
     pattern = '*',
     callback = function ()
         vim.cmd('setlocal nonumber norelativenumber')
@@ -43,9 +35,7 @@ autocmd('TermOpen', {
 })
 
 -- read event
-augroup('read_event', { clear = true})
-autocmd('BufRead',  {
-    group    = 'read_event',
+vim.api.nvim_create_autocmd({ "BufRead" }, {
     pattern  = '*',
     callback = function()
         if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
@@ -56,23 +46,34 @@ autocmd('BufRead',  {
 })
 
 -- insert event
-augroup('insert_event', { clear = true})
-autocmd('InsertEnter',  {
-    group    = 'insert_event',
+vim.api.nvim_create_autocmd({ "InsertEnter" }, {
     pattern  = '*',
     callback = function()
         vim.cmd('hi CursorLine   gui=NONE               guibg=#000000')
         vim.cmd('hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#000000')
     end
 })
-autocmd('InsertLeave',  {
-    group    = 'insert_event',
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
     pattern  = '*',
     callback = function()
         vim.cmd('hi CursorLine   gui=NONE               guibg=#262626')
         vim.cmd('hi CursorLineNr gui=NONE guifg=#cdd6f4 guibg=#262626')
-        --vim.cmd [[ hi CursorLineNr gui=NONE guifg=#000000 guibg=#87ffff ]]
     end
+})
+
+-- comment event
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*",
+    callback = function()
+        vim.opt.formatoptions = vim.opt.formatoptions - { "c", "r", "o" }
+    end,
+})
+
+-- save event
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+    pattern = { "*" },
+    command = "silent! wall",
+    nested = true,
 })
 
 --https://gitlab.com/simonced/dotfiles/blob/master/vim/plugin/ced.vim#L62
@@ -87,6 +88,17 @@ if has('autocmd') && v:version > 701
     augroup END
 endif
 ]]
+
+--vim.api.nvim_create_user_command("MakeDirectory", function()
+--    ---@diagnostic disable-next-line: missing-parameter
+--    local path = vim.fn.expand("%")
+--    local dir = vim.fn.fnamemodify(path, ":p:h")
+--    if vim.fn.isdirectory(dir) == 0 then
+--        vim.fn.mkdir(dir, "p")
+--    else
+--        vim.notify("Directory already exists", "WARN", { title = "Nvim" })
+--    end
+--end, { desc = "Create directory if it doesn't exist" })
 
 --" 快速匹配Todo
 --command TODO :call FindFile1()
