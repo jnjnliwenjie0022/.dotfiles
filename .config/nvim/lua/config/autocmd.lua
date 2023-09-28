@@ -69,12 +69,12 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     end,
 })
 
--- save event
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
-    pattern = { "*" },
-    command = "silent! wall",
-    nested = true,
-})
+---- save event
+--vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+--    pattern = { "*" },
+--    command = "silent! wall",
+--    nested = true,
+--})
 
 --https://gitlab.com/simonced/dotfiles/blob/master/vim/plugin/ced.vim#L62
 vim.cmd [[
