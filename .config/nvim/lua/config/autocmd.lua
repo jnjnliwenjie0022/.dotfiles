@@ -76,11 +76,17 @@ if has('autocmd') && v:version > 701
         autocmd!
         autocmd Syntax * call matchadd(
                     \ 'Todo',
-                    \ '\v\W\zs<(WARNING|INFO|TODO|FIXME|CHANGED)>'
+                    \ '\v\W\zs<(WARNING|INFO|TODO|CHANGED)>'
+                    \ )
+
+        autocmd Syntax * call matchadd(
+                    \ 'Error',
+                    \ '\v\W\zs<(FIXME)>'
                     \ )
     augroup END
 endif
 ]]
+
 
 --vim.api.nvim_create_user_command("MakeDirectory", function()
 --    ---@diagnostic disable-next-line: missing-parameter

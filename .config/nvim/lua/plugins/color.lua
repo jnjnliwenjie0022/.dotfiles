@@ -37,6 +37,7 @@ return {
             vim.cmd [[ hi Visual       gui=NONE               guibg=#808080 ]]
             vim.cmd [[ hi PmenuSel     gui=NONE guifg=#000000 guibg=#87ffff ]]
             vim.cmd [[ hi Todo         gui=NONE guifg=#000000 guibg=#87ffff ]]
+            vim.cmd [[ hi Error        gui=NONE guifg=#ffffff guibg=#ff0088 ]]
             vim.cmd [[ hi DiffAdd      gui=NONE               guibg=#005f00 ]] -- diff mode: Added line
             vim.cmd [[ hi DiffDelete   gui=NONE guifg=#000000 guibg=#000000 ]] -- diff mode: Deleted line
             vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed line
