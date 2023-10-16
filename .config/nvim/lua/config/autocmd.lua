@@ -77,12 +77,12 @@ if has('autocmd') && v:version > 701
         autocmd!
         autocmd Syntax * call matchadd(
                     \ 'Todo',
-                    \ '\v\W\zs<(WARNING|INFO|TODO|CHANGED)>:'
+                    \ '\v\W\zs <(WARNING|INFO|TODO|CHANGED)> '
                     \ )
 
         autocmd Syntax * call matchadd(
                     \ 'Error',
-                    \ '\v\W\zs<(FIXME)>:'
+                    \ '\v\W\zs <(FIXME)> '
                     \ )
     augroup END
 endif

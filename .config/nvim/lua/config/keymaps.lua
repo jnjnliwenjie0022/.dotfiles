@@ -5,6 +5,7 @@ vim.keymap.set('n', '<leader>yy','<CMD>let @" = expand("%:p")<CR><CMD>let @* = e
 
 vim.keymap.set('n', 'Q', '<nop>')
 vim.keymap.set('n', '<C-a>', '<nop>')
+vim.keymap.set('n', '<C-x>', '<nop>')
 vim.keymap.set('n', '<Space>', '<nop>')
 vim.keymap.set('v', '<Space>', '<nop>')
 
