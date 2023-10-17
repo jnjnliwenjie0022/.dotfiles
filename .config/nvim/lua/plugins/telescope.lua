@@ -16,7 +16,7 @@ return {
                 mappings = {
                     n = {
                         ['q'] = actions.close,
-                    },
+                    }, -- n
                 },
             },
             pickers = {
