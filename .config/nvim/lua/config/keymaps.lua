@@ -1,7 +1,10 @@
 vim.g.mapleader = ' '
 
+--% refers to the current buffer
+--%:p refers to the path to the file
 vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR>')
 vim.keymap.set('n', '<leader>yy','<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "Copy to clipboard:"expand("%:p")<CR>')
+vim.keymap.set('n', '<leader>bb','<CMD>exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR><CMD>echo "Backup:"expand("%:p").".bak.".strftime("%Y%m%d_%H%M%S")<CR>')
 
 vim.keymap.set('n', 'Q', '<nop>')
 vim.keymap.set('n', '<C-a>', '<nop>')

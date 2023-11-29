@@ -10,18 +10,11 @@ return {
 
 
         require('harpoon').setup({
-            tabline = false,
+            tabline = true,
             menu = {
                 width = vim.api.nvim_win_get_width(0) - 22,
             }
         })
-
-        --vim.keymap.set("n", "<leader>,", function()
-        --    mark.add_file()
-        --    require('harpoon').setup({
-        --        tabline = true,
-        --    })
-        --end)
 
         vim.cmd [[ hi HarpoonNumberActive   guifg=#000000 guibg=#d7ff00 ]]
         vim.cmd [[ hi HarpoonActive         guifg=#000000 guibg=#d7ff00 ]]
@@ -31,8 +24,11 @@ return {
 
         vim.keymap.set("n", "<leader>,", function()
             local file_path = vim.fn.expand('%:p')
-            print("Hook on harpoon:", file_path)
             mark.add_file()
+            print("Hook on harpoon:", file_path)
+            require('harpoon').setup({
+                tabline = true,
+            })
         end)
         vim.keymap.set("n", "<leader>m", function() ui.toggle_quick_menu() end)
         vim.keymap.set("n", "<leader>n", function() ui.nav_next() end)

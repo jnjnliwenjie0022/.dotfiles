@@ -241,13 +241,20 @@ function ff () {
     echo "Copy to clipboard: $(cout)"
 }
 
-function bak () {
+function bb () {
     CUR_TIME=`date +%Y%m%d_%H%M%S`
     if [ $# != 1 ]; then
-        echo "usage: backup dir/file"
+        selection="$(fd | fzf | tr -d '\n')"
+        if [ -z $selection ]; then
+            echo "No backup"
+        else
+            selection="$(pwd)/${selection}"
+            eval `cp -r $selection $selection.bak.$CUR_TIME`
+            echo "Backup: $selection.backup.$CUR_TIME"
+        fi
     else
-        echo "Backup: $1.bak.$CUR_TIME"
         eval `cp -r $1 $1.bak.$CUR_TIME`
+        echo "Backup: $1.backup.$CUR_TIME"
     fi
 }
 
