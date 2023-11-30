@@ -134,7 +134,7 @@
 #         - { index: 17, color: "#F5E0DC" }
 #}}}
 
-echo "Shell=$SHELL $BASH_VERSION"
+# echo "Shell=$SHELL $BASH_VERSION"
 # language config
 # https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
 # locale -a
@@ -149,12 +149,12 @@ export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.local/script:${PATH}"
 
 # xsel conifg
-env | grep SSH
+#env | grep SSH
 #export DISPLAY=:0
 #export DISPLAY=$(echo $(env | grep SSH_CLIENT= | sed -r 's/SSH_CLIENT=(.*)\s(.*)\s(.*)/\1:0/'))
 
 # tmux config
-export TERM=tmux-256color; echo "TERM=${TERM}" # in root: need terminfo/
+export TERM=tmux-256color; #echo "TERM=${TERM}" # in root: need terminfo/
 #export TERM=xterm-256color; echo "TERM=${TERM}" # in root: need terminfo/
 # check terminfo
 # infocmp tmux-256color
@@ -179,13 +179,13 @@ if [ -f ${file} ]; then
     GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
     GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
     source ${file}
-    echo "Prompt ${file}"
-else
-    echo "Prompt [Warning] ${file} not exist"
+    #echo "Prompt ${file}"
+#else
+    #echo "Prompt [Warning] ${file} not exist"
 fi
 
 # create command
-alias rebash='source $HOME/.bashrc'; echo "source $HOME/.bashrc"; echo "source $HOME/.workflow.bash"
+alias rebash='source $HOME/.bashrc'; #echo "source $HOME/.bashrc"; echo "source $HOME/.workflow.bash"
 alias vim="nvim -O"
 alias tmux="tmux -u"
 alias ls="exa"

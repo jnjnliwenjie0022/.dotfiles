@@ -16,9 +16,13 @@ return {
                 mappings = {
                     n = {
                         ['q'] = actions.close,
-                    }, -- n
+                    },
+                    i = {
+                        ["<C-j>"] = actions.select_default,
+                    },
                 },
             },
+
             pickers = {
                 tags = {
                     show_line = true,
