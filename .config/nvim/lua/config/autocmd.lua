@@ -71,22 +71,22 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 --https://gitlab.com/simonced/dotfiles/blob/master/vim/plugin/ced.vim#L62
 --https://stackoverflow.com/questions/76604494/how-to-use-vim-bo-syntax-with-strikeoutmatch-in-neovim
-vim.cmd [[
-if has('autocmd') && v:version > 701
-    augroup todo
-        autocmd!
-        autocmd Syntax * call matchadd(
-                    \ 'Todo',
-                    \ '\v\W\zs <(WARNING|INFO|TODO|CHANGED)> '
-                    \ )
-
-        autocmd Syntax * call matchadd(
-                    \ 'Error',
-                    \ '\v\W\zs <(FIXME)> '
-                    \ )
-    augroup END
-endif
-]]
+--vim.cmd [[
+--if has('autocmd') && v:version > 701
+--    augroup todo
+--        autocmd!
+--        autocmd Syntax * call matchadd(
+--                    \ 'Todo',
+--                    \ '\v\W\zs <(WARNING|INFO|TODO|CHANGED)> '
+--                    \ )
+--
+--        autocmd Syntax * call matchadd(
+--                    \ 'Error',
+--                    \ '\v\W\zs <(FIXME)> '
+--                    \ )
+--    augroup END
+--endif
+--]]
 
 --vim.api.nvim_create_user_command("MakeDirectory", function()
 --    ---@diagnostic disable-next-line: missing-parameter

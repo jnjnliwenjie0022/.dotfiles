@@ -10,7 +10,7 @@ return {
 
 
         require('harpoon').setup({
-            tabline = true,
+            tabline = false,
             menu = {
                 width = vim.api.nvim_win_get_width(0) - 22,
             }
@@ -27,7 +27,7 @@ return {
             mark.add_file()
             print("Hook on harpoon:", file_path)
             require('harpoon').setup({
-                tabline = true,
+                tabline = false,
             })
         end)
         vim.keymap.set("n", "<leader>m", function() ui.toggle_quick_menu() end)
