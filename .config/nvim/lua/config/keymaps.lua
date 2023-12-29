@@ -1,21 +1,19 @@
 vim.g.mapleader = ' '
-
---% refers to the current buffer
---%:p refers to the path to the file
-vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR>')
-vim.keymap.set('n', '<leader>yy','<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "Copy to clipboard:"expand("%:p")<CR>')
-vim.keymap.set('n', '<leader>bb','<CMD>exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR><CMD>echo "Backup:"expand("%:p").".bak.".strftime("%Y%m%d_%H%M%S")<CR>')
-
 vim.keymap.set('n', 'Q', '<nop>')
 vim.keymap.set('n', '<C-a>', '<nop>')
 vim.keymap.set('n', '<C-x>', '<nop>')
 vim.keymap.set('n', '<Space>', '<nop>')
 vim.keymap.set('v', '<Space>', '<nop>')
-
 vim.keymap.set('i', '<C-c>', '<Esc>')
 
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
+--% refers to the current buffer
+--%:p refers to the path to the file
+vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR>')
+vim.keymap.set('n', '<leader>y', '<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "Copy to clipboard:"expand("%:p")<CR>')
+vim.keymap.set('n', '<leader>b', '<CMD>exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR><CMD>echo "Backup:"expand("%:p").".bak.".strftime("%Y%m%d_%H%M%S")<CR>')
+vim.keymap.set('v', '<leader>y', '\"+y')
+vim.keymap.set('n', '<leader>p', '\"+p')
+vim.keymap.set('v', '<leader>p', '\"_d\"+P')
 
 vim.keymap.set('n', 'x', '\"_x')
 vim.keymap.set('v', 'x', '\"_x')
@@ -31,8 +29,10 @@ vim.keymap.set('v', 'x', '\"_x')
 --vim.keymap.set("v", "d", '\"+d')
 --vim.keymap.set("n", "D", '\"+D')
 --vim.keymap.set("v", "D", '\"+D')
-
 vim.keymap.set('v', 'p', '\"_dP')
+
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
 
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
