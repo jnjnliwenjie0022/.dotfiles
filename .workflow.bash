@@ -248,13 +248,15 @@ function bb () {
         if [ -z $selection ]; then
             echo "No backup"
         else
+            selection="$(echo $selection | sed 's/\/$//g')"
             selection="$(pwd)/${selection}"
-            eval `cp -r $selection $selection.bak.$CUR_TIME`
+            eval `cp -rf $selection $selection.bak.$CUR_TIME`
             echo "Backup: $selection.backup.$CUR_TIME"
         fi
     else
-        eval `cp -r $1 $1.bak.$CUR_TIME`
-        echo "Backup: $1.backup.$CUR_TIME"
+        selection="$(echo $1 | sed 's/\/$//g')"
+        eval `cp -rf $selection $selection.bak.$CUR_TIME`
+        echo "Backup: $selection.backup.$CUR_TIME"
     fi
 }
 
