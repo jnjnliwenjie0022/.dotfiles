@@ -6,11 +6,13 @@ vim.keymap.set('n', '<Space>', '<nop>')
 vim.keymap.set('v', '<Space>', '<nop>')
 vim.keymap.set('i', '<C-c>', '<Esc>')
 
+
 --% refers to the current buffer
 --%:p refers to the path to the file
 vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR>')
 vim.keymap.set('n', '<leader>y', '<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "Copy to clipboard:"expand("%:p")<CR>')
 vim.keymap.set('n', '<leader>b', '<CMD>exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR><CMD>echo "Backup:"expand("%:p").".bak.".strftime("%Y%m%d_%H%M%S")<CR>')
+
 vim.keymap.set('v', '<leader>y', '\"+y')
 vim.keymap.set('n', '<leader>p', '\"+p')
 vim.keymap.set('v', '<leader>p', '\"_d\"+P')
@@ -30,6 +32,9 @@ vim.keymap.set('v', 'x', '\"_x')
 --vim.keymap.set("n", "D", '\"+D')
 --vim.keymap.set("v", "D", '\"+D')
 vim.keymap.set('v', 'p', '\"_dP')
+
+--vim.keymap.set('v','y','myy`y')
+--vim.keymap.set('v','Y','myY`y')
 
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')

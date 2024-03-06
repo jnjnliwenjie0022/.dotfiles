@@ -13,10 +13,19 @@ tmux="tmux -u"
 #    exit 0
 #fi
 
+if [[ -z $(tmux ls 2> /dev/null) ]]; then
+    selected="$(pwd)"
+    selected_name=$(basename "${selected}")
+    ${tmux} new-session -ds $selected_name -c $selected
+    ${tmux} attach -t $selected_name
+    exit 0
+fi
+
 selected=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' |\
     sed '/^$/d' |\
     fzf
 )
+
 if [[ -z $selected ]]; then
     exit 0
 fi
