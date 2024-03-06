@@ -2,18 +2,7 @@
 
 tmux="tmux -u"
 
-#selected=$(tmux list-sessions)
-#if [[ -z ${selected} ]]; then
-#    exec 'tmux-sessionizer'
-#    exit 0
-#fi
-
-#selected=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}')
-#if [[ -z $selected ]]; then
-#    exit 0
-#fi
-
-if [[ -z $(tmux ls 2> /dev/null) ]]; then
+if [[ -z $(${tmux} ls 2> /dev/null) ]]; then
     selected="$(pwd)"
     selected_name=$(basename "${selected}")
     ${tmux} new-session -ds $selected_name -c $selected
@@ -21,10 +10,29 @@ if [[ -z $(tmux ls 2> /dev/null) ]]; then
     exit 0
 fi
 
-selected=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' |\
-    sed '/^$/d' |\
-    fzf
-)
+if [[ -z "${TMUX}" ]]; then
+    # if not in tmux
+    selected=$(${tmux} list-sessions |\
+        sed "s/:.*//g" |\
+        sed "/^$/d" |\
+        fzf
+    )
+else
+    # if in tmux
+    current_session=$(${tmux} display-message -p '#S')
+
+    selected=$(${tmux} list-sessions |\
+        sed "s/:.*//g" |\
+        sed "/\<${current_session}\>/d" |\
+        sed "/^$/d" |\
+        fzf
+    )
+fi
+
+#selected=$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' |\
+#    sed '/^$/d' |\
+#    fzf
+#)
 
 if [[ -z $selected ]]; then
     exit 0
