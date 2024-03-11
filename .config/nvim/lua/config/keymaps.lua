@@ -9,7 +9,7 @@ vim.keymap.set('i', '<C-c>', '<Esc>')
 
 --% refers to the current buffer
 --%:p refers to the path to the file
-vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR>')
+vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR><CMD>echo "Path:"expand("%:p")<CR>')
 vim.keymap.set('n', '<leader>y', '<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "Copy to clipboard:"expand("%:p")<CR>')
 vim.keymap.set('n', '<leader>b', '<CMD>exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR><CMD>echo "Backup:"expand("%:p").".bak.".strftime("%Y%m%d_%H%M%S")<CR>')
 
