@@ -46,13 +46,13 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 })
 
 -- insert event
-vim.api.nvim_create_autocmd({ "InsertEnter", "WinEnter"}, {
+vim.api.nvim_create_autocmd({ "InsertEnter"}, {
     pattern  = '*',
     callback = function()
         vim.cmd("set nocursorline")
     end
 })
-vim.api.nvim_create_autocmd({ "InsertLeave", "WinLeave" }, {
+vim.api.nvim_create_autocmd({ "InsertLeave"}, {
     pattern  = '*',
     callback = function()
         vim.cmd("set cursorline")
