@@ -42,7 +42,7 @@ return {
             vim.cmd [[ hi DiffDelete   gui=NONE guifg=#000000 guibg=#000000 ]] -- diff mode: Deleted line
             vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed line
             vim.cmd [[ hi DiffText     gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed text within a changed line
-            vim.cmd [[ hi MatchParen   gui=NONE guifg=#000000 guibg=#d7ff00 ]] -- syntax pair
+            vim.cmd [[ hi MatchParen   gui=NONE guifg=#000000 guibg=#87ffff ]] -- syntax pair
 
             vim.cmd [[ hi Title        gui=NONE guifg=#000000               ]]
             vim.cmd [[ hi TabLine      gui=NONE guifg=#cdd6f4 guibg=#262626 ]]
