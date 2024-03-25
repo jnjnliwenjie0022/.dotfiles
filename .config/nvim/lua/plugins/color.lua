@@ -22,6 +22,7 @@ return {
             vim.cmd [[ colorscheme catppuccin-mocha ]]
             vim.cmd [[ hi Normal       gui=NONE               guibg=#000000 ]]
             vim.cmd [[ hi NormalNC     gui=NONE               guibg=#000000 ]]
+            vim.cmd [[ hi NormalFloat  gui=NONE               guibg=#000000 ]]
             vim.cmd [[ hi LineNr       gui=NONE guifg=#cdd6f4 guibg=#000000 ]]
             vim.cmd [[ hi CursorLine   gui=NONE               guibg=#262626 ]]
             vim.cmd [[ hi StatusLine   gui=NONE guifg=#000000 guibg=#d7ff00 ]]
@@ -43,7 +44,6 @@ return {
             vim.cmd [[ hi DiffChange   gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed line
             vim.cmd [[ hi DiffText     gui=NONE               guibg=#5f0000 ]] -- diff mode: Changed text within a changed line
             vim.cmd [[ hi MatchParen   gui=NONE guifg=#000000 guibg=#87ffff ]] -- syntax pair
-
             vim.cmd [[ hi Title        gui=NONE guifg=#000000               ]]
             vim.cmd [[ hi TabLine      gui=NONE guifg=#cdd6f4 guibg=#262626 ]]
             vim.cmd [[ hi TabLineFill  gui=NONE guifg=#cdd6f4 guibg=#262626 ]]
