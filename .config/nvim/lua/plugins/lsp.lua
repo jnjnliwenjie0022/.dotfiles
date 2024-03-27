@@ -17,11 +17,11 @@ return {
         'hrsh7th/cmp-buffer', -- nvim-cmp source plugin for auto-completion from buffer
         'hrsh7th/cmp-cmdline', -- nvim-cmp source plugin for auto-completion from buffer
         'hrsh7th/cmp-path', -- nvim-cmp source plugin for auto-completion from path
-        'saadparwaiz1/cmp_luasnip', -- nvim-cmp plugin for auto-completion from snip
+        --'saadparwaiz1/cmp_luasnip', -- nvim-cmp plugin for auto-completion from snip
 
         -- Snippets
-        'L3MON4D3/LuaSnip', -- Snippet "Engine" (Required)
-        'rafamadriz/friendly-snippets', -- a bunch of snippets to use
+        --'L3MON4D3/LuaSnip', -- Snippet "Engine" (Required)
+        --'rafamadriz/friendly-snippets', -- a bunch of snippets to use
     },
 
     config = function ()
@@ -139,37 +139,37 @@ return {
         virtual_text = true
     })
 
-    --https://sbulav.github.io/vim/neovim-setting-up-luasnip/
-    --https://www.youtube.com/watch?v=ub0REXjhpmk&ab_channel=ziontee113-Healthy-Director-702
-    local status, ls = pcall(require, 'luasnip')
-    if (not status) then return end
+    ----https://sbulav.github.io/vim/neovim-setting-up-luasnip/
+    ----https://www.youtube.com/watch?v=ub0REXjhpmk&ab_channel=ziontee113-Healthy-Director-702
+    --local status, ls = pcall(require, 'luasnip')
+    --if (not status) then return end
 
-    local s = ls.snippet
-    local i = ls.insert_node
-    local t = ls.text_node
-    local f = ls.function_node
+    --local s = ls.snippet
+    --local i = ls.insert_node
+    --local t = ls.text_node
+    --local f = ls.function_node
 
-    --https://www.lua.org/pil/22.1.html
-    local date = function() return {os.date('%m/%d/%Y %H:%M:%S')} end
-    local file = function() return {vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())} end
+    ----https://www.lua.org/pil/22.1.html
+    --local date = function() return {os.date('%m/%d/%Y %H:%M:%S')} end
+    --local file = function() return {vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())} end
 
-    local comment_head = s("comment_head", {
-        t({   "/////////////////////////////////////////////////////////////////////////////////////////////////"}),
-        t({"","//"}),
-        t({"","// Author: jasonli LI,WEN-JIE"}),
-        t({"","//"}),
-        t({"","// LastMod: "}), f(date, {}),
-        t({"","//"}),
-        t({"","// Source: "}), f(file, {}),
-        t({"","//"}),
-        t({"","// Comment: "}), i(1, "N/A"),
-        t({"","//"}),
-        t({"","/////////////////////////////////////////////////////////////////////////////////////////////////"}),
-        t({""})
-    })
+    --local comment_head = s("comment_head", {
+    --    t({   "/////////////////////////////////////////////////////////////////////////////////////////////////"}),
+    --    t({"","//"}),
+    --    t({"","// Author: jasonli LI,WEN-JIE"}),
+    --    t({"","//"}),
+    --    t({"","// LastMod: "}), f(date, {}),
+    --    t({"","//"}),
+    --    t({"","// Source: "}), f(file, {}),
+    --    t({"","//"}),
+    --    t({"","// Comment: "}), i(1, "N/A"),
+    --    t({"","//"}),
+    --    t({"","/////////////////////////////////////////////////////////////////////////////////////////////////"}),
+    --    t({""})
+    --})
 
-    ls.add_snippets(nil, {
-        all = {comment_head}
-    })
+    --ls.add_snippets(nil, {
+    --    all = {comment_head}
+    --})
 end
 }

@@ -251,12 +251,12 @@ function bb () {
             selection="$(echo $selection | sed 's/\/$//g')"
             selection="$(pwd)/${selection}"
             eval `cp -rf $selection $selection.bak.$CUR_TIME`
-            echo "Backup: $selection.backup.$CUR_TIME"
+            echo "Backup: $selection.bak.$CUR_TIME"
         fi
     else
         selection="$(echo $1 | sed 's/\/$//g')"
         eval `cp -rf $selection $selection.bak.$CUR_TIME`
-        echo "Backup: $selection.backup.$CUR_TIME"
+        echo "Backup: $selection.bak.$CUR_TIME"
     fi
 }
 
