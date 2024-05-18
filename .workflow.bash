@@ -162,6 +162,28 @@ export TERM=tmux-256color; #echo "TERM=${TERM}" # in root: need terminfo/
 # enable zoxide
 eval "$(zoxide init bash)"
 
+##{{{
+#function parse_git_dirty {
+#  status=$(git status --porcelain -b 2> /dev/null)
+#  aheadRegex="ahead ([0-9]+)"
+#  behindRegex="behind ([0-9]+)"
+#
+#  [[ $status =~ $aheadRegex ]] && ahead="${BASH_REMATCH[1]}" || ahead="0"
+#  [[ $status =~ $behindRegex ]] && behind="${BASH_REMATCH[1]}" || behind="0"
+#
+#  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo -n ", dirty"
+#  [[ $ahead != "0" ]] && echo -n ", ↑${ahead}"
+#  [[ $behind != "0" ]] && echo -n ", ↓${behind}"
+#}
+#function parse_git_stash {
+#  [[ $(git stash list 2> /dev/null | tail -n1) != "" ]] && echo " \/ stash"
+#}
+#function parse_git_branch {
+#  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)$(parse_git_stash)/"
+#}
+#export PS1='\[\e[0;33m\]${HOSTNAME}\[\e[m\]  |  \W  |  \[\e[0;36m\]$(parse_git_branch)\[\e[m\]\n${USER} $ '
+##}}}
+
 # bash-git-promt config
 function parse_git_branch() {
      git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
