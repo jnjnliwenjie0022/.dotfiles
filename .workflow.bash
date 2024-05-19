@@ -184,12 +184,23 @@ eval "$(zoxide init bash)"
 #export PS1='\[\e[0;33m\]${HOSTNAME}\[\e[m\]  |  \W  |  \[\e[0;36m\]$(parse_git_branch)\[\e[m\]\n${USER} $ '
 ##}}}
 
-# bash-git-promt config
+# GIT_PS1
+#GIT_PS1_SHOWDIRTYSTATE='y'
+#GIT_PS1_SHOWSTASHSTATE='y'
+#GIT_PS1_SHOWUNTRACKEDFILES='y'
+#GIT_PS1_DESCRIBE_STYLE='contains'
+#GIT_PS1_SHOWUPSTREAM='auto'
+#source /etc/bash_completion.d/git-prompt
+#export PS1="\[\033[33m\][\w] \[\e[91m\]\$(__git_ps1) \n\[\033[33m\][\j] > \[\033[0m\]"
+
+# git status
+#https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
 function parse_git_branch() {
      git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
 }
 export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
 
+# bash-git-promt config
 file="${HOME}/.local/lib/bash-git-prompt/gitprompt.sh"
 if [ -f ${file} ]; then
     GIT_PROMPT_ONLY_IN_REPO=0
