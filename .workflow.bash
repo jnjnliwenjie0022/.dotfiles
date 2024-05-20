@@ -154,8 +154,8 @@ export PATH="$HOME/.local/script:${PATH}"
 #export DISPLAY=$(echo $(env | grep SSH_CLIENT= | sed -r 's/SSH_CLIENT=(.*)\s(.*)\s(.*)/\1:0/'))
 
 # tmux config
-export TERM=tmux-256color; #echo "TERM=${TERM}" # in root: need terminfo/
-#export TERM=xterm-256color; echo "TERM=${TERM}" # in root: need terminfo/
+#export TERM=tmux-256color; #echo "TERM=${TERM}" # in root: need terminfo/
+export TERM=xterm-256color; #echo "TERM=${TERM}" # in root: need terminfo/
 # check terminfo
 # infocmp tmux-256color
 
