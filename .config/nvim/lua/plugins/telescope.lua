@@ -3,12 +3,11 @@ return {
     event = "VeryLazy",
     tag = '0.1.6',
     dependencies = {
-        'nvim-lua/plenary.nvim'
+        'nvim-lua/plenary.nvim',
     },
     config = function ()
         local status, telescope = pcall(require, 'telescope')
         if (not status) then return end
-
         --keymaps: $HOME/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/mappings.lua
         local actions = require('telescope.actions')
         telescope.setup {
