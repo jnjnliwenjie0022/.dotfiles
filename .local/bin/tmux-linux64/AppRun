@@ -1,0 +1,4 @@
+#!/bin/bash
+unset ARGV0
+export TERMINFO=$APPDIR/usr/share/terminfo
+exec "$(dirname "$(readlink  -f "${0}")")/usr/bin/tmux" ${@+"$@"}

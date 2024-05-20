@@ -154,6 +154,9 @@ export PATH="$HOME/.local/script:${PATH}"
 #export DISPLAY=$(echo $(env | grep SSH_CLIENT= | sed -r 's/SSH_CLIENT=(.*)\s(.*)\s(.*)/\1:0/'))
 
 # tmux config
+# https://unix.stackexchange.com/questions/574669/clearing-tmux-terminal-throws-error-tmux-256color-unknown-terminal-type
+#infocmp -x xterm-256color > saved
+#tic -x saved
 #export TERM=tmux-256color; #echo "TERM=${TERM}" # in root: need terminfo/
 export TERM=xterm-256color; #echo "TERM=${TERM}" # in root: need terminfo/
 # check terminfo
