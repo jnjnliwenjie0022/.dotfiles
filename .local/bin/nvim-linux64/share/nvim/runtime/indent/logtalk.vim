@@ -1,6 +1,5 @@
 "  Maintainer:	Paulo Moura <pmoura@logtalk.org>
 "  Revised on:	2018.08.04
-"		2023 Aug 28 by Vim Project (undo_indent)
 "  Language:	Logtalk
 
 " This Logtalk indent file is a modified version of the Prolog
@@ -16,8 +15,6 @@ let b:did_indent = 1
 setlocal indentexpr=GetLogtalkIndent()
 setlocal indentkeys-=:,0#
 setlocal indentkeys+=0%,-,0;,>,0)
-
-let b:undo_indent = "setlocal indentexpr< indentkeys<"
 
 " Only define the function once.
 if exists("*GetLogtalkIndent")

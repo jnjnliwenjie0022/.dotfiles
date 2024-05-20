@@ -24,11 +24,10 @@ local SearchMembers = nil
 -- vim9script
 
 -- # Vim completion script
--- # Language:	C
--- # Maintainer:	The Vim Project <https://github.com/vim/vim>
--- # Last Change:	2023 Aug 10
+-- # Language:     C
+-- # Maintainer:   Bram Moolenaar <Bram@vim.org>
 -- #		Rewritten in Vim9 script by github user lacygoill
--- # Former Maintainer:   Bram Moolenaar <Bram@vim.org>
+-- # Last Change:  2022 Jan 31
 
 prepended = ''
 grepCache = vim.empty_dict()

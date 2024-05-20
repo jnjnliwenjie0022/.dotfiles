@@ -2,7 +2,7 @@
 " Language:		awk, nawk, gawk, mawk
 " Maintainer:		Doug Kearns <dougkearns@gmail.com>
 " Previous Maintainer:	Antonio Colombo <azc100@gmail.com>
-" Last Change:		2024 Jan 14
+" Last Change:		2020 Sep 28
 
 " This plugin was prepared by Mark Sikora
 " This plugin was updated as proposed by Doug Kearns
@@ -25,7 +25,8 @@ setlocal formatoptions-=t formatoptions+=croql
 setlocal define=function
 setlocal suffixesadd+=.awk
 
-let b:undo_ftplugin = "setl fo< com< cms< def< sua<"
+let b:undo_ftplugin = "setl fo< com< cms< def< sua<" .
+		    \ " | unlet! b:browsefilter"
 
 " TODO: set this in scripts.vim?
 if exists("g:awk_is_gawk")
@@ -36,25 +37,17 @@ if exists("g:awk_is_gawk")
     let b:undo_ftplugin .= " | setl fp<"
   endif
 
-  " Disabled by default for security reasons.
-  if dist#vim#IsSafeExecutable('awk', 'gawk')
-    let path = system("gawk 'BEGIN { printf ENVIRON[\"AWKPATH\"] }'")
-    let path = substitute(path, '^\.\=:\|:\.\=$\|:\.\=:', ',,', 'g') " POSIX cwd
-    let path = substitute(path, ':', ',', 'g')
+  let path = system("gawk 'BEGIN { printf ENVIRON[\"AWKPATH\"] }'")
+  let path = substitute(path, '^\.\=:\|:\.\=$\|:\.\=:', ',,', 'g') " POSIX cwd
+  let path = substitute(path, ':', ',', 'g')
 
-    let &l:path = path
-  endif
+  let &l:path = path
   let b:undo_ftplugin .= " | setl inc< path<"
 endif
 
 if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
-  let b:browsefilter = "Awk Source Files (*.awk, *.gawk)\t*.awk;*.gawk\n"
-  if has("win32")
-    let b:browsefilter .= "All Files (*.*)\t*\n"
-  else
-    let b:browsefilter .= "All Files (*)\t*\n"
-  endif
-  let b:undo_ftplugin .= " | unlet! b:browsefilter"
+  let b:browsefilter = "Awk Source Files (*.awk,*.gawk)\t*.awk;*.gawk\n" .
+		     \ "All Files (*.*)\t*.*\n"
 endif
 
 let &cpo = s:cpo_save

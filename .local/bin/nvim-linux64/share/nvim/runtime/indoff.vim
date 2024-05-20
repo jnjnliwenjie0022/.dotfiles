@@ -1,8 +1,7 @@
 " Vim support file to switch off loading indent files for file types
 "
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2001 Jun 11
 
 if exists("did_indent_on")
   unlet did_indent_on

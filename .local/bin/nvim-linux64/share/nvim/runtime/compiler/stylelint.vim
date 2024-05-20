@@ -1,12 +1,16 @@
 " Vim compiler file
 " Compiler:	Stylelint
 " Maintainer:	Doug Kearns <dougkearns@gmail.com>
-" Last Change:	2024 Apr 03
+" Last Change:	2020 Jun 10
 
 if exists("current_compiler")
   finish
 endif
 let current_compiler = "stylelint"
+
+if exists(":CompilerSet") != 2		" older Vim always used :setlocal
+  command -nargs=* CompilerSet setlocal <args>
+endif
 
 let s:cpo_save = &cpo
 set cpo&vim

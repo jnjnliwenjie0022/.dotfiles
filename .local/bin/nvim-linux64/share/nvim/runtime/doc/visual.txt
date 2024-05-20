@@ -169,7 +169,6 @@ If you want to highlight exactly the same area as the last time, you can use
 CTRL-C			In Visual mode: Stop Visual mode.  When insert mode is
 			pending (the mode message shows
 			"-- (insert) VISUAL --"), it is also stopped.
-			On MS-Windows, you may need to press CTRL-Break.
 
 ==============================================================================
 3. Changing the Visual area				*visual-change*
@@ -366,20 +365,6 @@ one of the last commands to extend the highlighted text, the repeating will
 be applied up to the rightmost column of the longest line.  Any count passed
 to the `.` command is not used.
 
-Visual mode |default-mappings| "@" and "Q" repeat a register for all selected
-lines if the selection is linewise.  See |v_@-default| and |v_Q-default| for
-details.  For example, given the text:
-
-	123(hello)321
-	456(world)654
-	456(NOT THIS)654
-
-With register "x" containing the commands `yi(VP`, visually selecting the
-first two lines and typing `@x` produces:
-
-	hello
-	world
-	456(NOT THIS)654
 
 ==============================================================================
 7. Examples						*visual-examples*
@@ -413,7 +398,7 @@ selected text: >
 (In the <> notation |<>|, when typing it you should type it literally; you
 need to remove the 'B' flag from 'cpoptions')
 
-Note that special characters (like '.' and "*") will cause problems.
+Note that special characters (like '.' and '*') will cause problems.
 
 Visual-block Examples					*blockwise-examples*
 With the following text, I will indicate the commands to produce the block and

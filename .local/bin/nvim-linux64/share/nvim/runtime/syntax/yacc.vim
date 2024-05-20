@@ -1,10 +1,9 @@
 " Vim syntax file
 " Language:	Yacc
-" Former Maintainer: Charles E. Campbell
+" Maintainer:	Charles E. Campbell <NcampObell@SdrPchip.AorgM-NOSPAM>
 " Last Change:	Mar 25, 2019
 " Version:	17
-"   2024 Feb 19 by Vim Project (announce adoption)
-" Former URL:	http://www.drchip.org/astronaut/vim/index.html#SYNTAX_YACC
+" URL:	http://www.drchip.org/astronaut/vim/index.html#SYNTAX_YACC
 "
 " Options: {{{1
 "   g:yacc_uses_cpp : if this variable exists, then C++ is loaded rather than C

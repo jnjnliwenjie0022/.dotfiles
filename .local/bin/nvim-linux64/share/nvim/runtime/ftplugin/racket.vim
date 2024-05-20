@@ -4,7 +4,6 @@
 " Previous Maintainer:  Will Langstroth <will@langstroth.com>
 " URL:                  https://github.com/benknoble/vim-racket
 " Last Change:          2022 Aug 29
-"                       2024 Jan 14 by Vim Project (browsefilter)
 
 if exists("b:did_ftplugin")
   finish
@@ -69,12 +68,8 @@ endif
 
 if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
   let b:browsefilter =
-        \  "Racket Source Files (*.rkt, *.rktl)\t*.rkt;*.rktl\n"
-  if has("win32")
-    let b:browsefilter .= "All Files (*.*)\t*\n"
-  else
-    let b:browsefilter .= "All Files (*)\t*\n"
-  endif
+        \  "Racket Source Files (*.rkt *.rktl)\t*.rkt;*.rktl\n"
+        \. "All Files (*.*)\t*.*\n"
   let b:undo_ftplugin .= " | unlet! b:browsefilter"
 endif
 

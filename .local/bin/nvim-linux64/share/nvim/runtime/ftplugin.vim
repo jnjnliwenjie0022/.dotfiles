@@ -1,8 +1,7 @@
 " Vim support file to switch on loading plugins for file types
 "
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last change:	2006 Apr 30
 
 if exists("did_load_ftplugin")
   finish
@@ -31,8 +30,10 @@ augroup filetypeplugin
       for name in split(s, '\.')
         " Load Lua ftplugins after Vim ftplugins _per directory_
         " TODO(clason): use nvim__get_runtime when supports globs and modeline
-        " XXX: "[.]" in the first pattern makes it a wildcard on Windows
-        exe $'runtime! ftplugin/{name}[.]{{vim,lua}} ftplugin/{name}_*.{{vim,lua}} ftplugin/{name}/*.{{vim,lua}}'
+        exe printf('runtime! ftplugin/%s.vim ftplugin/%s.lua
+                           \ ftplugin/%s_*.vim ftplugin/%s_*.lua
+                           \ ftplugin/%s/*.vim ftplugin/%s/*.lua',
+                           \ name, name, name, name, name, name)
       endfor
     endif
   endfunc

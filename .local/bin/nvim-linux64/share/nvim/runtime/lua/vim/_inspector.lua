@@ -1,21 +1,8 @@
---- @class vim._inspector.Filter
---- @inlinedoc
----
---- Include syntax based highlight groups.
---- (default: `true`)
---- @field syntax boolean
----
---- Include treesitter based highlight groups.
---- (default: `true`)
---- @field treesitter boolean
----
---- Include extmarks. When `all`, then extmarks without a `hl_group` will also be included.
---- (default: true)
---- @field extmarks boolean|"all"
----
---- Include semantic token highlights.
---- (default: true)
---- @field semantic_tokens boolean
+---@class InspectorFilter
+---@field syntax boolean include syntax based highlight groups (defaults to true)
+---@field treesitter boolean include treesitter based highlight groups (defaults to true)
+---@field extmarks boolean|"all" include extmarks. When `all`, then extmarks without a `hl_group` will also be included (defaults to true)
+---@field semantic_tokens boolean include semantic token highlights (defaults to true)
 local defaults = {
   syntax = true,
   treesitter = true,
@@ -25,12 +12,16 @@ local defaults = {
 
 ---Get all the items at a given buffer position.
 ---
----Can also be pretty-printed with `:Inspect!`. [:Inspect!]()
+---Can also be pretty-printed with `:Inspect!`. *:Inspect!*
 ---
 ---@param bufnr? integer defaults to the current buffer
 ---@param row? integer row to inspect, 0-based. Defaults to the row of the current cursor
 ---@param col? integer col to inspect, 0-based. Defaults to the col of the current cursor
----@param filter? vim._inspector.Filter Table with key-value pairs to filter the items
+---@param filter? InspectorFilter (table|nil) a table with key-value pairs to filter the items
+---               - syntax (boolean): include syntax based highlight groups (defaults to true)
+---               - treesitter (boolean): include treesitter based highlight groups (defaults to true)
+---               - extmarks (boolean|"all"): include extmarks. When `all`, then extmarks without a `hl_group` will also be included (defaults to true)
+---               - semantic_tokens (boolean): include semantic tokens (defaults to true)
 ---@return {treesitter:table,syntax:table,extmarks:table,semantic_tokens:table,buffer:integer,col:integer,row:integer} (table) a table with the following key-value pairs. Items are in "traversal order":
 ---               - treesitter: a list of treesitter captures
 ---               - syntax: a list of syntax groups
@@ -55,8 +46,8 @@ function vim.inspect_pos(bufnr, row, col, filter)
   bufnr = bufnr == 0 and vim.api.nvim_get_current_buf() or bufnr
 
   local results = {
-    treesitter = {}, --- @type table[]
-    syntax = {}, --- @type table[]
+    treesitter = {},
+    syntax = {},
     extmarks = {},
     semantic_tokens = {},
     buffer = bufnr,
@@ -65,6 +56,7 @@ function vim.inspect_pos(bufnr, row, col, filter)
   }
 
   -- resolve hl links
+  ---@private
   local function resolve_hl(data)
     if data.hl_group then
       local hlid = vim.api.nvim_get_hl_id_by_name(data.hl_group)
@@ -93,12 +85,13 @@ function vim.inspect_pos(bufnr, row, col, filter)
   end
 
   -- namespace id -> name map
-  local nsmap = {} --- @type table<integer,string>
+  local nsmap = {}
   for name, id in pairs(vim.api.nvim_get_namespaces()) do
     nsmap[id] = name
   end
 
-  --- Convert an extmark tuple into a table
+  --- Convert an extmark tuple into a map-like table
+  --- @private
   local function to_map(extmark)
     extmark = {
       id = extmark[1],
@@ -114,6 +107,7 @@ function vim.inspect_pos(bufnr, row, col, filter)
   end
 
   --- Check if an extmark overlaps this position
+  --- @private
   local function is_here(extmark)
     return (row >= extmark.row and row <= extmark.end_row) -- within the rows of the extmark
       and (row > extmark.row or col >= extmark.col) -- either not the first row, or in range of the col
@@ -143,25 +137,28 @@ end
 
 ---Show all the items at a given buffer position.
 ---
----Can also be shown with `:Inspect`. [:Inspect]()
+---Can also be shown with `:Inspect`. *:Inspect*
 ---
 ---@param bufnr? integer defaults to the current buffer
 ---@param row? integer row to inspect, 0-based. Defaults to the row of the current cursor
 ---@param col? integer col to inspect, 0-based. Defaults to the col of the current cursor
----@param filter? vim._inspector.Filter
+---@param filter? InspectorFilter (table|nil) see |vim.inspect_pos()|
 function vim.show_pos(bufnr, row, col, filter)
   local items = vim.inspect_pos(bufnr, row, col, filter)
 
   local lines = { {} }
 
+  ---@private
   local function append(str, hl)
     table.insert(lines[#lines], { str, hl })
   end
 
+  ---@private
   local function nl()
     table.insert(lines, {})
   end
 
+  ---@private
   local function item(data, comment)
     append('  - ')
     append(data.hl_group, data.hl_group)

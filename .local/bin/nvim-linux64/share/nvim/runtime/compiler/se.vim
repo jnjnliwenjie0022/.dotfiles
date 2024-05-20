@@ -1,12 +1,16 @@
 " Vim compiler file
 " Compiler:	se (Liberty Eiffel Compiler)
 " Maintainer:	Doug Kearns <dougkearns@gmail.com>
-" Last Change:	2024 Apr 03
+" Last Change:	2013 Jun 29
 
 if exists("current_compiler")
   finish
 endif
 let current_compiler = "se"
+
+if exists(":CompilerSet") != 2		" older Vim always used :setlocal
+  command -nargs=* CompilerSet setlocal <args>
+endif
 
 let s:cpo_save = &cpo
 set cpo-=C

@@ -2,7 +2,7 @@
 " Language:		PHP
 " Maintainer:		Doug Kearns <dougkearns@gmail.com>
 " Previous Maintainer:	Dan Sharp
-" Last Change:		2024 Jan 14
+" Last Changed:		2022 Jul 20
 
 if exists("b:did_ftplugin")
   finish
@@ -15,12 +15,8 @@ set cpo&vim
 
 " Define some defaults in case the included ftplugins don't set them.
 let s:undo_ftplugin = ""
-let s:browsefilter = "HTML Files (*.html, *.htm)\t*.html;*.htm\n"
-if has("win32")
-    let s:browsefilter ..= "All Files (*.*)\t*\n"
-else
-    let s:browsefilter ..= "All Files (*)\t*\n"
-endif
+let s:browsefilter = "HTML Files (*.html, *.htm)\t*.html;*.htm\n" ..
+      \		     "All Files (*.*)\t*.*\n"
 let s:match_words = ""
 
 runtime! ftplugin/html.vim ftplugin/html_*.vim ftplugin/html/*.vim

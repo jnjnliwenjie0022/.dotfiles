@@ -1,10 +1,9 @@
 " Vim syntax file
 " Language:	DCL (Digital Command Language - vms)
-" Maintainer:	This runtime file is looking for a new maintainer.
-" Former Maintainer: Charles E. Campbell
+" Maintainer:	Charles E. Campbell <NcampObell@SdrPchip.AorgM-NOSPAM>
 " Last Change:	Mar 26, 2019
 " Version:	13
-" Former URL:	http://www.drchip.org/astronaut/vim/index.html#SYNTAX_DCL
+" URL:	http://www.drchip.org/astronaut/vim/index.html#SYNTAX_DCL
 
 " quit when a syntax file was already loaded
 if exists("b:current_syntax")

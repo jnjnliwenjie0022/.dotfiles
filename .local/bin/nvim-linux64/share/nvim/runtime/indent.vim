@@ -1,8 +1,7 @@
 " Vim support file to switch on loading indent files for file types
 "
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2008 Feb 22
 
 if exists("did_indent_on")
   finish
@@ -25,8 +24,8 @@ augroup filetypeindent
       " When there is a dot it is used to separate filetype names.  Thus for
       " "aaa.bbb" load "indent/aaa.vim" and then "indent/bbb.vim".
       for name in split(s, '\.')
-        " XXX: "[.]" in the pattern makes it a wildcard on Windows
-        exe $'runtime! indent/{name}[.]{{vim,lua}}'
+        exe 'runtime! indent/' . name . '.vim'
+        exe 'runtime! indent/' . name . '.lua'
       endfor
     endif
   endfunc

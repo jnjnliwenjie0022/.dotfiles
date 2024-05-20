@@ -2,7 +2,6 @@
 " Language:    CMake
 " Maintainer:  Keith Smiley <keithbsmiley@gmail.com>
 " Last Change: 2018 Aug 30
-" 2024 Apr 20  - add include and suffixadd (Vim Project)
 
 " Only do this when not done yet for this buffer
 if exists("b:did_ftplugin")
@@ -16,7 +15,7 @@ set cpo&vim
 " Don't load another plugin for this buffer
 let b:did_ftplugin = 1
 
-let b:undo_ftplugin = "setl inc< sua< commentstring<"
+let b:undo_ftplugin = "setl commentstring<"
 
 if exists('loaded_matchit')
   let b:match_words = '\<if\>:\<elseif\>\|\<else\>:\<endif\>'
@@ -28,8 +27,6 @@ if exists('loaded_matchit')
   let b:undo_ftplugin .= "| unlet b:match_words"
 endif
 
-setlocal include=\s*include
-setlocal suffixesadd=.cmake,-config.cmake
 setlocal commentstring=#\ %s
 
 " restore 'cpo' and clean up buffer variable

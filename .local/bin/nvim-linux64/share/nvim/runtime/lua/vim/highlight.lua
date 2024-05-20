@@ -2,13 +2,6 @@ local api = vim.api
 
 local M = {}
 
---- Table with default priorities used for highlighting:
---- - `syntax`: `50`, used for standard syntax highlighting
---- - `treesitter`: `100`, used for treesitter-based highlighting
---- - `semantic_tokens`: `125`, used for LSP semantic token highlighting
---- - `diagnostics`: `150`, used for code analysis such as diagnostics
---- - `user`: `200`, used for user-triggered highlights such as LSP document
----   symbols or `on_yank` autocommands
 M.priorities = {
   syntax = 50,
   treesitter = 100,
@@ -17,41 +10,28 @@ M.priorities = {
   user = 200,
 }
 
---- @class vim.highlight.range.Opts
---- @inlinedoc
----
---- Type of range. See [setreg()]
---- (default: `'charwise'`)
---- @field regtype? string
----
---- Indicates whether the range is end-inclusive
---- (default: `false`)
---- @field inclusive? boolean
----
---- Indicates priority of highlight
---- (default: `vim.highlight.priorities.user`)
---- @field priority? integer
----
---- @field package _scoped? boolean
-
---- Apply highlight group to range of text.
+--- Highlight range between two positions
 ---
 ---@param bufnr integer Buffer number to apply highlighting to
 ---@param ns integer Namespace to add highlight to
 ---@param higroup string Highlight group to use for highlighting
----@param start integer[]|string Start of region as a (line, column) tuple or string accepted by |getpos()|
----@param finish integer[]|string End of region as a (line, column) tuple or string accepted by |getpos()|
----@param opts? vim.highlight.range.Opts
+---@param start { [1]: integer, [2]: integer } Start position {line, col}
+---@param finish { [1]: integer, [2]: integer } Finish position {line, col}
+---@param opts table|nil Optional parameters
+--             - regtype type of range (see |setreg()|, default charwise)
+--             - inclusive boolean indicating whether the range is end-inclusive (default false)
+--             - priority number indicating priority of highlight (default priorities.user)
 function M.range(bufnr, ns, higroup, start, finish, opts)
   opts = opts or {}
   local regtype = opts.regtype or 'v'
   local inclusive = opts.inclusive or false
   local priority = opts.priority or M.priorities.user
-  local scoped = opts._scoped or false
 
-  -- TODO: in case of 'v', 'V' (not block), this should calculate equivalent
-  -- bounds (row, col, end_row, end_col) as multiline regions are natively
-  -- supported now
+  -- sanity check
+  if start[2] < 0 or finish[1] < start[1] then
+    return
+  end
+
   local region = vim.region(bufnr, start, finish, regtype, inclusive)
   for linenr, cols in pairs(region) do
     local end_row
@@ -65,30 +45,27 @@ function M.range(bufnr, ns, higroup, start, finish, opts)
       end_col = cols[2],
       priority = priority,
       strict = false,
-      scoped = scoped,
     })
   end
 end
 
 local yank_ns = api.nvim_create_namespace('hlyank')
-local yank_timer --- @type uv.uv_timer_t?
-local yank_cancel --- @type fun()?
-
---- Highlight the yanked text during a |TextYankPost| event.
+local yank_timer
+--- Highlight the yanked region
 ---
---- Add the following to your `init.vim`:
+--- use from init.vim via
+---   au TextYankPost * lua vim.highlight.on_yank()
+--- customize highlight group and timeout via
+---   au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
+--- customize conditions (here: do not highlight a visual selection) via
+---   au TextYankPost * lua vim.highlight.on_yank {on_visual=false}
 ---
---- ```vim
---- autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup='Visual', timeout=300}
---- ```
----
---- @param opts table|nil Optional parameters
----              - higroup   highlight group for yanked region (default "IncSearch")
----              - timeout   time in ms before highlight is cleared (default 150)
----              - on_macro  highlight when executing macro (default false)
----              - on_visual highlight when yanking visual selection (default true)
----              - event     event structure (default vim.v.event)
----              - priority  integer priority (default |vim.highlight.priorities|`.user`)
+-- @param opts table|nil Optional parameters
+--              - higroup   highlight group for yanked region (default "IncSearch")
+--              - timeout   time in ms before highlight is cleared (default 150)
+--              - on_macro  highlight when executing macro (default false)
+--              - on_visual highlight when yanking visual selection (default true)
+--              - event     event structure (default vim.v.event)
 function M.on_yank(opts)
   vim.validate({
     opts = {
@@ -121,30 +98,33 @@ function M.on_yank(opts)
   local higroup = opts.higroup or 'IncSearch'
   local timeout = opts.timeout or 150
 
-  local bufnr = vim.api.nvim_get_current_buf()
-  local winid = vim.api.nvim_get_current_win()
+  local bufnr = api.nvim_get_current_buf()
+  api.nvim_buf_clear_namespace(bufnr, yank_ns, 0, -1)
   if yank_timer then
     yank_timer:close()
-    assert(yank_cancel)
-    yank_cancel()
   end
 
-  vim.api.nvim__win_add_ns(winid, yank_ns)
-  M.range(bufnr, yank_ns, higroup, "'[", "']", {
-    regtype = event.regtype,
-    inclusive = event.inclusive,
-    priority = opts.priority or M.priorities.user,
-    _scoped = true,
-  })
+  local pos1 = vim.fn.getpos("'[")
+  local pos2 = vim.fn.getpos("']")
 
-  yank_cancel = function()
+  pos1 = { pos1[2] - 1, pos1[3] - 1 + pos1[4] }
+  pos2 = { pos2[2] - 1, pos2[3] - 1 + pos2[4] }
+
+  M.range(
+    bufnr,
+    yank_ns,
+    higroup,
+    pos1,
+    pos2,
+    { regtype = event.regtype, inclusive = event.inclusive, priority = M.priorities.user }
+  )
+
+  yank_timer = vim.defer_fn(function()
     yank_timer = nil
-    yank_cancel = nil
-    pcall(vim.api.nvim_buf_clear_namespace, bufnr, yank_ns, 0, -1)
-    pcall(vim.api.nvim__win_del_ns, winid, yank_ns)
-  end
-
-  yank_timer = vim.defer_fn(yank_cancel, timeout)
+    if api.nvim_buf_is_valid(bufnr) then
+      api.nvim_buf_clear_namespace(bufnr, yank_ns, 0, -1)
+    end
+  end, timeout)
 end
 
 return M

@@ -1,11 +1,9 @@
 " Vim syntax file
 " Language:	Lex and Flex
-" Maintainer:	This runtime file is looking for a new maintainer.
-" Former Maintainer:	Charles E. Campbell
+" Maintainer:	Charles E. Campbell <NcampObell@SdrPchip.AorgM-NOSPAM>
 " Contributor:	Robert A. van Engelen <engelen@acm.org>
-" Version:	18
 " Last Change:	Apr 24, 2020
-"   2024 Feb 19 by Vim Project (announce adoption)
+" Version:	18
 
 " quit when a syntax file was already loaded
 if exists("b:current_syntax")

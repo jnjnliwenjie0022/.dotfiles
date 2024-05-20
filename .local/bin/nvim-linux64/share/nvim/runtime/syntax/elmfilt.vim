@@ -1,10 +1,9 @@
 " Vim syntax file
 " Language:	Elm Filter rules
-" Maintainer:	This runtime file is looking for a new maintainer.
-" Former Maintainer: Charles E. Campbell
+" Maintainer:	Charles E. Campbell <NcampObell@SdrPchip.AorgM-NOSPAM>
 " Last Change:	Aug 31, 2016
 " Version:	9
-" Former URL:	http://www.drchip.org/astronaut/vim/index.html#SYNTAX_ELMFILT
+" URL:	http://www.drchip.org/astronaut/vim/index.html#SYNTAX_ELMFILT
 
 " quit when a syntax file was already loaded
 if exists("b:current_syntax")

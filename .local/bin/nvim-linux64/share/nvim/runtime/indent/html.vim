@@ -1,7 +1,7 @@
 " Vim indent script for HTML
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
+" Maintainer:	Bram Moolenaar
 " Original Author: Andy Wokula <anwoku@yahoo.de>
-" Last Change:	2023 Aug 13
+" Last Change:	2022 Jan 31
 " Version:	1.0 "{{{
 " Description:	HTML indent script with cached state for faster indenting on a
 "		range of lines.

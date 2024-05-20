@@ -1,7 +1,6 @@
 " Vim syntax support file
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2016 Feb 01
 
 " This file is used for ":syntax manual".
 " It installs the Syntax autocommands, but no the FileType autocommands.

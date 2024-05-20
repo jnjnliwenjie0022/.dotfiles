@@ -1,7 +1,6 @@
 " Vim syntax support file
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2022 Apr 12
 
 " This file is used for ":syntax on".
 " It installs the autocommands and starts highlighting for all buffers.

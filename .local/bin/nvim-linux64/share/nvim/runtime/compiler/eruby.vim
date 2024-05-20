@@ -3,12 +3,16 @@
 " Maintainer:		Doug Kearns <dougkearns@gmail.com>
 " URL:			https://github.com/vim-ruby/vim-ruby
 " Release Coordinator:	Doug Kearns <dougkearns@gmail.com>
-" Last Change:		2024 Apr 03
+" Last Change:		2018 Jan 25
 
 if exists("current_compiler")
   finish
 endif
 let current_compiler = "eruby"
+
+if exists(":CompilerSet") != 2		" older Vim always used :setlocal
+  command -nargs=* CompilerSet setlocal <args>
+endif
 
 let s:cpo_save = &cpo
 set cpo-=C

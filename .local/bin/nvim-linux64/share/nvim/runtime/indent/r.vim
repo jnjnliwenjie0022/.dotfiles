@@ -1,10 +1,8 @@
 " Vim indent file
 " Language:	R
-" Maintainer: This runtime file is looking for a new maintainer.
-" Former Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
-" Former Repository: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	2023 Oct 08  10:45AM
-"		2024 Feb 19 by Vim Project (announce adoption)
+" Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
+" Homepage:     https://github.com/jalvesaq/R-Vim-runtime
+" Last Change:	Wed Oct 26, 2022  12:04PM
 
 
 " Only load this indent file when no other was loaded.
@@ -15,7 +13,6 @@ let b:did_indent = 1
 
 setlocal indentkeys=0{,0},:,!^F,o,O,e
 setlocal indentexpr=GetRIndent()
-setlocal autoindent
 
 let b:undo_indent = "setl inde< indk<"
 
@@ -50,23 +47,27 @@ function s:RDelete_quotes(line)
       if a:line[i] == '"'
         let i += 1
       endif
-    elseif a:line[i] == "'"
-      let i += 1
-      let line1 = line1 . 's'
-      while !(a:line[i] == "'" && ((i > 1 && a:line[i-1] == '\' && a:line[i-2] == '\') || a:line[i-1] != '\')) && i < llen
-        let i += 1
-      endwhile
+    else
       if a:line[i] == "'"
         let i += 1
-      endif
-    elseif a:line[i] == "`"
-      let i += 1
-      let line1 = line1 . 's'
-      while a:line[i] != "`" && i < llen
-        let i += 1
-      endwhile
-      if a:line[i] == "`"
-        let i += 1
+        let line1 = line1 . 's'
+        while !(a:line[i] == "'" && ((i > 1 && a:line[i-1] == '\' && a:line[i-2] == '\') || a:line[i-1] != '\')) && i < llen
+          let i += 1
+        endwhile
+        if a:line[i] == "'"
+          let i += 1
+        endif
+      else
+        if a:line[i] == "`"
+          let i += 1
+          let line1 = line1 . 's'
+          while a:line[i] != "`" && i < llen
+            let i += 1
+          endwhile
+          if a:line[i] == "`"
+            let i += 1
+          endif
+        endif
       endif
     endif
     if i == llen
@@ -96,8 +97,10 @@ function s:RDelete_parens(line)
         let i += 1
         if a:line[i] == ')'
           let nop -= 1
-        elseif a:line[i] == '('
-          let nop += 1
+        else
+          if a:line[i] == '('
+            let nop += 1
+          endif
         endif
       endwhile
       let line1 = line1 . a:line[i]
@@ -107,7 +110,7 @@ function s:RDelete_parens(line)
   return line1
 endfunction
 
-function s:Get_paren_balance(line, o, c)
+function! s:Get_paren_balance(line, o, c)
   let line2 = substitute(a:line, a:o, "", "g")
   let openp = strlen(a:line) - strlen(line2)
   let line3 = substitute(line2, a:c, "", "g")
@@ -115,7 +118,7 @@ function s:Get_paren_balance(line, o, c)
   return openp - closep
 endfunction
 
-function s:Get_matching_brace(linenr, o, c, delbrace)
+function! s:Get_matching_brace(linenr, o, c, delbrace)
   let line = SanitizeRLine(getline(a:linenr))
   if a:delbrace == 1
     let line = substitute(line, '{$', "", "")
@@ -131,7 +134,7 @@ endfunction
 
 " This function is buggy because there 'if's without 'else'
 " It must be rewritten relying more on indentation
-function s:Get_matching_if(linenr, delif)
+function! s:Get_matching_if(linenr, delif)
   let line = SanitizeRLine(getline(a:linenr))
   if a:delif
     let line = substitute(line, "if", "", "g")
@@ -159,7 +162,7 @@ function s:Get_matching_if(linenr, delif)
   endif
 endfunction
 
-function s:Get_last_paren_idx(line, o, c, pb)
+function! s:Get_last_paren_idx(line, o, c, pb)
   let blc = a:pb
   let line = substitute(a:line, '\t', s:curtabstop, "g")
   let theidx = -1
@@ -171,8 +174,10 @@ function s:Get_last_paren_idx(line, o, c, pb)
       if blc == 0
         let theidx = idx
       endif
-    elseif line[idx] == a:c
-      let blc += 1
+    else
+      if line[idx] == a:c
+        let blc += 1
+      endif
     endif
     let idx += 1
   endwhile
@@ -311,11 +316,6 @@ function GetRIndent()
     endif
 
     if pb < 0 && line =~ '.*[,&|\-\*+<>]$'
-      if line =~ '.*[\-\*+>]$'
-        let is_op = v:true
-      else
-        let is_op = v:false
-      endif
       let lnum = s:Get_prev_line(lnum)
       while pb < 1 && lnum > 0
         let line = SanitizeRLine(getline(lnum))
@@ -324,10 +324,9 @@ function GetRIndent()
         while ind > 0
           if line[ind] == ')'
             let pb -= 1
-          elseif line[ind] == '('
-            let pb += 1
-            if is_op && pb == 0
-              return indent(lnum)
+          else
+            if line[ind] == '('
+              let pb += 1
             endif
           endif
           if pb == 1
@@ -368,8 +367,10 @@ function GetRIndent()
       else
         return indent(lnum) + shiftwidth()
       endif
-    elseif substitute(oline, '#.*', '', '') =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
-      return indent(lnum) - shiftwidth()
+    else
+      if substitute(oline, '#.*', '', '') =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
+        return indent(lnum) - shiftwidth()
+      endif
     endif
   elseif substitute(line, '#.*', '', '') =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
     return indent(lnum) + shiftwidth()
@@ -403,10 +404,12 @@ function GetRIndent()
   if cline =~ '^\s*else'
     if line =~ '<-\s*if\s*()'
       return indent(lnum) + shiftwidth()
-    elseif line =~ '\<if\s*()'
-      return indent(lnum)
     else
-      return indent(lnum) - shiftwidth()
+      if line =~ '\<if\s*()'
+        return indent(lnum)
+      else
+        return indent(lnum) - shiftwidth()
+      endif
     endif
   endif
 

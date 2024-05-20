@@ -1,10 +1,7 @@
 " netrwSettings.vim: makes netrw settings simpler
-" Date:		Nov 15, 2021
-" Maintainer:   This runtime file is looking for a new maintainer.
-" Former Maintainer: Charles E Campbell
-" Version:	18
-" Last Change:
-"   2024 May 08 by Vim Project: cleanup legacy Win9X checks
+" Date:		Aug 12, 2021
+" Maintainer:	Charles E Campbell <NcampObell@SdrPchip.AorgM-NOSPAM>
+" Version:	17	ASTRO-ONLY
 " Copyright:    Copyright (C) 1999-2007 Charles E. Campbell {{{1
 "               Permission is hereby granted to use and distribute this code,
 "               with or without modifications, provided that this copyright
@@ -22,7 +19,7 @@
 if exists("g:loaded_netrwSettings") || &cp
   finish
 endif
-let g:loaded_netrwSettings = "v18"
+let g:loaded_netrwSettings = "v17"
 if v:version < 700
  echohl WarningMsg
  echo "***warning*** this version of netrwSettings needs vim 7.0"
@@ -93,6 +90,7 @@ fun! netrwSettings#NetrwSettings()
   put = 'let g:netrw_sshport           = '.g:netrw_sshport
   put = 'let g:netrw_silent            = '.g:netrw_silent
   put = 'let g:netrw_use_nt_rcp        = '.g:netrw_use_nt_rcp
+  put = 'let g:netrw_win95ftp          = '.g:netrw_win95ftp
   let s:netrw_xfer_stop= line(".")
   put =''
   put ='+ Netrw Messages'
@@ -161,6 +159,8 @@ fun! netrwSettings#NetrwSettings()
   put = 'let g:netrw_localmkdiropt     = '.g:netrw_localmkdiropt
   put = 'let g:netrw_localmovecmd      = '.g:netrw_localmovecmd
   put = 'let g:netrw_localmovecmdopt   = '.g:netrw_localmovecmdopt
+  put = 'let g:netrw_localrmdir        = '.g:netrw_localrmdir
+  put = 'let g:netrw_localrmdiropt     = '.g:netrw_localrmdiropt
   put = 'let g:netrw_maxfilenamelen    = '.g:netrw_maxfilenamelen
   put = 'let g:netrw_menu              = '.g:netrw_menu
   put = 'let g:netrw_mousemaps         = '.g:netrw_mousemaps

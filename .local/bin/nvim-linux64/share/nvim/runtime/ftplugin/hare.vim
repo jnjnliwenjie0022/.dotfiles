@@ -2,34 +2,26 @@
 " Language: Hare
 " Maintainer: Amelia Clarke <me@rsaihe.dev>
 " Previous Maintainer: Drew DeVault <sir@cmpwn.com>
-" Last Updated: 2022-09-28
-"               2023 Aug 28 by Vim Project (undo_ftplugin)
+" Last Updated: 2022-09-21
 
+" Only do this when not done yet for this buffer
 if exists('b:did_ftplugin')
   finish
 endif
+
+" Don't load another plugin for this buffer
 let b:did_ftplugin = 1
 
-" Formatting settings.
-setlocal formatoptions-=t formatoptions+=croql/
-
-" Miscellaneous.
-setlocal comments=://
+setlocal noexpandtab
+setlocal tabstop=8
+setlocal shiftwidth=0
+setlocal softtabstop=0
+setlocal textwidth=80
 setlocal commentstring=//\ %s
-setlocal suffixesadd=.ha
 
-let b:undo_ftplugin = "setl cms< com< fo< sua<"
-
-" Hare recommended style.
-if get(g:, "hare_recommended_style", 1)
-  setlocal noexpandtab
-  setlocal shiftwidth=8
-  setlocal softtabstop=0
-  setlocal tabstop=8
-  setlocal textwidth=80
-  let b:undo_ftplugin ..= " | setl et< sts< sw< ts< tw<"
-endif
+" Set 'formatoptions' to break comment lines but not other lines,
+" and insert the comment leader when hitting <CR> or using "o".
+setlocal fo-=t fo+=croql
 
 compiler hare
-
-" vim: et sw=2 sts=2 ts=8
+" vim: tabstop=2 shiftwidth=2 expandtab

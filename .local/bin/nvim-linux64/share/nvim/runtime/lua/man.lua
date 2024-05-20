@@ -14,19 +14,79 @@ local function man_error(msg)
 end
 
 -- Run a system command and timeout after 30 seconds.
----@param cmd string[]
+---@param cmd_ string[]
 ---@param silent boolean?
----@param env? table<string,string|number>
+---@param env string[]
 ---@return string
-local function system(cmd, silent, env)
-  local r = vim.system(cmd, { env = env, timeout = 10000 }):wait()
+local function system(cmd_, silent, env)
+  local stdout_data = {} ---@type string[]
+  local stderr_data = {} ---@type string[]
+  local stdout = assert(vim.loop.new_pipe(false))
+  local stderr = assert(vim.loop.new_pipe(false))
 
-  if r.code ~= 0 and not silent then
-    local cmd_str = table.concat(cmd, ' ')
-    man_error(string.format("command error '%s': %s", cmd_str, r.stderr))
+  local done = false
+  local exit_code ---@type integer?
+
+  -- We use the `env` command here rather than the env option to vim.loop.spawn since spawn will
+  -- completely overwrite the environment when we just want to modify the existing one.
+  --
+  -- Overwriting mainly causes problems NixOS which relies heavily on a non-standard environment.
+  local cmd = cmd_
+  if env then
+    cmd = { 'env' }
+    vim.list_extend(cmd, env)
+    vim.list_extend(cmd, cmd_)
   end
 
-  return assert(r.stdout)
+  local handle
+  handle = vim.loop.spawn(cmd[1], {
+    args = vim.list_slice(cmd, 2),
+    stdio = { nil, stdout, stderr },
+  }, function(code)
+    exit_code = code
+    stdout:close()
+    stderr:close()
+    handle:close()
+    done = true
+  end)
+
+  if handle then
+    stdout:read_start(function(_, data)
+      stdout_data[#stdout_data + 1] = data
+    end)
+    stderr:read_start(function(_, data)
+      stderr_data[#stderr_data + 1] = data
+    end)
+  else
+    stdout:close()
+    stderr:close()
+    if not silent then
+      local cmd_str = table.concat(cmd, ' ')
+      man_error(string.format('command error: %s', cmd_str))
+    end
+    return ''
+  end
+
+  vim.wait(30000, function()
+    return done
+  end)
+
+  if not done then
+    if handle then
+      handle:close()
+      stdout:close()
+      stderr:close()
+    end
+    local cmd_str = table.concat(cmd, ' ')
+    man_error(string.format('command timed out: %s', cmd_str))
+  end
+
+  if exit_code ~= 0 and not silent then
+    local cmd_str = table.concat(cmd, ' ')
+    man_error(string.format("command error '%s': %s", cmd_str, table.concat(stderr_data)))
+  end
+
+  return table.concat(stdout_data)
 end
 
 ---@param line string
@@ -238,7 +298,7 @@ local function get_path(sect, name, silent)
   -- If you run man -w strlen and string.3 comes up first, this is a problem. We
   -- should search for a matching named one in the results list.
   -- However, if you search for man -w clock_gettime, you will *only* get
-  -- clock_getres.2, which is the right page. Searching the results for
+  -- clock_getres.2, which is the right page. Searching the resuls for
   -- clock_gettime will no longer work. In this case, we should just use the
   -- first one that was found in the correct section.
   --
@@ -252,7 +312,7 @@ local function get_path(sect, name, silent)
   end
 
   local lines = system(cmd, silent)
-  local results = vim.split(lines, '\n', { trimempty = true })
+  local results = vim.split(lines or {}, '\n', { trimempty = true })
 
   if #results == 0 then
     return
@@ -411,13 +471,15 @@ local function find_man()
   return false
 end
 
-local function set_options()
+---@param pager boolean
+local function set_options(pager)
   vim.bo.swapfile = false
   vim.bo.buftype = 'nofile'
-  vim.bo.bufhidden = 'unload'
+  vim.bo.bufhidden = 'hide'
   vim.bo.modified = false
   vim.bo.readonly = true
   vim.bo.modifiable = false
+  vim.b.pager = pager
   vim.bo.filetype = 'man'
 end
 
@@ -434,7 +496,7 @@ local function get_page(path, silent)
   elseif vim.env.MANWIDTH then
     manwidth = vim.env.MANWIDTH
   else
-    manwidth = api.nvim_win_get_width(0) - vim.o.wrapmargin
+    manwidth = api.nvim_win_get_width(0)
   end
 
   local cmd = localfile_arg and { 'man', '-l', path } or { 'man', path }
@@ -443,9 +505,9 @@ local function get_page(path, silent)
   -- http://comments.gmane.org/gmane.editors.vim.devel/29085
   -- Set MAN_KEEP_FORMATTING so Debian man doesn't discard backspaces.
   return system(cmd, silent, {
-    MANPAGER = 'cat',
-    MANWIDTH = manwidth,
-    MAN_KEEP_FORMATTING = 1,
+    'MANPAGER=cat',
+    'MANWIDTH=' .. manwidth,
+    'MAN_KEEP_FORMATTING=1',
   })
 end
 
@@ -473,7 +535,7 @@ local function put_page(page)
   vim.cmd([[silent! keeppatterns keepjumps %s/\s\{199,}/\=repeat(' ', 10)/g]])
   vim.cmd('1') -- Move cursor to first line
   highlight_man_page()
-  set_options()
+  set_options(false)
 end
 
 local function format_candidate(path, psect)
@@ -660,8 +722,7 @@ function M.init_pager()
     vim.cmd.file({ 'man://' .. fn.fnameescape(ref):lower(), mods = { silent = true } })
   end
 
-  vim.g.pager = true
-  set_options()
+  set_options(true)
 end
 
 ---@param count integer
@@ -715,11 +776,11 @@ function M.open_page(count, smods, args)
   local target = ('%s(%s)'):format(name, sect)
 
   local ok, ret = pcall(function()
-    smods.silent = true
-    smods.keepalt = true
-    if smods.hide or (smods.tab == -1 and find_man()) then
-      vim.cmd.tag({ target, mods = smods })
+    if smods.tab == -1 and find_man() then
+      vim.cmd.tag({ target, mods = { silent = true, keepalt = true } })
     else
+      smods.silent = true
+      smods.keepalt = true
       vim.cmd.stag({ target, mods = smods })
     end
   end)
@@ -729,7 +790,7 @@ function M.open_page(count, smods, args)
   if not ok then
     error(ret)
   else
-    set_options()
+    set_options(false)
   end
 
   vim.b.man_sect = sect

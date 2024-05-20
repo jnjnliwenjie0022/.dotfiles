@@ -1,5 +1,6 @@
 local api = vim.api
 
+---@class TSLanguageModule
 local M = {}
 
 ---@type table<string,string>
@@ -26,21 +27,11 @@ function M.get_lang(filetype)
   if filetype == '' then
     return
   end
-  if ft_to_lang[filetype] then
-    return ft_to_lang[filetype]
-  end
-  -- support subfiletypes like html.glimmer
-  filetype = vim.split(filetype, '.', { plain = true })[1]
   return ft_to_lang[filetype]
 end
 
 ---@deprecated
 function M.require_language(lang, path, silent, symbol_name)
-  vim.deprecate(
-    'vim.treesitter.language.require_language()',
-    'vim.treesitter.language.add()',
-    '0.12'
-  )
   local opts = {
     silent = silent,
     path = path,
@@ -56,17 +47,10 @@ function M.require_language(lang, path, silent, symbol_name)
   return true
 end
 
----@class vim.treesitter.language.add.Opts
----@inlinedoc
----
----Default filetype the parser should be associated with.
----(Default: {lang})
----@field filetype? string|string[]
----
----Optional path the parser is located at
+---@class treesitter.RequireLangOpts
 ---@field path? string
----
----Internal symbol name for the language to load
+---@field silent? boolean
+---@field filetype? string|string[]
 ---@field symbol_name? string
 
 --- Load parser with name {lang}
@@ -74,8 +58,13 @@ end
 --- Parsers are searched in the `parser` runtime directory, or the provided {path}
 ---
 ---@param lang string Name of the parser (alphanumerical and `_` only)
----@param opts? vim.treesitter.language.add.Opts Options:
+---@param opts (table|nil) Options:
+---                        - filetype (string|string[]) Default filetype the parser should be associated with.
+---                          Defaults to {lang}.
+---                        - path (string|nil) Optional path the parser is located at
+---                        - symbol_name (string|nil) Internal symbol name for the language to load
 function M.add(lang, opts)
+  ---@cast opts treesitter.RequireLangOpts
   opts = opts or {}
   local path = opts.path
   local filetype = opts.filetype or lang
@@ -88,11 +77,9 @@ function M.add(lang, opts)
     filetype = { filetype, { 'string', 'table' }, true },
   })
 
-  -- parser names are assumed to be lowercase (consistent behavior on case-insensitive file systems)
-  lang = lang:lower()
+  M.register(lang, filetype)
 
   if vim._ts_has_language(lang) then
-    M.register(lang, filetype)
     return
   end
 
@@ -110,9 +97,9 @@ function M.add(lang, opts)
   end
 
   vim._ts_add_language(path, lang, symbol_name)
-  M.register(lang, filetype)
 end
 
+--- @private
 --- @param x string|string[]
 --- @return string[]
 local function ensure_list(x)
@@ -123,10 +110,6 @@ local function ensure_list(x)
 end
 
 --- Register a parser named {lang} to be used for {filetype}(s).
----
---- Note: this adds or overrides the mapping for {filetype}, any existing mappings from other
---- filetypes to {lang} will be preserved.
----
 --- @param lang string Name of parser
 --- @param filetype string|string[] Filetype(s) to associate with lang
 function M.register(lang, filetype)
@@ -151,6 +134,16 @@ end
 function M.inspect(lang)
   M.add(lang)
   return vim._ts_inspect_language(lang)
+end
+
+---@deprecated
+function M.inspect_language(...)
+  vim.deprecate(
+    'vim.treesitter.language.inspect_language()',
+    'vim.treesitter.language.inspect()',
+    '0.10'
+  )
+  return M.inspect(...)
 end
 
 return M

@@ -1324,7 +1324,7 @@ function! s:ErlangCalcIndent2(lnum, stack)
           "   maybe A else
           "               LTI
           "
-          " Note about Emacs compatibility {{{
+          " Note about Emacs compabitility {{{
           "
           " It would be fine to indent the examples above the following way:
           "

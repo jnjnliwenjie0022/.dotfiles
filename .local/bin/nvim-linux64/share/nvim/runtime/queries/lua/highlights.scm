@@ -1,79 +1,81 @@
-; Keywords
+;; Keywords
+
 "return" @keyword.return
 
 [
-  "goto"
-  "in"
-  "local"
+ "goto"
+ "in"
+ "local"
 ] @keyword
 
 (break_statement) @keyword
 
 (do_statement
-  [
-    "do"
-    "end"
-  ] @keyword)
+[
+  "do"
+  "end"
+] @keyword)
 
 (while_statement
-  [
-    "while"
-    "do"
-    "end"
-  ] @keyword.repeat)
+[
+  "while"
+  "do"
+  "end"
+] @repeat)
 
 (repeat_statement
-  [
-    "repeat"
-    "until"
-  ] @keyword.repeat)
+[
+  "repeat"
+  "until"
+] @repeat)
 
 (if_statement
-  [
-    "if"
-    "elseif"
-    "else"
-    "then"
-    "end"
-  ] @keyword.conditional)
+[
+  "if"
+  "elseif"
+  "else"
+  "then"
+  "end"
+] @conditional)
 
 (elseif_statement
-  [
-    "elseif"
-    "then"
-    "end"
-  ] @keyword.conditional)
+[
+  "elseif"
+  "then"
+  "end"
+] @conditional)
 
 (else_statement
-  [
-    "else"
-    "end"
-  ] @keyword.conditional)
+[
+  "else"
+  "end"
+] @conditional)
 
 (for_statement
-  [
-    "for"
-    "do"
-    "end"
-  ] @keyword.repeat)
+[
+  "for"
+  "do"
+  "end"
+] @repeat)
 
 (function_declaration
-  [
-    "function"
-    "end"
-  ] @keyword.function)
+[
+  "function"
+  "end"
+] @keyword.function)
 
 (function_definition
-  [
-    "function"
-    "end"
-  ] @keyword.function)
-
-; Operators
 [
-  "and"
-  "not"
-  "or"
+  "function"
+  "end"
+] @keyword.function)
+
+;; Operators
+
+[
+ "and"
+ "not"
+ "or"
 ] @keyword.operator
 
 [
@@ -100,7 +102,8 @@
   ".."
 ] @operator
 
-; Punctuations
+;; Punctuations
+
 [
   ";"
   ":"
@@ -109,17 +112,19 @@
   "."
 ] @punctuation.delimiter
 
-; Brackets
+;; Brackets
+
 [
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
+ "("
+ ")"
+ "["
+ "]"
+ "{"
+ "}"
 ] @punctuation.bracket
 
-; Variables
+;; Variables
+
 (identifier) @variable
 
 ((identifier) @constant.builtin
@@ -128,28 +133,27 @@
 ((identifier) @variable.builtin
   (#eq? @variable.builtin "self"))
 
-((identifier) @module.builtin
-  (#any-of? @module.builtin "_G" "debug" "io" "jit" "math" "os" "package" "string" "table" "utf8"))
+((identifier) @namespace.builtin
+  (#any-of? @namespace.builtin "_G" "debug" "io" "jit" "math" "os" "package" "string" "table" "utf8"))
 
 ((identifier) @keyword.coroutine
   (#eq? @keyword.coroutine "coroutine"))
 
 (variable_list
-  (attribute
-    "<" @punctuation.bracket
-    (identifier) @attribute
-    ">" @punctuation.bracket))
+   attribute: (attribute
+     (["<" ">"] @punctuation.bracket
+      (identifier) @attribute)))
 
-; Labels
-(label_statement
-  (identifier) @label)
+;; Labels
 
-(goto_statement
-  (identifier) @label)
+(label_statement (identifier) @label)
 
-; Constants
+(goto_statement (identifier) @label)
+
+;; Constants
+
 ((identifier) @constant
-  (#lua-match? @constant "^[A-Z][A-Z_0-9]*$"))
+ (#lua-match? @constant "^[A-Z][A-Z_0-9]*$"))
 
 (vararg_expression) @constant
 
@@ -160,24 +164,21 @@
   (true)
 ] @boolean
 
-; Tables
-(field
-  name: (identifier) @variable.member)
+;; Tables
 
-(dot_index_expression
-  field: (identifier) @variable.member)
+(field name: (identifier) @field)
+
+(dot_index_expression field: (identifier) @field)
 
 (table_constructor
-  [
-    "{"
-    "}"
-  ] @constructor)
+[
+  "{"
+  "}"
+] @constructor)
 
-; Functions
-(parameters
-  (identifier) @variable.parameter)
+;; Functions
 
-(vararg_expression) @variable.parameter.builtin
+(parameters (identifier) @parameter)
 
 (function_declaration
   name: [
@@ -188,18 +189,16 @@
 
 (function_declaration
   name: (method_index_expression
-    method: (identifier) @function.method))
+    method: (identifier) @method))
 
 (assignment_statement
-  (variable_list
-    .
+  (variable_list .
     name: [
       (identifier) @function
       (dot_index_expression
         field: (identifier) @function)
     ])
-  (expression_list
-    .
+  (expression_list .
     value: (function_definition)))
 
 (table_constructor
@@ -213,21 +212,23 @@
     (dot_index_expression
       field: (identifier) @function.call)
     (method_index_expression
-      method: (identifier) @function.method.call)
+      method: (identifier) @method.call)
   ])
 
 (function_call
   (identifier) @function.builtin
   (#any-of? @function.builtin
-    ; built-in functions in Lua 5.1
-    "assert" "collectgarbage" "dofile" "error" "getfenv" "getmetatable" "ipairs" "load" "loadfile"
-    "loadstring" "module" "next" "pairs" "pcall" "print" "rawequal" "rawget" "rawlen" "rawset"
-    "require" "select" "setfenv" "setmetatable" "tonumber" "tostring" "type" "unpack" "xpcall"
-    "__add" "__band" "__bnot" "__bor" "__bxor" "__call" "__concat" "__div" "__eq" "__gc" "__idiv"
-    "__index" "__le" "__len" "__lt" "__metatable" "__mod" "__mul" "__name" "__newindex" "__pairs"
-    "__pow" "__shl" "__shr" "__sub" "__tostring" "__unm"))
+    ;; built-in functions in Lua 5.1
+    "assert" "collectgarbage" "dofile" "error" "getfenv" "getmetatable" "ipairs"
+    "load" "loadfile" "loadstring" "module" "next" "pairs" "pcall" "print"
+    "rawequal" "rawget" "rawlen" "rawset" "require" "select" "setfenv" "setmetatable"
+    "tonumber" "tostring" "type" "unpack" "xpcall"
+    "__add" "__band" "__bnot" "__bor" "__bxor" "__call" "__concat" "__div" "__eq" "__gc"
+    "__idiv" "__index" "__le" "__len" "__lt" "__metatable" "__mod" "__mul" "__name" "__newindex"
+    "__pairs" "__pow" "__shl" "__shr" "__sub" "__tostring" "__unm"))
 
-; Others
+;; Others
+
 (comment) @comment @spell
 
 ((comment) @comment.documentation
@@ -236,7 +237,7 @@
 ((comment) @comment.documentation
   (#lua-match? @comment.documentation "^[-][-](%s?)@"))
 
-(hash_bang_line) @keyword.directive
+(hash_bang_line) @preproc
 
 (number) @number
 
@@ -244,24 +245,5 @@
 
 (escape_sequence) @string.escape
 
-; string.match("123", "%d+")
-(function_call
-  (dot_index_expression
-    field: (identifier) @_method
-    (#any-of? @_method "find" "match" "gmatch" "gsub"))
-  arguments: (arguments
-    .
-    (_)
-    .
-    (string
-      content: (string_content) @string.regexp)))
-
-;("123"):match("%d+")
-(function_call
-  (method_index_expression
-    method: (identifier) @_method
-    (#any-of? @_method "find" "match" "gmatch" "gsub"))
-  arguments: (arguments
-    .
-    (string
-      content: (string_content) @string.regexp)))
+;; Error
+(ERROR) @error

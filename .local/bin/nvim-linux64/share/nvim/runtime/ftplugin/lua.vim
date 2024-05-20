@@ -4,8 +4,7 @@
 " Previous Maintainer:	Max Ischenko <mfi@ukr.net>
 " Contributor:		Dorai Sitaram <ds26@gte.com>
 "			C.D. MacEachern <craig.daniel.maceachern@gmail.com>
-"			Tyler Miller <tmillr@proton.me>
-" Last Change:		2024 Jan 14
+" Last Change:		2022 Nov 19
 
 if exists("b:did_ftplugin")
   finish
@@ -15,7 +14,7 @@ let b:did_ftplugin = 1
 let s:cpo_save = &cpo
 set cpo&vim
 
-setlocal comments=:---,:--
+setlocal comments=:--
 setlocal commentstring=--\ %s
 setlocal formatoptions-=t formatoptions+=croql
 
@@ -39,12 +38,8 @@ if exists("loaded_matchit") && !exists("b:match_words")
 endif
 
 if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
-  let b:browsefilter = "Lua Source Files (*.lua)\t*.lua\n"
-  if has("win32")
-    let b:browsefilter ..= "All Files (*.*)\t*\n"
-  else
-    let b:browsefilter ..= "All Files (*)\t*\n"
-  endif
+  let b:browsefilter = "Lua Source Files (*.lua)\t*.lua\n" ..
+	\	       "All Files (*.*)\t*.*\n"
   let b:undo_ftplugin ..= " | unlet! b:browsefilter"
 endif
 

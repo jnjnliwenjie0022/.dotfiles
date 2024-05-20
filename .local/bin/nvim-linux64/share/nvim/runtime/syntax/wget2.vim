@@ -1,9 +1,9 @@
 " Vim syntax file
-" Language:	Wget2 configuration file (/etc/wget2rc ~/.wget2rc)
+" Language:     Wget2 configuration file (/etc/wget2rc ~/.wget2rc)
 " Maintainer:	Doug Kearns <dougkearns@gmail.com>
-" Last Change:	2023 Nov 05
+" Last Change:	2022 Apr 28
 
-" GNU Wget2 2.1.0 - multithreaded metalink/file/website downloader
+" GNU Wget2 2.0.0 - multithreaded metalink/file/website downloader
 
 if exists("b:current_syntax")
   finish
@@ -12,20 +12,21 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-syn match wget2Comment "#.*" contains=wget2Todo contained
+syn match wgetComment "#.*$" contains=wgetTodo contained
 
-syn keyword wget2Todo TODO NOTE FIXME XXX contained
+syn keyword wgetTodo TODO NOTE FIXME XXX contained
 
-syn region wget2String start=+"+ skip=+\\\\\|\\"+ end=+"+ contained oneline
-syn region wget2String start=+'+ skip=+\\\\\|\\'+ end=+'+ contained oneline
+syn region wgetString start=+"+ skip=+\\\\\|\\"+ end=+"+ contained oneline
+syn region wgetString start=+'+ skip=+\\\\\|\\'+ end=+'+ contained oneline
 
 syn case ignore
 
-syn keyword wget2Boolean on off yes no y n contained
-syn keyword wget2Number	 infinity inf	   contained
-syn match   wget2Number "\<\d\+>"	   contained
-syn match   wget2Quota	"\<\d\+[kmgt]\>"   contained
-syn match   wget2Time	"\<\d\+[smhd]\>"   contained
+syn keyword wgetBoolean on off yes no y n contained
+syn keyword wgetNumber	infinity inf	  contained
+
+syn match wgetNumber "\<\d\+>"		  contained
+syn match wgetQuota  "\<\d\+[kmgt]\>"	  contained
+syn match wgetTime   "\<\d\+[smhd]\>"	  contained
 
 "{{{ Commands
 let s:commands =<< trim EOL
@@ -66,7 +67,6 @@ let s:commands =<< trim EOL
   cut-dirs
   cut-file-get-vars
   cut-url-get-vars
-  dane
   debug
   default-http-port
   default-https-port
@@ -85,7 +85,6 @@ let s:commands =<< trim EOL
   execute
   filter-mime-type
   filter-urls
-  follow-sitemaps
   follow-tags
   force-atom
   force-css
@@ -222,27 +221,28 @@ let s:commands =<< trim EOL
 EOL
 "}}}
 
+call map(s:commands, "substitute(v:val, '_', '[-_]\\\\=', 'g')")
+
 for cmd in s:commands
-  exe 'syn match wget2Command "\<' .. substitute(cmd, '-', '[-_]\\=', "g") .. '\>" nextgroup=wget2AssignmentOperator skipwhite contained'
+  exe 'syn match wgetCommand "\<' . cmd . '\>" nextgroup=wgetAssignmentOperator skipwhite contained'
 endfor
-unlet s:commands
 
 syn case match
 
-syn match wget2LineStart	  "^" nextgroup=wget2Command,wget2Comment skipwhite
-syn match wget2AssignmentOperator "=" nextgroup=wget2String,wget2Boolean,wget2Number,wget2Quota,wget2Time skipwhite contained
+syn match wgetStart "^" nextgroup=wgetCommand,wgetComment skipwhite
+syn match wgetAssignmentOperator "=" nextgroup=wgetString,wgetBoolean,wgetNumber,wgetQuota,wgetTime skipwhite contained
 
-hi def link wget2AssignmentOperator Special
-hi def link wget2Boolean	    Boolean
-hi def link wget2Command	    Identifier
-hi def link wget2Comment	    Comment
-hi def link wget2Number		    Number
-hi def link wget2Quota		    Number
-hi def link wget2String		    String
-hi def link wget2Time		    Number
-hi def link wget2Todo		    Todo
+hi def link wgetAssignmentOperator Special
+hi def link wgetBoolean		   Boolean
+hi def link wgetCommand		   Identifier
+hi def link wgetComment		   Comment
+hi def link wgetNumber		   Number
+hi def link wgetQuota		   Number
+hi def link wgetString		   String
+hi def link wgetTime		   Number
+hi def link wgetTodo		   Todo
 
-let b:current_syntax = "wget2"
+let b:current_syntax = "wget"
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

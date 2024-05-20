@@ -4,7 +4,7 @@
 " Last change:	2001 May 01
 "
 " This is incomplete.  In particular, support for 68020 and
-" up and 68851/68881 co-processors is partial or non-existent.
+" up and 68851/68881 co-processors is partial or non-existant.
 " Feel free to contribute...
 "
 

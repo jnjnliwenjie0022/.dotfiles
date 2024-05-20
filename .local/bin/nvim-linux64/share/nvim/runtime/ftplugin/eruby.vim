@@ -3,8 +3,7 @@
 " Maintainer:		Tim Pope <vimNOSPAM@tpope.org>
 " URL:			https://github.com/vim-ruby/vim-ruby
 " Release Coordinator:	Doug Kearns <dougkearns@gmail.com>
-" Last Change:		2022 May 15
-"			2024 Jan 14 by Vim Project (browsefilter)
+" Last Change:		2020 Jun 28
 
 " Only do this when not done yet for this buffer
 if exists("b:did_ftplugin")
@@ -16,11 +15,7 @@ set cpo-=C
 
 " Define some defaults in case the included ftplugins don't set them.
 let s:undo_ftplugin = ""
-if has("win32")
-  let s:browsefilter = "All Files (*.*)\t*\n"
-else
-  let s:browsefilter = "All Files (*)\t*\n"
-endif
+let s:browsefilter = "All Files (*.*)\t*.*\n"
 let s:match_words = ""
 
 if !exists("g:eruby_default_subtype")
@@ -91,12 +86,8 @@ runtime! ftplugin/ruby.vim ftplugin/ruby_*.vim ftplugin/ruby/*.vim
 let b:did_ftplugin = 1
 
 " Combine the new set of values with those previously included.
-if !exists('b:undo_ftplugin')
-  " No-op
-  let b:undo_ftplugin = 'exe'
-endif
-if !empty(s:undo_ftplugin)
-  let b:undo_ftplugin .= '|' . s:undo_ftplugin
+if exists("b:undo_ftplugin")
+  let s:undo_ftplugin = b:undo_ftplugin . " | " . s:undo_ftplugin
 endif
 if exists ("b:browsefilter")
   let s:browsefilter = substitute(b:browsefilter,'\cAll Files (\*\.\*)\t\*\.\*\n','','') . s:browsefilter
@@ -114,8 +105,8 @@ exe 'cmap <buffer><script><expr> <Plug><cfile> ErubyAtCursor() ? ' . maparg('<Pl
 exe 'cmap <buffer><script><expr> <Plug><ctag> ErubyAtCursor() ? ' . maparg('<Plug><ctag>', 'c') . ' : ' . get(s:ctagmap, 'rhs', '"\022\027"')
 unlet s:cfilemap s:ctagmap s:include s:path s:suffixesadd
 
-" Change the browse dialog on Win32 and GTK to show mainly eRuby-related files
-if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
+" Change the browse dialog on Win32 to show mainly eRuby-related files
+if has("gui_win32")
   let b:browsefilter="eRuby Files (*.erb, *.rhtml)\t*.erb;*.rhtml\n" . s:browsefilter
 endif
 
@@ -128,7 +119,7 @@ endif
 setlocal commentstring=<%#%s%>
 
 let b:undo_ftplugin = "setl cms< " .
-      \ " | unlet! b:browsefilter b:match_words | " . b:undo_ftplugin
+      \ " | unlet! b:browsefilter b:match_words | " . s:undo_ftplugin
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

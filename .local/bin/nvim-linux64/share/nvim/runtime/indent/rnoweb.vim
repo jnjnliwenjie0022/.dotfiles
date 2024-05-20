@@ -1,10 +1,8 @@
 " Vim indent file
 " Language:	Rnoweb
-" Maintainer: This runtime file is looking for a new maintainer.
-" Former Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
-" Former Repository: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	2024 Feb 27  07:17PM
-"		2024 Feb 19 by Vim Project (announce adoption)
+" Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
+" Homepage:     https://github.com/jalvesaq/R-Vim-runtime
+" Last Change:	Feb 25, 2023
 
 
 " Only load this indent file when no other was loaded.
@@ -13,7 +11,7 @@ if exists("b:did_indent")
 endif
 runtime indent/tex.vim
 
-function s:NoTeXIndent()
+function! s:NoTeXIndent()
   return indent(line("."))
 endfunction
 

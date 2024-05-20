@@ -92,7 +92,8 @@ tag		char		action in Insert mode	~
 		CTRL-\ others	not used
 |i_CTRL-]|	CTRL-]		trigger abbreviation
 |i_CTRL-^|	CTRL-^		toggle use of |:lmap| mappings
-|i_CTRL-_|	CTRL-_		When 'allowrevins' set: toggle 'revins'
+|i_CTRL-_|	CTRL-_		When 'allowrevins' set: change language
+				(Hebrew)
 
 		<Space> to '~'	not used, except '0' and '^' followed by
 				CTRL-D
@@ -474,7 +475,7 @@ tag		command		   action in op-pending and Visual mode	~
 |v_a)|		a)		   same as ab
 |v_a<|		a<		   "a <>" from '<' to the matching '>'
 |v_a>|		a>		   same as a<
-|v_aB|		aB		   "a Block" from `[{` to `]}` (with brackets)
+|v_aB|		aB		   "a Block" from "[{" to "]}" (with brackets)
 |v_aW|		aW		   "a WORD" (with white space)
 |v_a[|		a[		   "a []" from '[' to the matching ']'
 |v_a]|		a]		   same as a[
@@ -492,7 +493,7 @@ tag		command		   action in op-pending and Visual mode	~
 |v_i)|		i)		   same as ib
 |v_i<|		i<		   "inner <>" from '<' to the matching '>'
 |v_i>|		i>		   same as i<
-|v_iB|		iB		   "inner Block" from `[{` and `]}`
+|v_iB|		iB		   "inner Block" from "[{" and "]}"
 |v_iW|		iW		   "inner WORD"
 |v_i[|		i[		   "inner []" from '[' to the matching ']'
 |v_i]|		i]		   same as i[
@@ -698,6 +699,7 @@ tag		char	      note action in Normal mode	~
 
 tag		char	      note action in Normal mode	~
 ------------------------------------------------------------------------------ ~
+g_CTRL-A	g CTRL-A	   dump a memory profile
 |g_CTRL-G|	g CTRL-G	   show information about current cursor
 				   position
 |g_CTRL-H|	g CTRL-H	   start Select block mode
@@ -1071,6 +1073,8 @@ tag		command		action in Command-line editing mode	~
 		CTRL-\ others	not used
 |c_CTRL-]|	CTRL-]		trigger abbreviation
 |c_CTRL-^|	CTRL-^		toggle use of |:lmap| mappings
+|c_CTRL-_|	CTRL-_		when 'allowrevins' set: change language
+				(Hebrew)
 |c_<Del>|	<Del>		delete the character under the cursor
 
 |c_<Left>|	<Left>		cursor left
@@ -1092,22 +1096,6 @@ tag		command		action in Command-line editing mode	~
 |c_<Insert>|	<Insert>	toggle insert/overstrike mode
 |c_<LeftMouse>|	<LeftMouse>	cursor at mouse click
 
-commands in wildmenu mode (see 'wildmenu')
-
-		<Up>		move up to parent
-		<Down>		move down to submenu
-		<Left>		select the previous match
-		<Right>		select the next match
-		<CR>		move into submenu when doing menu completion
-		CTRL-E		stop completion and go back to original text
-		CTRL-Y		accept selected match and stop completion
-		other		stop completion and insert the typed character
-
-commands in wildmenu mode with 'wildoptions' set to "pum"
-
-		<PageUp>	select a match several entries back
-		<PageDown>	select a match several entries forward
-
 ==============================================================================
 5. Terminal mode				*terminal-mode-index*
 
@@ -1122,7 +1110,7 @@ to terminal mode.
 You found it, Arthur!				*holy-grail*
 
 ==============================================================================
-6. EX commands				*Ex-commands* *ex-cmd-index* *:index*
+6. EX commands				*ex-commands* *ex-cmd-index* *:index*
 
 This is a brief but complete listing of all the ":" commands, without
 mentioning any arguments.  The optional part of the command name is inside [].
@@ -1142,8 +1130,6 @@ tag		command		action ~
 |:>|		:>		shift lines one 'shiftwidth' right
 |:@|		:@		execute contents of a register
 |:@@|		:@@		repeat the previous ":@"
-|:2match|	:2mat[ch]	define a second match to highlight
-|:3match|	:3mat[ch]	define a third match to highlight
 |:Next|		:N[ext]		go to previous file in the argument list
 |:append|	:a[ppend]	append text
 |:abbreviate|	:ab[breviate]	enter abbreviation
@@ -1173,6 +1159,7 @@ tag		command		action ~
 |:badd|		:bad[d]		add buffer to the buffer list
 |:balt|		:balt		like ":badd" but also set the alternate file
 |:bdelete|	:bd[elete]	remove a buffer from the buffer list
+|:behave|	:be[have]	set mouse and selection behavior
 |:belowright|	:bel[owright]	make split window appear right or below
 |:bfirst|	:bf[irst]	go to first buffer in the buffer list
 |:blast|	:bl[ast]	go to last buffer in the buffer list
@@ -1302,7 +1289,6 @@ tag		command		action ~
 |:execute|	:exe[cute]	execute result of expressions
 |:exit|		:exi[t]		same as ":xit"
 |:exusage|	:exu[sage]	overview of Ex commands
-|:fclose|	:fc[lose]	close floating window
 |:file|		:f[ile]		show or set the current file name
 |:files|	:files		list all files in the buffer list
 |:filetype|	:filet[ype]	switch file type detection on/off

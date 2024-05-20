@@ -1,5 +1,5 @@
 -- Neovim syntax file
--- Language:	Treesitter query
+-- Language:	Tree-sitter query
 -- Last Change:	2022 Apr 13
 
 -- it's a lisp!

@@ -2,8 +2,8 @@
 " Language:		Ruby
 " Maintainer:		Tim Pope <vimNOSPAM@tpope.org>
 " URL:			https://github.com/vim-ruby/vim-ruby
-" Last Change:		2023 Dec 31
-"			2024 Jan 14 by Vim Project (browsefilter)
+" Release Coordinator:	Doug Kearns <dougkearns@gmail.com>
+" Last Change:		2022 Mar 21
 
 if (exists("b:did_ftplugin"))
   finish
@@ -60,38 +60,24 @@ if !exists('g:ruby_version_paths')
   let g:ruby_version_paths = {}
 endif
 
-let s:path_split = has('win32') ? ';' : ':'
-
 function! s:query_path(root) abort
-  " Disabled by default for security reasons.
-  if !get(g:, 'ruby_exec', get(g:, 'plugin_exec', 0)) || empty(a:root)
-    return map(split($RUBYLIB, s:path_split), 'v:val ==# "." ? "" : v:val')
-  endif
   let code = "print $:.join %q{,}"
-  if &shellxquote == "'"
-    let args = ' --disable-gems -e "' . code . '"'
+  if &shell =~# 'sh' && empty(&shellxquote)
+    let prefix = 'env PATH='.shellescape($PATH).' '
   else
-    let args = " --disable-gems -e '" . code . "'"
+    let prefix = ''
+  endif
+  if &shellxquote == "'"
+    let path_check = prefix.'ruby --disable-gems -e "' . code . '"'
+  else
+    let path_check = prefix."ruby --disable-gems -e '" . code . "'"
   endif
 
-  let cd = haslocaldir() ? 'lcd' : exists(':tcd') && haslocaldir(-1) ? 'tcd' : 'cd'
+  let cd = haslocaldir() ? 'lcd' : 'cd'
   let cwd = fnameescape(getcwd())
   try
     exe cd fnameescape(a:root)
-    for dir in split($PATH, s:path_split)
-      if dir !=# '.' && executable(dir . '/ruby') == 1
-	let exepath = dir . '/ruby'
-	break
-      endif
-    endfor
-    if exists('l:exepath')
-      let path = split(system(exepath . args),',')
-      if v:shell_error
-	let path = []
-      endif
-    else
-      let path = []
-    endif
+    let path = split(system(path_check),',')
     exe cd cwd
     return path
   finally
@@ -132,8 +118,10 @@ else
   if !exists('g:ruby_default_path')
     if has("ruby") && has("win32")
       ruby ::VIM::command( 'let g:ruby_default_path = split("%s",",")' % $:.join(%q{,}) )
-    else
+    elseif executable('ruby') && !empty($HOME)
       let g:ruby_default_path = s:query_path($HOME)
+    else
+      let g:ruby_default_path = map(split($RUBYLIB,':'), 'v:val ==# "." ? "" : v:val')
     endif
   endif
   let s:ruby_paths = g:ruby_default_path
@@ -148,12 +136,8 @@ if exists('s:ruby_paths') && stridx(&l:tags, join(map(copy(s:ruby_paths),'v:val.
 endif
 
 if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
-  let b:browsefilter = "Ruby Source Files (*.rb)\t*.rb\n"
-  if has("win32")
-    let b:browsefilter .= "All Files (*.*)\t*\n"
-  else
-    let b:browsefilter .= "All Files (*)\t*\n"
-  endif
+  let b:browsefilter = "Ruby Source Files (*.rb)\t*.rb\n" .
+                     \ "All Files (*.*)\t*.*\n"
 endif
 
 let b:undo_ftplugin = "setl inc= sua= path= tags= fo< com< cms< kp="

@@ -1,67 +1,25 @@
-(h1) @markup.heading.1
-
-(h2) @markup.heading.2
-
-(h3) @markup.heading.3
-
-(column_heading) @markup.heading.4
-
+(h1) @text.title.1
+(h2) @text.title.2
+(h3) @text.title.3
+(column_heading) @text.title.4
 (column_heading
-  "~" @markup.heading.4
-  (#set! conceal ""))
-
+   "~" @conceal (#set! conceal ""))
 (tag
-  "*" @label
-  (#set! conceal ""))
-
-(tag
-  text: (_) @label)
-
+   "*" @conceal (#set! conceal "")
+   text: (_) @label)
 (taglink
-  "|" @markup.link
-  (#set! conceal ""))
-
-(taglink
-  text: (_) @markup.link)
-
+   "|" @conceal (#set! conceal "")
+   text: (_) @text.reference)
 (optionlink
-  text: (_) @markup.link)
-
+   text: (_) @text.reference)
 (codespan
-  "`" @markup.raw
-  (#set! conceal ""))
-
-(codespan
-  text: (_) @markup.raw)
-
-((codeblock) @markup.raw.block
-  (#set! "priority" 90))
-
+   "`" @conceal (#set! conceal "")
+   text: (_) @text.literal)
+(codeblock) @text.literal
 (codeblock
-  ">" @markup.raw
-  (#set! conceal ""))
-
-(codeblock
-  (language) @label
-  (#set! conceal ""))
-
+   [">" (language)] @conceal (#set! conceal ""))
 (block
-  "<" @markup.raw
-  (#set! conceal ""))
-
-(argument) @variable.parameter
-
+   "<" @conceal (#set! conceal ""))
+(argument) @parameter
 (keycode) @string.special
-
-(url) @string.special.url
-
-(modeline) @keyword.directive
-
-((note) @comment.note
-  (#any-of? @comment.note "Note:" "NOTE:" "Notes:"))
-
-((note) @comment.warning
-  (#any-of? @comment.warning "Warning:" "WARNING:"))
-
-((note) @comment.error
-  (#any-of? @comment.error "Deprecated:" "DEPRECATED:"))
+(url) @text.uri

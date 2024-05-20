@@ -552,12 +552,7 @@ local recdepth = 0
 local function fmterr(err, info)
   if type(err) == "number" then
     if type(info) == "function" then info = fmtfunc(info) end
-    local fmt = vmdef.traceerr[err]
-    if fmt == "NYI: bytecode %s" then
-      local oidx = 6 * info
-      info = sub(vmdef.bcnames, oidx+1, oidx+6)
-    end
-    err = format(fmt, info)
+    err = format(vmdef.traceerr[err], info)
   end
   return err
 end

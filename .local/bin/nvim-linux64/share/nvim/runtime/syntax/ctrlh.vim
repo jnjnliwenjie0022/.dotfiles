@@ -1,8 +1,7 @@
 " Vim syntax file
 " Language:	CTRL-H (e.g., ASCII manpages)
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2005 Jun 20
 
 " Existing syntax is kept, this file can be used as an addition
 

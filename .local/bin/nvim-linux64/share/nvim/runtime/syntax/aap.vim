@@ -1,8 +1,7 @@
 " Vim syntax file
 " Language:	A-A-P recipe
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2004 Jun 13
 
 " Quit when a syntax file was already loaded
 if exists("b:current_syntax")

@@ -67,8 +67,7 @@
 "               2020/04/26 by Yichao Zhou <broken.zhou AT gmail.com>
 "               (*) Fix a bug related to \[ & \].  Thanks Manuel Boni for
 "               reporting.
-"               2023/08/28 by Vim Project
-"               (*) Set b:undo_indent.
+"
 " }}}
 
 " Document: {{{
@@ -168,7 +167,6 @@ setlocal indentexpr=GetTeXIndent()
 setlocal indentkeys&
 exec 'setlocal indentkeys+=[,(,{,),},],\&' . substitute(g:tex_items, '^\|\(\\|\)', ',=', 'g')
 let g:tex_items = '^\s*' . substitute(g:tex_items, '^\(\^\\s\*\)*', '', '')
-let b:undo_indent = "setlocal autoindent< indentexpr< indentkeys< smartindent<"
 " }}}
 
 function! GetTeXIndent() " {{{

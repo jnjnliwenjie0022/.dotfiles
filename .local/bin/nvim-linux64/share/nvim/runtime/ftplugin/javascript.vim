@@ -1,8 +1,8 @@
 " Vim filetype plugin file
 " Language:     Javascript
 " Maintainer:   Doug Kearns <dougkearns@gmail.com>
+" Last Change:  2020 Jun 23
 " Contributor:  Romain Lafourcade <romainlafourcade@gmail.com>
-" Last Change:	2024 Jan 14
 
 if exists("b:did_ftplugin")
     finish
@@ -34,11 +34,7 @@ if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
                 \ .. "JavaScript Modules (*.es, *.es6, *.cjs, *.mjs, *.jsm)\t*.es;*.es6;*.cjs;*.mjs;*.jsm\n"
                 \ .. "Vue Templates (*.vue)\t*.vue\n"
                 \ .. "JSON Files (*.json)\t*.json\n"
-    if has("win32")
-        let b:browsefilter ..= "All Files (*.*)\t*\n"
-    else
-        let b:browsefilter ..= "All Files (*)\t*\n"
-    endif
+                \ .. "All Files (*.*)\t*.*\n"
 endif
 
 " The following suffixes should be implied when resolving filenames

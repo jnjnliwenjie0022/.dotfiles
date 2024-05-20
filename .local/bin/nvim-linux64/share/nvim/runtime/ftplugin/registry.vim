@@ -2,7 +2,6 @@
 " Language:         Windows Registry export with regedit (*.reg)
 " Maintainer:       Cade Forester <ahx2323@gmail.com>
 " Latest Revision:  2014-01-09
-"                   2024 Jan 14 by Vim Project (browsefilter)
 
 if exists("b:did_ftplugin")
   finish
@@ -13,22 +12,18 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 let b:undo_ftplugin =
+  \ 'let b:browsefilter = "" | ' .
   \ 'setlocal ' .
   \    'comments< '.
   \    'commentstring< ' .
-  \    'formatoptions<'
+  \    'formatoptions< '
 
 
-if ( has( 'gui_win32' ) || has( 'gui_gtk' ) )
+if has( 'gui_win32' )
 \ && !exists( 'b:browsefilter' )
    let b:browsefilter =
-      \ "registry files (*.reg)\t*.reg\n"
-   if has("win32")
-      let b:browsefilter .= "All Files (*.*)\t*\n"
-   else
-      let b:browsefilter .= "All Files (*)\t*\n"
-   endif
-   let b:undo_ftplugin .= " | unlet! b:browsefilter"
+      \ 'registry files (*.reg)\t*.reg\n' .
+      \ 'All files (*.*)\t*.*\n'
 endif
 
 setlocal comments=:;

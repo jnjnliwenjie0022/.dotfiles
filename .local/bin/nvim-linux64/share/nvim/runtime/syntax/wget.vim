@@ -1,7 +1,7 @@
 " Vim syntax file
-" Language:	Wget configuration file (/etc/wgetrc ~/.wgetrc)
+" Language:     Wget configuration file (/etc/wgetrc ~/.wgetrc)
 " Maintainer:	Doug Kearns <dougkearns@gmail.com>
-" Last Change:	2023 Nov 05
+" Last Change:	2022 Apr 28
 
 " GNU Wget 1.21 built on linux-gnu.
 
@@ -12,7 +12,7 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-syn match wgetComment "#.*" contains=wgetTodo contained
+syn match wgetComment "#.*$" contains=wgetTodo contained
 
 syn keyword wgetTodo TODO NOTE FIXME XXX contained
 
@@ -21,206 +21,208 @@ syn region wgetString start=+'+ skip=+\\\\\|\\'+ end=+'+ contained oneline
 
 syn case ignore
 
-syn keyword wgetBoolean on off yes no	 contained
-syn keyword wgetNumber	inf		 contained
-syn match   wgetNumber "\<\d\+>"	 contained
-syn match   wgetQuota  "\<\d\+[kmgt]\>"	 contained
-syn match   wgetTime   "\<\d\+[smhdw]\>" contained
+syn keyword wgetBoolean on off yes no contained
+syn keyword wgetNumber	inf	      contained
+
+syn match wgetNumber "\<\d\+>"		  contained
+syn match wgetQuota  "\<\d\+[kmgt]\>"	  contained
+syn match wgetTime   "\<\d\+[smhdw]\>"	  contained
 
 "{{{ Commands
 let s:commands =<< trim EOL
   accept
-  accept-regex
-  add-host-dir
-  adjust-extension
-  always-rest
-  ask-password
-  auth-no-challenge
+  accept_regex
+  add_host_dir
+  adjust_extension
+  always_rest
+  ask_password
+  auth_no_challenge
   background
-  backup-converted
+  backup_converted
   backups
   base
-  bind-address
-  bind-dns-address
-  body-data
-  body-file
-  ca-certificate
-  ca-directory
+  bind_address
+  bind_dns_address
+  body_data
+  body_file
+  ca_certificate
+  ca_directory
   cache
   certificate
-  certificate-type
-  check-certificate
-  choose-config
+  certificate_type
+  check_certificate
+  choose_config
   ciphers
   compression
-  connect-timeout
-  content-disposition
-  content-on-error
+  connect_timeout
+  content_disposition
+  content_on_error
   continue
-  convert-file-only
-  convert-links
+  convert_file_only
+  convert_links
   cookies
-  crl-file
-  cut-dirs
+  crl_file
+  cut_dirs
   debug
-  default-page
-  delete-after
-  dns-cache
-  dns-servers
-  dns-timeout
-  dir-prefix
-  dir-struct
+  default_page
+  delete_after
+  dns_cache
+  dns_servers
+  dns_timeout
+  dir_prefix
+  dir_struct
   domains
-  dot-bytes
-  dots-in-line
-  dot-spacing
-  dot-style
-  egd-file
-  exclude-directories
-  exclude-domains
-  follow-ftp
-  follow-tags
-  force-html
-  ftp-passwd
-  ftp-password
-  ftp-user
-  ftp-proxy
-  ftps-clear-data-connection
-  ftps-fallback-to-ftp
-  ftps-implicit
-  ftps-resume-ssl
+  dot_bytes
+  dots_in_line
+  dot_spacing
+  dot_style
+  egd_file
+  exclude_directories
+  exclude_domains
+  follow_ftp
+  follow_tags
+  force_html
+  ftp_passwd
+  ftp_password
+  ftp_user
+  ftp_proxy
+  ftps_clear_data_connection
+  ftps_fallback_to_ftp
+  ftps_implicit
+  ftps_resume_ssl
   hsts
-  hsts-file
-  ftp-stmlf
+  hsts_file
+  ftp_stmlf
   glob
   header
-  html-extension
+  html_extension
   htmlify
-  http-keep-alive
-  http-passwd
-  http-password
-  http-proxy
-  https-proxy
-  https-only
-  http-user
-  if-modified-since
-  ignore-case
-  ignore-length
-  ignore-tags
-  include-directories
-  inet4-only
-  inet6-only
+  http_keep_alive
+  http_passwd
+  http_password
+  http_proxy
+  https_proxy
+  https_only
+  http_user
+  if_modified_since
+  ignore_case
+  ignore_length
+  ignore_tags
+  include_directories
+  inet4_only
+  inet6_only
   input
-  input-meta-link
+  input_meta_link
   iri
-  keep-bad-hash
-  keep-session-cookies
-  kill-longer
-  limit-rate
-  load-cookies
+  keep_bad_hash
+  keep_session_cookies
+  kill_longer
+  limit_rate
+  load_cookies
   locale
-  local-encoding
+  local_encoding
   logfile
   login
-  max-redirect
-  metalink-index
-  metalink-over-http
+  max_redirect
+  metalink_index
+  metalink_over_http
   method
   mirror
   netrc
-  no-clobber
-  no-config
-  no-parent
-  no-proxy
+  no_clobber
+  no_config
+  no_parent
+  no_proxy
   numtries
-  output-document
-  page-requisites
-  passive-ftp
+  output_document
+  page_requisites
+  passive_ftp
   passwd
   password
-  pinned-pubkey
-  post-data
-  post-file
-  prefer-family
-  preferred-location
-  preserve-permissions
-  private-key
-  private-key-type
+  pinned_pubkey
+  post_data
+  post_file
+  prefer_family
+  preferred_location
+  preserve_permissions
+  private_key
+  private_key_type
   progress
-  protocol-directories
-  proxy-passwd
-  proxy-password
-  proxy-user
+  protocol_directories
+  proxy_passwd
+  proxy_password
+  proxy_user
   quiet
   quota
-  random-file
-  random-wait
-  read-timeout
-  rec-level
+  random_file
+  random_wait
+  read_timeout
+  rec_level
   recursive
   referer
-  regex-type
+  regex_type
   reject
-  rejected-log
-  reject-regex
-  relative-only
-  remote-encoding
-  remove-listing
-  report-speed
-  restrict-file-names
-  retr-symlinks
-  retry-connrefused
-  retry-on-host-error
-  retry-on-http-error
+  rejected_log
+  reject_regex
+  relative_only
+  remote_encoding
+  remove_listing
+  report_speed
+  restrict_file_names
+  retr_symlinks
+  retry_connrefused
+  retry_on_host_error
+  retry_on_http_error
   robots
-  save-cookies
-  save-headers
-  secure-protocol
-  server-response
-  show-all-dns-entries
-  show-progress
-  simple-host-check
-  span-hosts
+  save_cookies
+  save_headers
+  secure_protocol
+  server_response
+  show_all_dns_entries
+  show_progress
+  simple_host_check
+  span_hosts
   spider
-  start-pos
-  strict-comments
+  start_pos
+  strict_comments
   sslcertfile
   sslcertkey
   timeout
   timestamping
-  use-server-timestamps
+  use_server_timestamps
   tries
-  trust-server-names
+  trust_server_names
   unlink
-  use-askpass
+  use_askpass
   user
-  use-proxy
-  user-agent
+  use_proxy
+  user_agent
   verbose
   wait
-  wait-retry
-  warc-cdx
-  warc-cdx-dedup
-  warc-compression
-  warc-digests
-  warc-file
-  warc-header
-  warc-keep-log
-  warc-max-size
-  warc-temp-dir
+  wait_retry
+  warc_cdx
+  warc_cdx_dedup
+  warc_compression
+  warc_digests
+  warc_file
+  warc_header
+  warc_keep_log
+  warc_max_size
+  warc_temp_dir
   wdebug
   xattr
 EOL
 "}}}
 
+call map(s:commands, "substitute(v:val, '_', '[-_]\\\\=', 'g')")
+
 for cmd in s:commands
-  exe 'syn match wgetCommand "\<' .. substitute(cmd, '-', '[-_]\\=', "g") .. '\>" nextgroup=wgetAssignmentOperator skipwhite contained'
+  exe 'syn match wgetCommand "\<' . cmd . '\>" nextgroup=wgetAssignmentOperator skipwhite contained'
 endfor
-unlet s:commands
 
 syn case match
 
-syn match wgetLineStart		 "^" nextgroup=wgetCommand,wgetComment skipwhite
+syn match wgetStart "^" nextgroup=wgetCommand,wgetComment skipwhite
 syn match wgetAssignmentOperator "=" nextgroup=wgetString,wgetBoolean,wgetNumber,wgetQuota,wgetTime skipwhite contained
 
 hi def link wgetAssignmentOperator Special

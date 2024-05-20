@@ -1,5 +1,5 @@
 -- Neovim indent file
--- Language:	Treesitter query
+-- Language:	Tree-sitter query
 -- Last Change:	2022 Mar 29
 
 -- it's a lisp!

@@ -1,7 +1,7 @@
 " Vim indent file
 " Language:	bash
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 13
+" Maintainer:	Bram
+" Last Change:	2019 Sep 27
 
 " Only load this indent file when no other was loaded.
 if exists("b:did_indent")

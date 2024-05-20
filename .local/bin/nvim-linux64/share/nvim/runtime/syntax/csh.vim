@@ -1,10 +1,9 @@
 " Vim syntax file
 " Language:	C-shell (csh)
-" Maintainer:	This runtime file is looking for a new maintainer.
-" Former Maintainer: Charles E. Campbell
+" Maintainer:	Charles E. Campbell <NcampObell@SdrPchip.AorgM-NOSPAM>
 " Last Change:	Aug 31, 2016
 " Version:	14
-" Former URL:	http://www.drchip.org/astronaut/vim/index.html#SYNTAX_CSH
+" URL:	http://www.drchip.org/astronaut/vim/index.html#SYNTAX_CSH
 
 " quit when a syntax file was already loaded
 if exists("b:current_syntax")

@@ -1,8 +1,7 @@
 " Set options and add mapping such that Vim behaves a lot like MS-Windows
 "
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2024 Mar 13
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2018 Dec 07
 
 " Bail out if this isn't wanted.
 if exists("g:skip_loading_mswin") && g:skip_loading_mswin
@@ -16,10 +15,7 @@ endif
 set cpo&vim
 
 " set 'selection', 'selectmode', 'mousemodel' and 'keymodel' for MS-Windows
-set selection=exclusive
-set selectmode=mouse,key
-set mousemodel=popup
-set keymodel=startsel,stopsel
+behave mswin
 
 " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start whichwrap+=<,>,[,]
@@ -27,9 +23,6 @@ set backspace=indent,eol,start whichwrap+=<,>,[,]
 " backspace in Visual mode deletes selection
 vnoremap <BS> d
 
-" the better solution would be to use has("clipboard_working"),
-" but that may not be available yet while starting up, so let's just check if
-" clipboard support has been compiled in and assume it will be working :/
 if has("clipboard")
     " CTRL-X and SHIFT-Del are Cut
     vnoremap <C-X> "+x
@@ -45,23 +38,6 @@ if has("clipboard")
 
     cmap <C-V>		<C-R>+
     cmap <S-Insert>		<C-R>+
-else
-		" Use the unnamed register when clipboard support not available
-
-    " CTRL-X and SHIFT-Del are Cut
-    vnoremap <C-X>   x
-    vnoremap <S-Del> x
-
-    " CTRL-C and CTRL-Insert are Copy
-    vnoremap <C-C>      y
-    vnoremap <C-Insert> y
-
-    " CTRL-V and SHIFT-Insert are Paste
-    noremap <C-V>      gP
-    noremap <S-Insert> gP
-
-    inoremap <C-V>      <C-R>"
-    inoremap <S-Insert> <C-R>"
 endif
 
 " Pasting blockwise and linewise selections is not possible in Insert and
@@ -70,7 +46,7 @@ endif
 " Uses the paste.vim autoload script.
 " Use CTRL-G u to have CTRL-Z only undo the paste.
 
-if has("clipboard")
+if 1
     exe 'inoremap <script> <C-V> <C-G>u' . paste#paste_cmd['i']
     exe 'vnoremap <script> <C-V> ' . paste#paste_cmd['v']
 endif

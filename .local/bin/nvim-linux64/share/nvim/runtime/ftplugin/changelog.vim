@@ -55,19 +55,13 @@ if &filetype == 'changelog'
     elseif $EMAIL_ADDRESS != ""
       return $EMAIL_ADDRESS
     endif
-    let s:default_login = 'unknown'
 
-    " Disabled by default for security reasons.
-    if dist#vim#IsSafeExecutable('changelog', 'whoami')
-      let login = s:login()
-    else
-      let login = s:default_login
-    endif
+    let login = s:login()
     return printf('%s <%s@%s>', s:name(login), login, s:hostname())
   endfunction
 
   function! s:login()
-    return s:trimmed_system_with_default('whoami', s:default_login)
+    return s:trimmed_system_with_default('whoami', 'unknown')
   endfunction
 
   function! s:trimmed_system_with_default(command, default)
@@ -77,7 +71,7 @@ if &filetype == 'changelog'
   function! s:system_with_default(command, default)
     let output = system(a:command)
     if v:shell_error
-      return a:default
+      return default
     endif
     return output
   endfunction

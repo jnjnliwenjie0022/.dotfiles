@@ -1,11 +1,10 @@
 " Vim filetype plugin file
-" Language:		config
+" Language:	config
 "
 " This runtime file is looking for a new maintainer.
 "
 " Former maintainer:	Dan Sharp
-" Last Change: 		2009 Jan 20
-"			2024 Jan 14 by Vim Project (browsefilter)
+" Last Changed: 20 Jan 2009
 
 if exists("b:did_ftplugin") | finish | endif
 
@@ -16,12 +15,8 @@ set cpo-=C
 
 " Define some defaults in case the included ftplugins don't set them.
 let s:undo_ftplugin = ""
-let s:browsefilter = "Bourne Shell Files (*.sh)\t*.sh\n"
-if has("win32")
-    let s:browsefilter .= "All Files (*.*)\t*\n"
-else
-    let s:browsefilter .= "All Files (*)\t*\n"
-endif
+let s:browsefilter = "Bourne Shell Files (*.sh)\t*.sh\n" .
+	    \	 "All Files (*.*)\t*.*\n"
 let s:match_words = ""
 
 runtime! ftplugin/sh.vim ftplugin/sh_*.vim ftplugin/sh/*.vim
@@ -36,7 +31,7 @@ if exists("b:browsefilter")
 endif
 
 " Change the :browse e filter to primarily show configure-related files.
-if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
+if has("gui_win32")
     let  b:browsefilter="Configure Scripts (configure.*, config.*)\tconfigure*;config.*\n" .
 		\	s:browsefilter
 endif

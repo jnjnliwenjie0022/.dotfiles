@@ -1,7 +1,6 @@
 " Vim plugin for editing compressed files.
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer: Bram Moolenaar <Bram@vim.org>
+" Last Change: 2016 Oct 30
 
 " Exit quickly when:
 " - this plugin was already loaded

@@ -1,8 +1,7 @@
 " Vim indent file
 " Language:	C++
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last Change:	2008 Nov 29
 
 " Only load this indent file when no other was loaded.
 if exists("b:did_indent")
