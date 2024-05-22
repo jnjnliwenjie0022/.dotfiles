@@ -13,6 +13,7 @@ return {
   dependencies = {
     -- Required.
     "nvim-lua/plenary.nvim",
+    "preservim/vim-markdown",
 
     -- see below for full list of optional dependencies 👇
   },
