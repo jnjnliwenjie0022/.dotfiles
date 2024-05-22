@@ -7,9 +7,9 @@ return {
         require'nvim-treesitter.configs'.setup {
             sync_install = false,
             auto_install = false,
-            --parser_install_dir = "$HOME/.local/lib/nvim/parser",
+            parser_install_dir = "$HOME/.local/lib/nvim/parser",
             highlight = {
-                enable = false,
+                enable = true,
 
                 -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
                 -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
