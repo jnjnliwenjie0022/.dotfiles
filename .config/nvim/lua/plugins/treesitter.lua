@@ -7,7 +7,7 @@ return {
         require'nvim-treesitter.configs'.setup {
             sync_install = false,
             auto_install = false,
-            parser_install_dir = "$HOME/.local/lib/nvim/parser",
+            --parser_install_dir = "$HOME/.local/lib/nvim/parser",
             highlight = {
                 enable = true,
 
