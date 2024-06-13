@@ -35,6 +35,8 @@ vim.keymap.set('v', 'p', '\"_dP')
 --vim.keymap.set('v','y','myy`y')
 --vim.keymap.set('v','Y','myY`y')
 
+vim.keymap.set('v', 'Y', '$y')
+
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
