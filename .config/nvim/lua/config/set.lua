@@ -51,7 +51,7 @@ vim.opt.list = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 2
 
 --vim.opt.completeopt    = {
 --  "menu",

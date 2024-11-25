@@ -372,7 +372,18 @@ function run_install_tool() {
 file="${HOME}/synopsys/.bashrc.synopsys"
 if [ -f "${file}" ]; then
     source "${file}"
+    printf "source ${file}\n"
 fi
+# umvc 2.3.2 config
+file="${HOME}/synopsys/.bashrc.uvmc"
+if [ -f "${file}" ]; then
+    source "${file}"
+    printf "source ${file}\n"
+fi
+
+printf "VCS_HOME: ${VCS_HOME}\n"
+printf "UVM_HOME: ${UVM_HOME}\n"
+printf "UVMC_HOME: ${UVMC_HOME}\n"
 
 #sudo apt install -y gcc wget iputils-ping python3-pip git bear tig shellcheck ripgrep
 #
@@ -382,3 +393,7 @@ fi
 #curl -LO https://invisible-island.net/datafiles/current/terminfo.src.gz
 #gunzip terminfo.src.gz
 #tic terminfo.src
+
+
+
+#export DISPLAY="grep nameserver /etc/resolv.conf | sed 's/nameserver //':0"
