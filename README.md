@@ -22,11 +22,14 @@ git push --set-upstream origin master
 ```
 ##without ssh
 git init
-git remote add origin https://github.com/jnjnliwenjie0022/.dotfiles.git 
+git remote add origin https://github.com/jnjnliwenjie0022/.dotfiles.git
 git pull https://github.com/jnjnliwenjie0022/.dotfiles.git master
 git push --set-upstream origin master
 
+Username for 'https://github.com': jnjnliwenjie0022
+Password for 'https://jnjnliwenjie0022@github.com': Tokens (classic)
 #github(https://github.com/jnjnliwenjie0022) -> Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
+
 ```
 ```
 ##AppImage
