@@ -198,6 +198,9 @@ eval "$(zoxide init bash)"
 
 # git status
 #https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
+
+git config --global alias.adog "log --all --decorate --oneline --graph"
+
 function parse_git_branch() {
      git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
 }

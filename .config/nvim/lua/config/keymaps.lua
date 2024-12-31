@@ -48,13 +48,16 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-o>', '<C-o>zz')
 vim.keymap.set('n', '<C-i>', '<C-i>zz')
-vim.keymap.set('n', '<C-J>', '<cmd>cnext<CR>zz')
-vim.keymap.set('n', '<C-K>', '<cmd>cNext<CR>zz')
-
 vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h')
 vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j')
 vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k')
 vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
+vim.keymap.set('n', '<C-w>h', '<C-w>hi')
+vim.keymap.set('n', '<C-w>j', '<C-w>ji')
+vim.keymap.set('n', '<C-w>k', '<C-w>ki')
+vim.keymap.set('n', '<C-w>l', '<C-w>li')
+vim.keymap.set('n', '<leader><N>', '<CMD>cNext<CR>')
+vim.keymap.set('n', '<leader><n>', '<CMD>cnext<CR>')
 
 --dp             diffput: puts changes under the cursor into the other file
 --                        making them identical (thus removing the diff).
