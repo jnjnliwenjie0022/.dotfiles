@@ -196,10 +196,31 @@ eval "$(zoxide init bash)"
 #source /etc/bash_completion.d/git-prompt
 #export PS1="\[\033[33m\][\w] \[\e[91m\]\$(__git_ps1) \n\[\033[33m\][\j] > \[\033[0m\]"
 
-# git status
+#{{{ git .gitconfig
+# git config --global user.name "Wen-Jie Li"
+# git config --global user.email "jnjn0022@gmail.com"
+# :G ls
+# :G ls %
+# --name-only
+# --stat
+git config --global alias.sync "fetch --all -p"
+git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%d' --all"
+git config --global alias.ls "log --all --decorate --oneline --graph"
+git config --global alias.ll "log --all --decorate --oneline --graph --date=short --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%C(red)%d%C(auto,reset)%<(70,trunc) %s'"
+git config --global alias.st "status"
+git config --global alias.lsd "diff --name-only"
+git config --global alias.co "checkout"
+git config --global alias.ci "commit"
+git config --global alias.br "branch"
+git config --global alias.pk "cherry-pick"
+git config --global pull.rebase true
+git config --global merge.tool nvimdiff
+# > git difftool <file_name> <commit_id>
+git config --global diff.tool nvimdiff
+git config --global difftool.prompt false
+#}}}
+#{{{ git prompt
 #https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
-
-git config --global alias.adog "log --all --decorate --oneline --graph"
 
 function parse_git_branch() {
      git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
@@ -222,6 +243,7 @@ if [ -f ${file} ]; then
 #else
     #echo "Prompt [Warning] ${file} not exist"
 fi
+#}}}
 
 # create command
 alias rebash='source $HOME/.bashrc'; #echo "source $HOME/.bashrc"; echo "source $HOME/.workflow.bash"
@@ -400,3 +422,7 @@ printf "UVMC_HOME: ${UVMC_HOME}\n"
 
 
 #export DISPLAY="grep nameserver /etc/resolv.conf | sed 's/nameserver //':0"
+
+
+
+#https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date

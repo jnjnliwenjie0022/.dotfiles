@@ -70,10 +70,9 @@ return {
             print("Hook on harpoon:", file_path)
         end)
         vim.keymap.set("n", "<leader>m", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-        vim.keymap.set("n", "<leader>h", function() harpoon:list():select(1) end)
-        vim.keymap.set("n", "<leader>j", function() harpoon:list():select(2) end)
-        vim.keymap.set("n", "<leader>k", function() harpoon:list():select(3) end)
-        vim.keymap.set("n", "<leader>l", function() harpoon:list():select(4) end)
-        vim.keymap.set("n", "<leader>;", function() harpoon:list():select(5) end)
+        vim.keymap.set("n", "<leader>j", function() harpoon:list():select(1) end)
+        vim.keymap.set("n", "<leader>k", function() harpoon:list():select(2) end)
+        vim.keymap.set("n", "<leader>l", function() harpoon:list():select(3) end)
+        vim.keymap.set("n", "<leader>;", function() harpoon:list():select(4) end)
     end
 }

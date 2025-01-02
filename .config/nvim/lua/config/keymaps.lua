@@ -6,7 +6,6 @@ vim.keymap.set('n', '<Space>', '<nop>')
 vim.keymap.set('v', '<Space>', '<nop>')
 vim.keymap.set('i', '<C-c>', '<Esc>')
 
-
 --% refers to the current buffer
 --%:p refers to the path to the file
 vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR><CMD>echo "Path:"expand("%:p")<CR>')
@@ -52,10 +51,6 @@ vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h')
 vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j')
 vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k')
 vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
-vim.keymap.set('n', '<C-w>h', '<C-w>hi')
-vim.keymap.set('n', '<C-w>j', '<C-w>ji')
-vim.keymap.set('n', '<C-w>k', '<C-w>ki')
-vim.keymap.set('n', '<C-w>l', '<C-w>li')
 vim.keymap.set('n', '<leader>N', '<CMD>cNext<CR>')
 vim.keymap.set('n', '<leader>n', '<CMD>cnext<CR>')
 
