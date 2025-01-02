@@ -14,6 +14,9 @@ vim.keymap.set('n', '<leader>y', '<CMD>let @" = expand("%:p")<CR><CMD>let @* = e
 vim.keymap.set('v', '<leader>y', '\"+y<CMD>echo "Copy to clipboard"<CR>')
 vim.keymap.set('n', '<leader>p', '\"+p<CMD>echo "Past from clipboard"<CR>')
 vim.keymap.set('v', '<leader>p', '\"_d\"+P<CMD>echo "Past from clipboard"<CR>')
+vim.keymap.set('n', '<leader>c', '<CMD>%s/\\s\\+$//e<CR><CMD>%s/\r$//e<CR>')
+vim.keymap.set('n', '<leader>N', '<CMD>cNext<CR>')
+vim.keymap.set('n', '<leader>n', '<CMD>cnext<CR>')
 
 vim.keymap.set('n', 'x', '\"_x')
 vim.keymap.set('v', 'x', '\"_x')
@@ -51,8 +54,6 @@ vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h')
 vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j')
 vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k')
 vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
-vim.keymap.set('n', '<leader>N', '<CMD>cNext<CR>')
-vim.keymap.set('n', '<leader>n', '<CMD>cnext<CR>')
 
 --dp             diffput: puts changes under the cursor into the other file
 --                        making them identical (thus removing the diff).

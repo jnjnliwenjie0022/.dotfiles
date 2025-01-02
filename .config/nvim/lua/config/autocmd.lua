@@ -6,8 +6,8 @@ vim.api.nvim_create_autocmd({ "BufWrite" }, {
     pattern = '*',
     callback = function()
         local cursor_pos = vim.fn.getpos('.')  -- get current cursor position
-        vim.cmd('%s/\\s\\+$//e')
-        vim.cmd('%s/\r$//e')
+--        vim.cmd('%s/\\s\\+$//e')
+--        vim.cmd('%s/\r$//e')
         vim.fn.setpos('.', cursor_pos) -- cursor go to the position which you describe
     end,
 })

@@ -208,15 +208,17 @@ git config --global alias.tree "log --graph --simplify-by-decoration --pretty=fo
 git config --global alias.ls "log --all --decorate --oneline --graph"
 git config --global alias.ll "log --all --decorate --oneline --graph --date=short --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%C(red)%d%C(auto,reset)%<(70,trunc) %s'"
 git config --global alias.st "status"
-git config --global alias.lsd "diff --name-only"
+git config --global alias.sd "!git --no-pager diff --stat -M -w" 
 git config --global alias.co "checkout"
 git config --global alias.ci "commit"
+git config --global alias.cp "cherry-pick"
 git config --global alias.br "branch"
-git config --global alias.pk "cherry-pick"
+git config --global push.default simple
 git config --global pull.rebase true
 git config --global merge.tool nvimdiff
 # > git difftool <file_name> <commit_id>
 git config --global diff.tool nvimdiff
+git config --global diff.algorithm histogram
 git config --global difftool.prompt false
 #}}}
 #{{{ git prompt
