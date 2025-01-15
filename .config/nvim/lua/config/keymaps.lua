@@ -5,9 +5,8 @@ vim.keymap.set('n', '<C-x>', '<nop>')
 vim.keymap.set('n', '<Space>', '<nop>')
 vim.keymap.set('v', '<Space>', '<nop>')
 vim.keymap.set('i', '<C-c>', '<Esc>')
-
---% refers to the current buffer
---%:p refers to the path to the file
+-- % refers to the current buffer
+-- %:p refers to the path to the file
 vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR><CMD>echo "Path:"expand("%:p")<CR>')
 vim.keymap.set('n', '<leader>b', '<CMD>exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR><CMD>echo "Backup:"expand("%:p").".bak.".strftime("%Y%m%d_%H%M%S")<CR>')
 vim.keymap.set('n', '<leader>y', '<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "Copy to clipboard:"expand("%:p")<CR>')
@@ -15,9 +14,17 @@ vim.keymap.set('v', '<leader>y', '\"+y<CMD>echo "Copy to clipboard"<CR>')
 vim.keymap.set('n', '<leader>p', '\"+p<CMD>echo "Past from clipboard"<CR>')
 vim.keymap.set('v', '<leader>p', '\"_d\"+P<CMD>echo "Past from clipboard"<CR>')
 vim.keymap.set('n', '<leader>c', '<CMD>%s/\\s\\+$//e<CR><CMD>%s/\r$//e<CR>')
-vim.keymap.set('n', '<leader>N', '<CMD>cNext<CR>')
-vim.keymap.set('n', '<leader>n', '<CMD>cnext<CR>')
-
+-- @@ command repeat
+-- ; keymap repeat
+-- , keymap reversely repeat
+-- :cr[ewind] quickfix list first item
+-- :cla[st] quickfix list last item
+vim.keymap.set('n', '[q', '<CMD>cp<CR>zz')
+vim.keymap.set('n', ']q', '<CMD>cn<CR>zz')
+vim.keymap.set('n', '[Q', '<CMD>cpf<CR>zz')
+vim.keymap.set('n', ']Q', '<CMD>cnf<CR>zz')
+vim.keymap.set('n', 'X', '\"_D')
+vim.keymap.set('v', 'X', '\"_D')
 vim.keymap.set('n', 'x', '\"_x')
 vim.keymap.set('v', 'x', '\"_x')
 --vim.keymap.set('n', 'p', '\"+p')
@@ -33,15 +40,13 @@ vim.keymap.set('v', 'x', '\"_x')
 --vim.keymap.set("n", "D", '\"+D')
 --vim.keymap.set("v", "D", '\"+D')
 vim.keymap.set('v', 'p', '\"_dP')
+vim.keymap.set('v', 'Y', '$y')
 
 --vim.keymap.set('v','y','myy`y')
 --vim.keymap.set('v','Y','myY`y')
 
-vim.keymap.set('v', 'Y', '$y')
-
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
-
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('n', 'G', 'Gzz')
@@ -55,15 +60,6 @@ vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j')
 vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k')
 vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
 
---dp             diffput: puts changes under the cursor into the other file
---                        making them identical (thus removing the diff).
---do             diffget: (o => obtain). The change under the cursor is replaced
---                        by the content of the other file making them identical.
---]c             Jump to the next diff
---[c             Jump to the previous diff
-
---vim.keymap.set("n", "<C-q>", "<cmd>tabnew<CR>")
---Ngt
 --:tabm[N]
 
 --V%= format

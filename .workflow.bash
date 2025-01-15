@@ -197,30 +197,79 @@ eval "$(zoxide init bash)"
 #export PS1="\[\033[33m\][\w] \[\e[91m\]\$(__git_ps1) \n\[\033[33m\][\j] > \[\033[0m\]"
 
 #{{{ git .gitconfig
+#https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
 # git config --global user.name "Wen-Jie Li"
 # git config --global user.email "jnjn0022@gmail.com"
-# :G ls
-# :G ls %
-# --name-only
-# --stat
-git config --global alias.sync "fetch --all -p"
 git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%d' --all"
-git config --global alias.ls "log --all --decorate --oneline --graph"
-git config --global alias.ll "log --all --decorate --oneline --graph --date=short --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%C(red)%d%C(auto,reset)%<(70,trunc) %s'"
-git config --global alias.lsd "!git --no-pager diff --stat -M -w" 
-git config --global alias.st "status"
-git config --global alias.co "checkout"
-git config --global alias.ci "commit"
-git config --global alias.cp "cherry-pick"
-git config --global alias.br "branch"
 git config --global push.default simple
 git config --global pull.rebase true
+#https://stackoverflow.com/questions/73988155/automatically-push-after-git-rebase-update-refs
+git config --global rebase.updateRefs true
+# :G ls
+# :G ls %
+# :G ls --grep=<pattern> --author=<author>
+# --name-only
+# --stat
+git config --global alias.ls "log --decorate --oneline --graph"
+git config --global alias.ll "log --decorate --oneline --graph --date=short --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
+git config --global alias.rl "reflog --pretty=format:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
+# > git ft --all -p
+git config --global alias.ft "fetch"
+#git config --global alias.df "diff"
+# > git st -sb
+git config --global alias.st "status"
+# > git br -avv
+# > git br -vv
+git config --global alias.br "branch"
+# V -> :0Gclog
+# :Gedit <commit_id>:%
+# :Gedit <commit_id>:<file_name>
+# > git sh --name-only --oneline <commit_id> 
+# > git sh <commit_id>:<file_name> | vim -
+# > git sh <commit_id>:% | vim -
+git config --global alias.sh "show"
+git config --global alias.co "checkout"
+git config --global alias.ci "commit"
+git config --global alias.pk "cherry-pick"
+git config --global merge.commit no
+git config --global merge.ff no
+# do # obtain from the other file
+# dp # put to the other file
+# ]c # jump to the next diff
+# [c # jump to the previous diff
 git config --global merge.tool nvimdiff
-# > git difftool <file_name> <commit_id>
+git config --global merge.conflictstyle diff3  
+git config --global mergetool.prompt false
+# > git df <commit_id> <filename>
+# > git df <commit_id> <commit_id> <filename>
+# > git df --stat <commit_id>
+# > git df --stat <commit_id> <commit_id>
+# :Gvdiffsplit :0
+# :Gvdiffsplit HEAD:%
+# :Gvdiffsplit <commit_id>:%
+git config --global alias.df "difftool"
 git config --global diff.tool nvimdiff
 git config --global diff.algorithm histogram
 git config --global difftool.prompt false
 #}}}
+#git-diff-with-abs-path() {
+#    local path
+#
+#    path=$(git rev-parse --show-toplevel) &&
+#    git diff --stat "$@" | sed "s,^,$path/,"
+#}
+git-diff-with-abs-path() {
+    local path
+
+    path=$(git rev-parse --show-toplevel) &&
+    git diff --name-only "$@" | sed "s,^,$path/,"
+}
+#git-diff-with-abs-path() {
+#    local path tab=$'\t'
+#
+#    path=$(git rev-parse --show-toplevel) &&
+#    git diff --name-status "$@" | sed "s,$tab,$tab$path/,"
+#}
 #{{{ git prompt
 #https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
 
