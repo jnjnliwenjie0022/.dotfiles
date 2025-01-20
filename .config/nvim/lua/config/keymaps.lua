@@ -14,6 +14,8 @@ vim.keymap.set('v', '<leader>y', '\"+y<CMD>echo "Copy to clipboard"<CR>')
 vim.keymap.set('n', '<leader>p', '\"+p<CMD>echo "Past from clipboard"<CR>')
 vim.keymap.set('v', '<leader>p', '\"_d\"+P<CMD>echo "Past from clipboard"<CR>')
 vim.keymap.set('n', '<leader>c', '<CMD>%s/\\s\\+$//e<CR><CMD>%s/\r$//e<CR>')
+-- <C-w>J window move to the bottom
+-- <C-w>L window move to the right
 -- @@ command repeat
 -- ; keymap repeat
 -- , keymap reversely repeat
@@ -41,10 +43,8 @@ vim.keymap.set('v', 'x', '\"_x')
 --vim.keymap.set("v", "D", '\"+D')
 vim.keymap.set('v', 'p', '\"_dP')
 vim.keymap.set('v', 'Y', '$y')
-
 --vim.keymap.set('v','y','myy`y')
 --vim.keymap.set('v','Y','myY`y')
-
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', 'n', 'nzzzv')

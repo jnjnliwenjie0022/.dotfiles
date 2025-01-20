@@ -200,11 +200,13 @@ eval "$(zoxide init bash)"
 #https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
 # git config --global user.name "Wen-Jie Li"
 # git config --global user.email "jnjn0022@gmail.com"
-git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%d' --all"
 git config --global push.default simple
 git config --global pull.rebase true
+#https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
 #https://stackoverflow.com/questions/73988155/automatically-push-after-git-rebase-update-refs
-git config --global rebase.updateRefs true
+git config --global remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" #https://graphite.dev/guides/git-fetch-all-branches
+git config --global alias.wt "worktree" #https://morgan.cugerone.com/blog/how-to-use-git-worktree-and-in-a-clean-way/
+git config --global alias.root 'rev-parse --show-toplevel'
 # :G ls
 # :G ls %
 # :G ls --grep=<pattern> --author=<author>
@@ -213,9 +215,9 @@ git config --global rebase.updateRefs true
 git config --global alias.ls "log --decorate --oneline --graph"
 git config --global alias.ll "log --decorate --oneline --graph --date=short --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
 git config --global alias.rl "reflog --pretty=format:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
+git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%d' --all"
 # > git ft --all -p
 git config --global alias.ft "fetch"
-#git config --global alias.df "diff"
 # > git st -sb
 git config --global alias.st "status"
 # > git br -avv
@@ -231,8 +233,8 @@ git config --global alias.sh "show"
 git config --global alias.co "checkout"
 git config --global alias.ci "commit"
 git config --global alias.pk "cherry-pick"
-git config --global merge.commit no
-git config --global merge.ff no
+git config --global merge.commit false
+git config --global merge.ff false
 # do # obtain from the other file
 # dp # put to the other file
 # ]c # jump to the next diff
