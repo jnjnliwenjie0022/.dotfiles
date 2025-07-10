@@ -1,3 +1,4 @@
+# https://www.youtube.com/watch?v=mSXOYhfDFYo
 # wsl --install Ubuntu
 # wsl --unregister Ubuntu
 #
@@ -197,15 +198,13 @@ eval "$(zoxide init bash)"
 #export PS1="\[\033[33m\][\w] \[\e[91m\]\$(__git_ps1) \n\[\033[33m\][\j] > \[\033[0m\]"
 
 #{{{ git .gitconfig
-#https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
+# https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
 # git config --global user.name "Wen-Jie Li"
 # git config --global user.email "jnjn0022@gmail.com"
 git config --global push.default simple
 git config --global pull.rebase true
-#https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
-#https://stackoverflow.com/questions/73988155/automatically-push-after-git-rebase-update-refs
-git config --global remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" #https://graphite.dev/guides/git-fetch-all-branches
-git config --global alias.wt "worktree" #https://morgan.cugerone.com/blog/how-to-use-git-worktree-and-in-a-clean-way/
+# https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
+git config --global alias.wt "worktree"
 git config --global alias.root 'rev-parse --show-toplevel'
 # :G ls
 # :G ls %
@@ -213,9 +212,9 @@ git config --global alias.root 'rev-parse --show-toplevel'
 # --name-only
 # --stat
 git config --global alias.ls "log --decorate --oneline --graph"
-git config --global alias.ll "log --decorate --oneline --graph --date=short --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
+git config --global alias.ll "log --decorate --oneline --graph --date=format:%Y-%m-%d\ %H:%M --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
 git config --global alias.rl "reflog --pretty=format:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
-git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%d' --all"
+git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%C(auto,blue)%cr%C(auto)%d' --all"
 # > git ft --all -p
 git config --global alias.ft "fetch"
 # > git st -sb
@@ -251,7 +250,7 @@ git config --global mergetool.prompt false
 # :Gvdiffsplit <commit_id>:%
 git config --global alias.df "difftool"
 git config --global diff.tool nvimdiff
-git config --global diff.algorithm histogram
+git config --global diff.algorithm myers
 git config --global difftool.prompt false
 #}}}
 #git-diff-with-abs-path() {
@@ -308,6 +307,11 @@ alias eixt="exit"
 alias exti="exit"
 
 # bind key
+#https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
+#stty stop ''
+#bind '"\C-s":nop'
+#bind '"\C-sf":nop'
+#bind '"\C-se":nop'
 bind '"\C-af":"tmux-sessionizer\n"'
 bind '"\C-ae":"tmux-session-selector\n"'
 
@@ -323,20 +327,26 @@ function cout () {
 function yy () {
     if [[ $# != 1 ]]; then
         pwd | tr -d '\n' | xsel -i -b
-        echo "Copy to clipboard: $(pwd)"
+        echo "pp $(pwd)"
     else
         readlink -f $1 | tr -d '\n' | xsel -i -b
-        echo "Copy to clipboard: $(pwd)/${1}"
+        echo "pp $(pwd)/${1}"
     fi
 }
 
 function pp () {
-    if [ -d "$(cout)" ]; then
-        cd "$(cout)"
-        echo "Paste from clipboard: $(cout)"
+    if [[ $# != 1 ]]; then
+        target="$(cout)"
     else
-        vim "$(cout)"
-        echo "Paste from clipboard: $(cout)"
+        target="${1}"
+    fi
+
+    if [[ -d "${target}" ]]; then
+        cd "${target}"
+        echo "yy ${target}"
+    else
+        vim "${target}"
+        echo "yy ${target}"
     fi
 }
 
@@ -346,14 +356,31 @@ function pp () {
 #   export FZF_DEFAULT_OPTS='-m'
 #fi
 
-#https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
+##https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
+# > fd | fzf
+# > cd $(fd | fzf)
 function ff () {
     selection="$(fd | fzf | tr -d '\n')"
     selection="$(pwd)/${selection}"
-
     echo "${selection}" | tr -d '\n' |xsel -i -b
-    echo "Copy to clipboard: $(cout)"
+    echo "pp $(cout)"
 }
+
+#function cdw () {
+#    cd "$(git worktree list | fzf | awk '{print $1}')"
+#}
+
+#function fb () {
+#    selection="$(git worktree list | fzf | awk '{print $1}')"
+#
+#    echo "${selection}" | tr -d '\n' |xsel -i -b
+#    echo "Copy to clipboard: $(cout)"
+#}
+
+##https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
+#function cdb () {
+#    cd "$(git worktree list | fzf | awk '{print $1}')"
+#}
 
 function bb () {
     CUR_TIME=`date +%Y%m%d_%H%M%S`

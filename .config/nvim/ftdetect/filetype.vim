@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.vp set filetype=systemverilog
+autocmd BufNewFile,BufRead *.vp set filetype=systemverilog

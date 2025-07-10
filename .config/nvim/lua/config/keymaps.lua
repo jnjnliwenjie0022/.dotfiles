@@ -7,13 +7,14 @@ vim.keymap.set('v', '<Space>', '<nop>')
 vim.keymap.set('i', '<C-c>', '<Esc>')
 -- % refers to the current buffer
 -- %:p refers to the path to the file
-vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR><CMD>echo "Path:"expand("%:p")<CR>')
+--vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR><CMD>echo "Path:"expand("%:p")<CR>')
 vim.keymap.set('n', '<leader>b', '<CMD>exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR><CMD>echo "Backup:"expand("%:p").".bak.".strftime("%Y%m%d_%H%M%S")<CR>')
-vim.keymap.set('n', '<leader>y', '<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "Copy to clipboard:"expand("%:p")<CR>')
-vim.keymap.set('v', '<leader>y', '\"+y<CMD>echo "Copy to clipboard"<CR>')
-vim.keymap.set('n', '<leader>p', '\"+p<CMD>echo "Past from clipboard"<CR>')
-vim.keymap.set('v', '<leader>p', '\"_d\"+P<CMD>echo "Past from clipboard"<CR>')
+vim.keymap.set('n', '<leader>y', '<CMD>let @" = expand("%:p")<CR><CMD>let @* = expand("%:p")<CR><CMD>let @+ = expand("%:p")<CR><CMD>echo "pp"expand("%:p")<CR>')
+--vim.keymap.set('v', '<leader>y', '\"+y<CMD>echo "Copy to clipboard"<CR>')
+--vim.keymap.set('n', '<leader>p', '\"+p<CMD>echo "Past from clipboard"<CR>')
+--vim.keymap.set('v', '<leader>p', '\"_d\"+P<CMD>echo "Past from clipboard"<CR>')
 vim.keymap.set('n', '<leader>c', '<CMD>%s/\\s\\+$//e<CR><CMD>%s/\r$//e<CR>')
+-- :<C-f> edit in command mode
 -- <C-w>J window move to the bottom
 -- <C-w>L window move to the right
 -- @@ command repeat
@@ -21,6 +22,7 @@ vim.keymap.set('n', '<leader>c', '<CMD>%s/\\s\\+$//e<CR><CMD>%s/\r$//e<CR>')
 -- , keymap reversely repeat
 -- :cr[ewind] quickfix list first item
 -- :cla[st] quickfix list last item
+-- https://www.youtube.com/watch?v=oQB8lYUZtrY
 vim.keymap.set('n', '[q', '<CMD>cp<CR>zz')
 vim.keymap.set('n', ']q', '<CMD>cn<CR>zz')
 vim.keymap.set('n', '[Q', '<CMD>cpf<CR>zz')
@@ -111,4 +113,3 @@ vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
 --  end,
 --  desc = "Lazy load clipboard",
 --})
---

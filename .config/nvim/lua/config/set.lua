@@ -46,6 +46,7 @@ vim.opt.number = true
 vim.opt.numberwidth=4
 vim.opt.relativenumber = true
 vim.opt.foldmethod = "marker"
+vim.opt.foldmarker = "#{{{,#}}}"
 vim.opt.list = true
 
 vim.opt.hlsearch = true
