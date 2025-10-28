@@ -1,3 +1,17 @@
+#export XAUTHORITY=$HOME/.Xauthority
+#export DISPLAY=localhost:10.0
+#https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
+#function tmuxfixenv {
+#    eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
+#}
+
+# https://www.linuxquestions.org/questions/linux-networking-3/ssh-x-cannot-open-display-925852/
+if [ ! $DISPLAY ] ; then
+    if [ "$SSH_CLIENT" ] ; then
+        export DISPLAY=`echo $SSH_CLIENT|cut -f1 -d\ `:0.0
+    fi
+fi
+
 # https://www.youtube.com/watch?v=mSXOYhfDFYo
 # wsl --install Ubuntu
 # wsl --unregister Ubuntu
@@ -159,12 +173,14 @@ export PATH="$HOME/.local/script:${PATH}"
 #infocmp -x xterm-256color > saved
 #tic -x saved
 #export TERM=tmux-256color; #echo "TERM=${TERM}" # in root: need terminfo/
-export TERM=xterm-256color; #echo "TERM=${TERM}" # in root: need terminfo/
+#export TERM=xterm-256color; #echo "TERM=${TERM}" # in root: need terminfo/
 # check terminfo
 # infocmp tmux-256color
-
-# enable zoxide
-eval "$(zoxide init bash)"
+if [ -n "$TMUX" ]; then
+    export TERM=tmux-256color
+else
+    export TERM=xterm-256color
+fi
 
 ##{{{
 #function parse_git_dirty {
@@ -301,8 +317,8 @@ fi
 alias rebash='source $HOME/.bashrc'; #echo "source $HOME/.bashrc"; echo "source $HOME/.workflow.bash"
 alias vim="nvim -O"
 alias tmux="tmux -u"
-alias ls="exa"
-alias ll="ls -al"
+alias tmuxs="tmux-sessionizer"
+alias ls="ls --color=never --classify --group-directories-first"
 alias eixt="exit"
 alias exti="exit"
 
@@ -506,3 +522,11 @@ printf "UVMC_HOME: ${UVMC_HOME}\n"
 
 
 #https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
+
+
+osc52_test_tmux() {
+  local msg="OSC52 tmux test"
+  local b64
+  b64=$(echo -n "$msg" | base64)
+  printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
+}

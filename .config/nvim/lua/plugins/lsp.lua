@@ -6,9 +6,9 @@ return {
     branch = 'v2.x',
     dependencies = {
         -- LSP Support
-        'neovim/nvim-lspconfig', -- LSP configurations "Engine" (Required)
-        'williamboman/mason.nvim', -- Portable package manager for Neovim that runs everywhere Neovim runs
-        'williamboman/mason-lspconfig.nvim', -- Extension to mason.nvim that makes it easier to lspconfig with mason.nvim
+        --'neovim/nvim-lspconfig', -- LSP configurations "Engine" (Required)
+        --'williamboman/mason.nvim', -- Portable package manager for Neovim that runs everywhere Neovim runs
+        --'williamboman/mason-lspconfig.nvim', -- Extension to mason.nvim that makes it easier to lspconfig with mason.nvim
 
         -- Autocompletion
         'hrsh7th/nvim-cmp', -- Completion "Engine" (Required)

@@ -15,6 +15,7 @@ vim.keymap.set('n', '<leader>y', '<CMD>let @" = expand("%:p")<CR><CMD>let @* = e
 --vim.keymap.set('v', '<leader>p', '\"_d\"+P<CMD>echo "Past from clipboard"<CR>')
 vim.keymap.set('n', '<leader>c', '<CMD>%s/\\s\\+$//e<CR><CMD>%s/\r$//e<CR>')
 -- :<C-f> edit in command mode
+-- <C-w>H window move to the left
 -- <C-w>J window move to the bottom
 -- <C-w>L window move to the right
 -- @@ command repeat

@@ -1,16 +1,16 @@
 -- http://yyq123.github.io/learn-vim/learn-vi-49-01-autocmd.html
 -- https://dev.to/voyeg3r/my-lazy-neovim-config-3h6o
 
--- write event
-vim.api.nvim_create_autocmd({ "BufWrite" }, {
-    pattern = '*',
-    callback = function()
-        local cursor_pos = vim.fn.getpos('.')  -- get current cursor position
+---- write event
+--vim.api.nvim_create_autocmd({ "BufWrite" }, {
+--    pattern = '*',
+--    callback = function()
+--        local cursor_pos = vim.fn.getpos('.')  -- get current cursor position
 --        vim.cmd('%s/\\s\\+$//e')
 --        vim.cmd('%s/\r$//e')
-        vim.fn.setpos('.', cursor_pos) -- cursor go to the position which you describe
-    end,
-})
+--        vim.fn.setpos('.', cursor_pos) -- cursor go to the position which you describe
+--    end,
+--})
 
 -- yank event
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
@@ -34,15 +34,15 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     end
 })
 
--- read event
-vim.api.nvim_create_autocmd({ "BufRead" }, {
-    pattern  = '*',
+-- buffer read post event
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    pattern = '*',
     callback = function()
         if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
-            vim.fn.setpos('.', vim.fn.getpos("'\""))
-            vim.cmd('silent! foldopen')
+            vim.fn.setpos(".", vim.fn.getpos("'\""))
+            vim.cmd("silent! foldopen")
         end
-    end
+    end,
 })
 
 -- insert event
