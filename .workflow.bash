@@ -1,30 +1,3 @@
-# set $XAUTHORITY on ssh
-export XAUTHORITY=$HOME/.Xauthority
-
-# set $DISPLAY on ssh
-# https://www.linuxquestions.org/questions/linux-networking-3/ssh-x-cannot-open-display-925852/
-if [ ! $DISPLAY ] ; then
-    if [ "$SSH_CLIENT" ] ; then
-        export DISPLAY=`echo $SSH_CLIENT|cut -f1 -d\ `:0.0
-    fi
-fi
-
-# fix $DISPLAY on ssh tmux reconnect
-#https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
-function fix_tmuxenv() {
-    eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
-}
-#if [ -n "$TMUX" ]; then
-#    export DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
-#fi
-
-function test_osc52() {
-  local msg="OSC52 tmux test"
-  local b64
-  b64=$(echo -n "$msg" | base64)
-  printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
-}
-
 #{{{ wsl
 # https://www.youtube.com/watch?v=mSXOYhfDFYo
 # wsl --install Ubuntu
@@ -159,6 +132,33 @@ function test_osc52() {
 #         - { index: 16, color: "#FAB387" }
 #         - { index: 17, color: "#F5E0DC" }
 #}}}
+#{{{ basic
+# set $XAUTHORITY on ssh
+export XAUTHORITY=$HOME/.Xauthority
+
+# set $DISPLAY on ssh
+# https://www.linuxquestions.org/questions/linux-networking-3/ssh-x-cannot-open-display-925852/
+if [ ! $DISPLAY ] ; then
+    if [ "$SSH_CLIENT" ] ; then
+        export DISPLAY=`echo $SSH_CLIENT|cut -f1 -d\ `:0.0
+    fi
+fi
+
+# fix $DISPLAY on ssh tmux reconnect
+#https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
+function fix_tmuxenv() {
+    eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
+}
+#if [ -n "$TMUX" ]; then
+#    export DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
+#fi
+
+function test_osc52() {
+    local msg="OSC52 SUCCESS!!"
+    local b64
+    b64=$(echo -n "$msg" | base64)
+    printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
+}
 
 # echo "Shell=$SHELL $BASH_VERSION"
 # language config
@@ -169,10 +169,6 @@ function test_osc52() {
 #   sudo locale-gen en_US.UTF-8
 export LANG="en_US.utf-8"
 export LC_ALL=
-
-# set $PATH
-export PATH="$HOME/.local/bin:${PATH}"
-export PATH="$HOME/.local/script:${PATH}"
 
 # set $TERM
 # https://unix.stackexchange.com/questions/574669/clearing-tmux-terminal-throws-error-tmux-256color-unknown-terminal-type
@@ -186,6 +182,10 @@ else
     export TERM=xterm-256color
 fi
 
+# set $PATH
+export PATH="$HOME/.local/bin:${PATH}"
+export PATH="$HOME/.local/script:${PATH}"
+#}}}
 #{{{ alias
 alias rebash='source $HOME/.bashrc';
 alias vim="nvim -O"
@@ -204,42 +204,13 @@ alias exti="exit"
 bind '"\C-af":"tmux-sessionizer\n"'
 bind '"\C-ae":"tmux-session-selector\n"'
 #}}}
-
-##{{{
-#function parse_git_dirty {
-#  status=$(git status --porcelain -b 2> /dev/null)
-#  aheadRegex="ahead ([0-9]+)"
-#  behindRegex="behind ([0-9]+)"
-#
-#  [[ $status =~ $aheadRegex ]] && ahead="${BASH_REMATCH[1]}" || ahead="0"
-#  [[ $status =~ $behindRegex ]] && behind="${BASH_REMATCH[1]}" || behind="0"
-#
-#  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo -n ", dirty"
-#  [[ $ahead != "0" ]] && echo -n ", ↑${ahead}"
-#  [[ $behind != "0" ]] && echo -n ", ↓${behind}"
-#}
-#function parse_git_stash {
-#  [[ $(git stash list 2> /dev/null | tail -n1) != "" ]] && echo " \/ stash"
-#}
-#function parse_git_branch {
-#  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)$(parse_git_stash)/"
-#}
-#export PS1='\[\e[0;33m\]${HOSTNAME}\[\e[m\]  |  \W  |  \[\e[0;36m\]$(parse_git_branch)\[\e[m\]\n${USER} $ '
-##}}}
-
-# GIT_PS1
-#GIT_PS1_SHOWDIRTYSTATE='y'
-#GIT_PS1_SHOWSTASHSTATE='y'
-#GIT_PS1_SHOWUNTRACKEDFILES='y'
-#GIT_PS1_DESCRIBE_STYLE='contains'
-#GIT_PS1_SHOWUPSTREAM='auto'
-#source /etc/bash_completion.d/git-prompt
-#export PS1="\[\033[33m\][\w] \[\e[91m\]\$(__git_ps1) \n\[\033[33m\][\j] > \[\033[0m\]"
-
-#{{{ git .gitconfig
+#{{{ git config
 # https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
-# git config --global user.name "Wen-Jie Li"
-# git config --global user.email "jnjn0022@gmail.com"
+git config --global user.name "Wen-Jie Li"
+git config --global user.email "jnjn0022@gmail.com"
+git config --global http.proxy "http://cache1:3128"
+git config --global http.postBuffer "524288000"
+git config --global https.proxy "http://cache1:3128"
 git config --global push.default simple
 git config --global pull.rebase true
 # https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
@@ -250,6 +221,7 @@ git config --global alias.root 'rev-parse --show-toplevel'
 # :G ls --grep=<pattern> --author=<author>
 # --name-only
 # --stat
+#https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
 git config --global alias.ls "log --decorate --oneline --graph"
 git config --global alias.ll "log --decorate --oneline --graph --date=format:%Y-%m-%d\ %H:%M --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
 git config --global alias.rl "reflog --pretty=format:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -291,6 +263,34 @@ git config --global alias.df "difftool"
 git config --global diff.tool nvimdiff
 git config --global diff.algorithm myers
 git config --global difftool.prompt false
+git config --global alias.ss \
+"!f() { \
+remote_branch=\$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo ''); \
+[ -n \"\$remote_branch\" ] && remote_branch=\"{\$remote_branch}\"; \
+branch=\$(git symbolic-ref --short -q HEAD 2>/dev/null); \
+if [ -z \"\$branch\" ]; then \
+    branch=\"(DETACHED)\"; \
+else \
+    branch=\"\$remote_branch \$branch\"; \
+fi; \
+[ -d .git/MERGE_HEAD ] && merge=\"[MERGING]\"; \
+commit=\$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown'); \
+ahead=\$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0); \
+behind=\$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0); \
+staged=\$(git diff --cached --name-only | wc -l | tr -d ' '); \
+unstaged=\$(git diff --name-only | wc -l | tr -d ' '); \
+modified=\$(git status --porcelain | grep '^ M' | wc -l | tr -d ' '); \
+untracked=\$(git status --porcelain | grep '^??' | wc -l | tr -d ' '); \
+stash=\$(git stash list | wc -l | tr -d ' '); \
+echo -n \"[G] \$branch @\$commit\"; \
+if [ \"\$ahead\" != \"0\" ] || [ \"\$behind\" != \"0\" ]; then \
+    echo -n \" ↑\$ahead ↓\$behind\"; \
+fi; \
+echo -n \" | A:\$staged M:\$unstaged U:\$untracked S:\$stash\"; \
+echo -n \" \$merge\"; \
+echo \"\"; \
+}; f"
+
 git-diff-with-abs-path() {
     local path
 
@@ -323,10 +323,7 @@ if [ -f ${file} ]; then
     #echo "Prompt [Warning] ${file} not exist"
 fi
 #}}}
-
-
-
-# create function call
+#{{{ function
 function cin () {
     xsel -i -b
 }
@@ -483,25 +480,6 @@ function run_install_tool() {
         git clone "$url" "$folder" --depth=1
     fi
 }
-
-# synopsys tool conifg
-file="${HOME}/synopsys/.bashrc.synopsys"
-if [ -f "${file}" ]; then
-    source "${file}"
-    printf "source ${file}\n"
-fi
-# umvc 2.3.2 config
-file="${HOME}/synopsys/.bashrc.uvmc"
-if [ -f "${file}" ]; then
-    source "${file}"
-    printf "source ${file}\n"
-fi
-
-#
-printf "VCS_HOME: ${VCS_HOME}\n"
-printf "UVM_HOME: ${UVM_HOME}\n"
-printf "UVMC_HOME: ${UVMC_HOME}\n"
-
 #sudo apt install -y gcc wget iputils-ping python3-pip git bear tig shellcheck ripgrep
 #
 ## 安装 neovim 的各种依赖 https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites
@@ -510,7 +488,18 @@ printf "UVMC_HOME: ${UVMC_HOME}\n"
 #curl -LO https://invisible-island.net/datafiles/current/terminfo.src.gz
 #gunzip terminfo.src.gz
 #tic terminfo.src
-
-#https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
-
-
+#}}}
+#{{{ synopsys tool conifg
+file="${HOME}/synopsys/.bashrc.synopsys"
+if [ -f "${file}" ]; then
+    source "${file}"
+    printf "source ${file}\n"
+fi
+#}}}
+#{{{umvc 2.3.2 config
+file="${HOME}/synopsys/.bashrc.uvmc"
+if [ -f "${file}" ]; then
+    source "${file}"
+    printf "source ${file}\n"
+fi
+#}}}
