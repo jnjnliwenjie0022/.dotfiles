@@ -497,6 +497,7 @@ if [ -f "${file}" ]; then
     printf "source ${file}\n"
 fi
 
+#
 printf "VCS_HOME: ${VCS_HOME}\n"
 printf "UVM_HOME: ${UVM_HOME}\n"
 printf "UVMC_HOME: ${UVMC_HOME}\n"
