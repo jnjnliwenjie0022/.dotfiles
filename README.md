@@ -29,7 +29,6 @@ git push --set-upstream origin master
 Username for 'https://github.com': jnjnliwenjie0022
 Password for 'https://jnjnliwenjie0022@github.com': Tokens (classic)
 #github(https://github.com/jnjnliwenjie0022) -> Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
-
 ```
 ```
 ##AppImage
