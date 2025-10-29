@@ -1,10 +1,7 @@
-#export XAUTHORITY=$HOME/.Xauthority
-#export DISPLAY=localhost:10.0
-#https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
-#function tmuxfixenv {
-#    eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
-#}
+# set $XAUTHORITY on ssh
+export XAUTHORITY=$HOME/.Xauthority
 
+# set $DISPLAY on ssh
 # https://www.linuxquestions.org/questions/linux-networking-3/ssh-x-cannot-open-display-925852/
 if [ ! $DISPLAY ] ; then
     if [ "$SSH_CLIENT" ] ; then
@@ -12,13 +9,27 @@ if [ ! $DISPLAY ] ; then
     fi
 fi
 
+# fix $DISPLAY on ssh tmux reconnect
+#https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
+function fix_tmuxenv() {
+    eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
+}
+#if [ -n "$TMUX" ]; then
+#    export DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
+#fi
+
+function test_osc52() {
+  local msg="OSC52 tmux test"
+  local b64
+  b64=$(echo -n "$msg" | base64)
+  printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
+}
+
+#{{{ wsl
 # https://www.youtube.com/watch?v=mSXOYhfDFYo
 # wsl --install Ubuntu
 # wsl --unregister Ubuntu
-#
-# terminal color scheme config
-# https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
-#
+#}}}
 #{{{ CentOS
 # sudo yum update -y
 # sudo yum install libX11
@@ -28,8 +39,9 @@ fi
 # X11UseLocalhost yes
 # systemctl restart sshd
 #}}}
-
 #{{{ MobaXterm
+# terminal color scheme config
+# https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
 # Paste the following configurations in the corresponding place in MobaXterm.ini.
 # Setting->Configuration->Terminal->Default terminal color setting->import catppuccin-mocha.ini
 #
@@ -56,7 +68,6 @@ fi
 # BoldBlack=88,91,112
 # BoldRed=243,139,168
 #}}}
-
 #{{{ Alacritty
 #https://stackoverflow.com/questions/34932495/forward-x11-failed-network-error-connection-refused
 #
@@ -159,21 +170,14 @@ fi
 export LANG="en_US.utf-8"
 export LC_ALL=
 
-# workspace config
+# set $PATH
 export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.local/script:${PATH}"
 
-# xsel conifg
-#env | grep SSH
-#export DISPLAY=:0
-#export DISPLAY=$(echo $(env | grep SSH_CLIENT= | sed -r 's/SSH_CLIENT=(.*)\s(.*)\s(.*)/\1:0/'))
-
-# tmux config
+# set $TERM
 # https://unix.stackexchange.com/questions/574669/clearing-tmux-terminal-throws-error-tmux-256color-unknown-terminal-type
 #infocmp -x xterm-256color > saved
 #tic -x saved
-#export TERM=tmux-256color; #echo "TERM=${TERM}" # in root: need terminfo/
-#export TERM=xterm-256color; #echo "TERM=${TERM}" # in root: need terminfo/
 # check terminfo
 # infocmp tmux-256color
 if [ -n "$TMUX" ]; then
@@ -181,6 +185,25 @@ if [ -n "$TMUX" ]; then
 else
     export TERM=xterm-256color
 fi
+
+#{{{ alias
+alias rebash='source $HOME/.bashrc';
+alias vim="nvim -O"
+alias tmux="tmux -u"
+alias tmuxs="tmux-sessionizer"
+alias ls="ls --color=never --classify --group-directories-first"
+alias eixt="exit"
+alias exti="exit"
+#}}}
+#{{{ bind
+#https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
+#stty stop ''
+#bind '"\C-s":nop'
+#bind '"\C-sf":nop'
+#bind '"\C-se":nop'
+bind '"\C-af":"tmux-sessionizer\n"'
+bind '"\C-ae":"tmux-session-selector\n"'
+#}}}
 
 ##{{{
 #function parse_git_dirty {
@@ -268,25 +291,13 @@ git config --global alias.df "difftool"
 git config --global diff.tool nvimdiff
 git config --global diff.algorithm myers
 git config --global difftool.prompt false
-#}}}
-#git-diff-with-abs-path() {
-#    local path
-#
-#    path=$(git rev-parse --show-toplevel) &&
-#    git diff --stat "$@" | sed "s,^,$path/,"
-#}
 git-diff-with-abs-path() {
     local path
 
     path=$(git rev-parse --show-toplevel) &&
     git diff --name-only "$@" | sed "s,^,$path/,"
 }
-#git-diff-with-abs-path() {
-#    local path tab=$'\t'
-#
-#    path=$(git rev-parse --show-toplevel) &&
-#    git diff --name-status "$@" | sed "s,$tab,$tab$path/,"
-#}
+#}}}
 #{{{ git prompt
 #https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
 
@@ -313,23 +324,7 @@ if [ -f ${file} ]; then
 fi
 #}}}
 
-# create command
-alias rebash='source $HOME/.bashrc'; #echo "source $HOME/.bashrc"; echo "source $HOME/.workflow.bash"
-alias vim="nvim -O"
-alias tmux="tmux -u"
-alias tmuxs="tmux-sessionizer"
-alias ls="ls --color=never --classify --group-directories-first"
-alias eixt="exit"
-alias exti="exit"
 
-# bind key
-#https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
-#stty stop ''
-#bind '"\C-s":nop'
-#bind '"\C-sf":nop'
-#bind '"\C-se":nop'
-bind '"\C-af":"tmux-sessionizer\n"'
-bind '"\C-ae":"tmux-session-selector\n"'
 
 # create function call
 function cin () {
@@ -515,18 +510,6 @@ printf "UVMC_HOME: ${UVMC_HOME}\n"
 #gunzip terminfo.src.gz
 #tic terminfo.src
 
-
-
-#export DISPLAY="grep nameserver /etc/resolv.conf | sed 's/nameserver //':0"
-
-
-
 #https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
 
 
-osc52_test_tmux() {
-  local msg="OSC52 tmux test"
-  local b64
-  b64=$(echo -n "$msg" | base64)
-  printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
-}
