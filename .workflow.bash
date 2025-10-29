@@ -208,9 +208,9 @@ bind '"\C-ae":"tmux-session-selector\n"'
 # https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
 git config --global user.name "Wen-Jie Li"
 git config --global user.email "jnjn0022@gmail.com"
-#git config --global http.proxy "http://cache1:3128"
-#git config --global http.postBuffer "524288000"
-#git config --global https.proxy "http://cache1:3128"
+git config --global http.proxy "http://cache1:3128"
+git config --global http.postBuffer "524288000"
+git config --global https.proxy "http://cache1:3128"
 git config --global push.default simple
 git config --global pull.rebase true
 # https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
