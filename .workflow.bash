@@ -3,15 +3,6 @@
 # wsl --install Ubuntu
 # wsl --unregister Ubuntu
 #}}}
-#{{{ CentOS
-# sudo yum update -y
-# sudo yum install libX11
-# vim /etc/ssh/sshd_config
-# X11Forwarding yes
-# X11DisplayOffset 10
-# X11UseLocalhost yes
-# systemctl restart sshd
-#}}}
 #{{{ MobaXterm
 # terminal color scheme config
 # https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
@@ -41,50 +32,97 @@
 # BoldBlack=88,91,112
 # BoldRed=243,139,168
 #}}}
-#{{{ basic
-# set $XAUTHORITY on ssh
+#{{{ X11 and ssH
+# In CentOS (remote-linux)
+# 1. > sudo yum update -y
+# 2. > sudo yum install libX11
+# 3. type the following ong the sshd_config file which need root authority
+# In vim /etc/ssh/sshd_config
+# X11Forwarding yes
+# X11DisplayOffset 10
+# X11UseLocalhost yes
+# systemctl restart sshd
+
+# # Create ~/.Xauthority Has Been Created
+# In remote server (remote-linux)
+# 1. > xauth list
 export XAUTHORITY=$HOME/.Xauthority
 
-# set $DISPLAY on ssh
-# https://www.linuxquestions.org/questions/linux-networking-3/ssh-x-cannot-open-display-925852/
-if [ ! $DISPLAY ] ; then
-    if [ "$SSH_CLIENT" ] ; then
-        export DISPLAY=`echo $SSH_CLIENT|cut -f1 -d\ `:0.0
-    fi
-fi
+# # Easy Wat to Access ssh from ssh -Y jasonli@atcpcw10: 22 to ssh r10
+# In wezterm
+# In C:/Users/jasonli/.ssh/config (local-window)
+# 1. type the following on the config file
+# Host r10
+#     HostName atcpcw10
+#     User jasonli
+#     Port 22
+#     ForwardX11 yes
+#     ForwardX11Trusted yes
+#     IdentitiesOnly yes
+# 2. > ssh r10
 
-# fix $DISPLAY on ssh tmux reconnect
-#https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
+# # Auto Login without Password
+# In wezterm
+# In C:/Users/jasonli/.ssh/config (local-window)
+# 1. > ssh-keygen
+# 2. > type id_ed25519.pub | ssh jasonli@atcpcw10 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+
+# # Login with Different Method
+# ## Method1: wezterm + mobaxterm (local-window) (recommand)
+# In mobaxterm
+# 1. > wezterm
+# In wezterm
+# 1. ssh -Y jasonli@atcpcw10 -p 22
+# 1. ssh r10
+
+# ## Method2: wezterm (locol-window)
+# ref: https://stackoverflow.com/questions/65468655/vs-code-remote-x11-cant-get-display-while-connecting-to-remote-server
+# ref: https://wiki.iihe.ac.be/Use_SSH_%26_X11_forwarding_on_Windows
+# In remote server (remote-linux)
+# 1. > xauth list
+# to create ~/.Xauthority
+# remind ${number} which is 49 in Xauthority
+# notice that 49 can be different number
+# In VcXsrv (local-window)
+# 1. tick Multiple windows
+# 2. type Display number: ${number}
+# 3. tick Start no Client
+# 4. tick Disable access control
+# In wezterm
+# 1. > set DISPLAY=localhost:${number}.0
+# 2. ssh -Y jasonli@atcpcw10 -p 22
+# 2. ssh r10
+
+# # fix $DISPLAY when ssh reconnect with tmux mode
+# ref: https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
 function fix_tmuxenv() {
     eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
 }
-#if [ -n "$TMUX" ]; then
-#    export DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
-#fi
 
+# # test osc52
 function test_osc52() {
     local msg="OSC52 SUCCESS!!"
     local b64
     b64=$(echo -n "$msg" | base64)
     printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
 }
-
-# echo "Shell=$SHELL $BASH_VERSION"
-# language config
-# https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
-# locale -a
-# locale
+#}}}
+#{{{ export
+# # language config
+# ref: https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
+# > locale -a
+# > locale
 # if en_US.utf-8 does not exist
-#   sudo locale-gen en_US.UTF-8
+# > sudo locale-gen en_US.UTF-8
 export LANG="en_US.utf-8"
 export LC_ALL=
 
-# set $TERM
-# https://unix.stackexchange.com/questions/574669/clearing-tmux-terminal-throws-error-tmux-256color-unknown-terminal-type
-#infocmp -x xterm-256color > saved
-#tic -x saved
+# # set $TERM
+# ref: https://unix.stackexchange.com/questions/574669/clearing-tmux-terminal-throws-error-tmux-256color-unknown-terminal-type
+# > infocmp -x xterm-256color > saved
+# > tic -x saved
 # check terminfo
-# infocmp tmux-256color
+# > infocmp tmux-256color
 if [ -n "$TMUX" ]; then
     export TERM=tmux-256color
 else
@@ -105,7 +143,7 @@ alias eixt="exit"
 alias exti="exit"
 #}}}
 #{{{ bind
-#https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
+# ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
 #stty stop ''
 #bind '"\C-s":nop'
 #bind '"\C-sf":nop'
@@ -114,7 +152,7 @@ bind '"\C-af":"tmux-sessionizer\n"'
 bind '"\C-ae":"tmux-session-selector\n"'
 #}}}
 #{{{ git config
-# https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
+# ref: https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
 git config --global user.name "Wen-Jie Li"
 git config --global user.email "jnjn0022@gmail.com"
 git config --global http.proxy "http://cache1:3128"
@@ -122,7 +160,7 @@ git config --global http.postBuffer "524288000"
 git config --global https.proxy "http://cache1:3128"
 git config --global push.default simple
 git config --global pull.rebase true
-# https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
+# ref: https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
 git config --global alias.wt "worktree"
 git config --global alias.root 'rev-parse --show-toplevel'
 # :G ls
@@ -130,7 +168,7 @@ git config --global alias.root 'rev-parse --show-toplevel'
 # :G ls --grep=<pattern> --author=<author>
 # --name-only
 # --stat
-#https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
+# ref: https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
 git config --global alias.ls "log --decorate --oneline --graph"
 git config --global alias.ll "log --decorate --oneline --graph --date=format:%Y-%m-%d\ %H:%M --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
 git config --global alias.rl "reflog --pretty=format:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -191,7 +229,7 @@ unstaged=\$(git diff --name-only | wc -l | tr -d ' '); \
 modified=\$(git status --porcelain | grep '^ M' | wc -l | tr -d ' '); \
 untracked=\$(git status --porcelain | grep '^??' | wc -l | tr -d ' '); \
 stash=\$(git stash list | wc -l | tr -d ' '); \
-echo -n \"[G] \$branch @\$commit\"; \
+echo -n \"GIT \$branch @\$commit\"; \
 if [ \"\$ahead\" != \"0\" ] || [ \"\$behind\" != \"0\" ]; then \
     echo -n \" ↑\$ahead ↓\$behind\"; \
 fi; \
@@ -208,7 +246,7 @@ git-diff-with-abs-path() {
 }
 #}}}
 #{{{ git prompt
-#https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
+# ref: https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
 function parse_git_branch() {
      git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
 }
@@ -272,7 +310,7 @@ function pp () {
 #   export FZF_DEFAULT_OPTS='-m'
 #fi
 
-##https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
+# ref: https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
 # > fd | fzf
 # > cd $(fd | fzf)
 function ff () {
@@ -281,6 +319,22 @@ function ff () {
     echo "${selection}" | tr -d '\n' |xsel -i -b
     echo "pp $(cout)"
 }
+
+#function ff () {
+#    if [ $# != 1 ]; then
+#        if [ -z $1 ]; then
+#            clear; echo "[$(pwd)]"; ls -a;
+#            selection="$(ls -a | fzf --reverse --height 70%)"
+#            if [[ -d "$selection" ]]; then
+#                cd "$selection"
+#            else
+#                vim "$selection"
+#            fi
+#        fi
+#    else
+#        cd $1
+#    fi
+#}
 
 #function cdw () {
 #    cd "$(git worktree list | fzf | awk '{print $1}')"
@@ -293,7 +347,7 @@ function ff () {
 #    echo "Copy to clipboard: $(cout)"
 #}
 
-##https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
+# ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
 #function cdb () {
 #    cd "$(git worktree list | fzf | awk '{print $1}')"
 #}
@@ -316,22 +370,6 @@ function bb () {
         echo "Backup: $selection.bak.$CUR_TIME"
     fi
 }
-
-#function ff () {
-#    if [ $# != 1 ]; then
-#        if [ -z $1 ]; then
-#            clear; echo "[$(pwd)]"; ls -a;
-#            selection="$(ls -a | fzf --reverse --height 70%)"
-#            if [[ -d "$selection" ]]; then
-#                cd "$selection"
-#            else
-#                vim "$selection"
-#            fi
-#        fi
-#    else
-#        cd $1
-#    fi
-#}
 
 function run_install_tool() {
     # prerequisite
@@ -397,14 +435,15 @@ function run_install_tool() {
 #gunzip terminfo.src.gz
 #tic terminfo.src
 #}}}
-#{{{ synopsys tool conifg
+#{{{ eda tool config
+# synopsys tool conifg
 file="${HOME}/synopsys/.bashrc.synopsys"
 if [ -f "${file}" ]; then
     source "${file}"
     printf "source ${file}\n"
 fi
-#}}}
-#{{{umvc 2.3.2 config
+
+# umvc 2.3.2 config
 file="${HOME}/synopsys/.bashrc.uvmc"
 if [ -f "${file}" ]; then
     source "${file}"
