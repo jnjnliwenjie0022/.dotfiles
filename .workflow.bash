@@ -224,16 +224,15 @@ fi; \
 commit=\$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown'); \
 ahead=\$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0); \
 behind=\$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0); \
-staged=\$(git diff --cached --name-only | wc -l | tr -d ' '); \
-unstaged=\$(git diff --name-only | wc -l | tr -d ' '); \
-modified=\$(git status --porcelain | grep '^ M' | wc -l | tr -d ' '); \
+staged=\$(git diff --cached --name-only | wc -l); \
+unstaged=\$(git diff --name-only | wc -l); \
 untracked=\$(git status --porcelain | grep '^??' | wc -l | tr -d ' '); \
 stash=\$(git stash list | wc -l | tr -d ' '); \
 echo -n \"GIT \$branch @\$commit\"; \
 if [ \"\$ahead\" != \"0\" ] || [ \"\$behind\" != \"0\" ]; then \
     echo -n \" ↑\$ahead ↓\$behind\"; \
 fi; \
-echo -n \" | A:\$staged M:\$unstaged U:\$untracked S:\$stash\"; \
+echo -n \" | A:\$staged C:\$unstaged U:\$untracked S:\$stash\"; \
 echo -n \" \$merge\"; \
 echo \"\"; \
 }; f"
