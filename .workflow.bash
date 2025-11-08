@@ -261,7 +261,8 @@ bind '"\C-ae":"tmux-session-selector\n"'
 # "\C-m" is sames as EOL
 #}}}
 #{{{ git config
-# ref: https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
+git() { if [[ $@ == "pull" ]]; then command echo "Instead of pull, using > git fetch --all -p && git rebase"; else command git "$@"; fi; }
+# - ref: https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
 git config --global user.name "Wen-Jie Li"
 git config --global user.email "jnjn0022@gmail.com"
 git config --global http.proxy "http://cache1:3128"
@@ -269,7 +270,7 @@ git config --global http.postBuffer "524288000"
 git config --global https.proxy "http://cache1:3128"
 git config --global push.default simple
 git config --global pull.rebase true
-# ref: https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
+# - ref: https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
 git config --global alias.wt "worktree"
 git config --global alias.root 'rev-parse --show-toplevel'
 # :G ls
@@ -277,13 +278,16 @@ git config --global alias.root 'rev-parse --show-toplevel'
 # :G ls --grep=<pattern> --author=<author>
 # --name-only
 # --stat
-# ref: https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
-git config --global alias.ls "log --decorate --oneline --graph"
-git config --global alias.ll "log --decorate --oneline --graph --date=format:%Y-%m-%d\ %H:%M --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
+# - ref: https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
+# > git ls/ll -n ${number}
+# > git ls/ll --since="2week/2day"
+# > git ls/ll --author="Wen-Jie"
+# > git ls/ll -- ${filepath}
+git config --global alias.ls "log --decorate --oneline --graph --reflog"
+git config --global alias.ll "log --decorate --oneline --graph --reflog --date=format:%Y-%m-%d\ %H:%M --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
 git config --global alias.rl "reflog --pretty=format:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
 git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%C(auto,blue)%cr%C(auto)%d' --all"
-# > git ft --all -p
-git config --global alias.ft "fetch"
+git config --global alias.ft "fetch -all -p"
 # > git st -sb
 git config --global alias.st "status"
 git config --global alias.sb "st -sbuno"
@@ -318,7 +322,7 @@ git config --global mergetool.prompt false
 # :Gvdiffsplit HEAD:%
 # :Gvdiffsplit <commit_id>:%
 git config --global alias.df "difftool"
-git config --global diff.tool nvimdiff
+git config --global diff.tool vim
 git config --global diff.algorithm myers
 git config --global difftool.prompt false
 git config --global alias.ss \
