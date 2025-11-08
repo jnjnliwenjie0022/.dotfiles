@@ -120,12 +120,12 @@ set splitbelow
 let g:netrw_banner = 0
 
 " # autcocmd
-" - dialbe auto comment on current current for every filetype
+" - disable auto comment on current current for every filetype
 autocmd FileType * setlocal formatoptions-=cro
 
 " # function
 " ## YANK function
-" - ref:https://sunaku.github.io/tmux-yank-osc52.html#configure-your-vimrc
+" - ref: https://sunaku.github.io/tmux-yank-osc52.html#configure-your-vimrc
 function! YANK(text) abort
     let escape = system('yank', a:text)
     if v:shell_error
@@ -136,7 +136,7 @@ function! YANK(text) abort
 endfunction
 
 " ## FZF function
-" ref: https://dev.to/pbnj/interactive-fuzzy-finding-in-vim-without-plugins-4kkj
+" - ref: https://dev.to/pbnj/interactive-fuzzy-finding-in-vim-without-plugins-4kkj
 function! FZF() abort
     let l:tempname = tempname()
     " fd -H | fzf | awk '{ print $1":1:0" }' > file
@@ -149,6 +149,7 @@ function! FZF() abort
     endtry
 endfunction
 
+"git -C $(git rev-parse --show-toplevel) ls-files
 " ## FZFGIT function
 function! FZF_GitFiles() abort
     let l:tempname = tempname()
@@ -301,10 +302,8 @@ hi Structure ctermfg=11
 hi Todo ctermfg=0 ctermbg=12
 hi Type ctermfg=11
 
-" - neovim-specific (remove if you're using vim)
-hi NormalFloat ctermfg=15 ctermbg=0
-hi FloatBorder ctermfg=7  ctermbg=0
-hi FloatShadow ctermfg=15 ctermbg=0
+" # filetype
+autocmd BufNewFile,BufRead *.vp set filetype=systemverilog
 
 " # vim-plug
 " - ref: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -315,6 +314,7 @@ hi FloatShadow ctermfg=15 ctermbg=0
 call plug#begin()
     Plug 'tpope/vim-fugitive'
     Plug 'junegunn/vim-easy-align'
+    Plug 'mtdl9/vim-log-highlighting'
 call plug#end()
 
 " # vim-easy-align
@@ -323,3 +323,47 @@ call plug#end()
 xmap ga <Plug>(EasyAlign)
 " - Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+
+
+
+
+
+
+
+"local function run_ctags_uvm()
+"    vim.cmd [[!rm -rf $HOME/.local/tags ]]
+"    vim.cmd [[!mkdir $HOME/.local/tags ]]
+"
+"    --https://docs.ctags.io/en/latest/output-format.html
+"    -- --extra=+q  - Enable hierarchy qualified tags extraction.
+"    -- --fields=+i - Enable class inheritance extraction.
+"    -- -n          - (Optional) Use line number instead of Ex: patterns to identify declaration.
+"    vim.cmd [[!ctags --extras=+q --fields=+i -n --tag-relative=never --languages=systemverilog -R --exclude=.git -f $HOME/.local/tags/.uvm.tags $UVM_HOME/src ]]
+"    vim.cmd [[!ctags --extras=+q --fields=+i -n --tag-relative=never                           -R --exclude=.git -f $HOME/.local/tags/.tags  .]]
+"
+"    vim.cmd [[ set tags=$HOME/.local/tags/.uvm.tags ]]
+"    vim.cmd [[ set tags+=$HOME/.local/tags/.tags ]]
+"end
+"
+"vim.keymap.set("n", "<leader>rt", run_ctags_uvm)
+"
+"-- :ltag(:lt) to load tag to quitfixlist
+"-- :lope to open quitfixlist with tag
+
+
+
+
+
+
+
+"--vim.cmd [[
+"--    let s:vim_tags = expand('~/.cache/tags')
+"--    let g:gutentags_cache_dir = s:vim_tags
+"--    if !isdirectory(s:vim_tags)
+"--        silent! call mkdir(s:vim_tags, 'p')
+"--    endif
+"--]]
+"--vim.cmd [[ let g:gutentags_project_root = ['.root', '.git'] ]]
+"--vim.cmd [[ let g:gutentags_ctags_tagfile = '.tags' ]]
+"--vim.cmd [[ let g:gutentags_ctags_extra_args = ['-R', '--languages=systemverilog', '--extra=+q', '--fields=+i'] ]]
