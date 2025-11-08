@@ -20,7 +20,7 @@ config.font_size = 20
 config.line_height = 0.85
 
 -- color
-config.term = "xterm-256color" 
+config.term = "xterm-256color"
 config.color_scheme = 'Catppuccin Mocha'
 config.colors = {
     background = 'black'
@@ -29,8 +29,7 @@ config.colors = {
 -- bell
 config.audible_bell = "Disabled"
 
--- disable ligatures 
+-- disable ligatures
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
 return config
-

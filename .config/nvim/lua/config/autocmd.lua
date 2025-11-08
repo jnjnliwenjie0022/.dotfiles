@@ -25,14 +25,14 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     end
 })
 
--- terminal event
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
-    pattern = '*',
-    callback = function ()
-        vim.cmd('setlocal nonumber norelativenumber')
-        vim.cmd('startinsert')
-    end
-})
+---- terminal event
+--vim.api.nvim_create_autocmd({ "TermOpen" }, {
+--    pattern = '*',
+--    callback = function ()
+--        vim.cmd('setlocal nonumber norelativenumber')
+--        vim.cmd('startinsert')
+--    end
+--})
 
 -- buffer read post event
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {

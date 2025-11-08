@@ -69,48 +69,15 @@ vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
 --cd % show current dir
 --cd %:p set current dir
 
----- https://www.reddit.com/r/neovim/comments/1293o2y/vimoptclipboard_unnamedplus_is_very_slow/
---vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
---  once = true,
---  callback = function()
---    if vim.fn.has("win32") == 1 then
---      vim.g.clipboard = {
---        copy = {
---          ["+"] = "win32yank.exe -i --crlf",
---          ["*"] = "win32yank.exe -i --crlf",
---        },
---        paste = {
---          ["+"] = "win32yank.exe -o --lf",
---          ["*"] = "win32yank.exe -o --lf",
---        },
---      }
---    elseif vim.fn.has("unix") == 1 then
---      if vim.fn.executable("xclip") == 1 then
---        vim.g.clipboard = {
---          copy = {
---            ["+"] = "xclip -selection clipboard",
---            ["*"] = "xclip -selection clipboard",
---          },
---          paste = {
---            ["+"] = "xclip -selection clipboard -o",
---            ["*"] = "xclip -selection clipboard -o",
---          },
---        }
---      elseif vim.fn.executable("xsel") == 1 then
---        vim.g.clipboard = {
---          copy = {
---            ["+"] = "xsel --clipboard --input",
---            ["*"] = "xsel --clipboard --input",
---          },
---          paste = {
---            ["+"] = "xsel --clipboard --output",
---            ["*"] = "xsel --clipboard --output",
---          },
---        }
---      end
---    end
---
---    vim.opt.clipboard = "unnamedplus"
---  end,
---  desc = "Lazy load clipboard",
---})
+--ref:https://neovim.discourse.group/t/writefile-to-dev-tty-stopped-working-in-nvim-0-9/3784/7
+vim.cmd[[
+function! Yank(text) abort
+    let escape = system('yank', a:text)
+    if v:shell_error
+        echoerr escape
+    else
+        call writefile([escape], '/proc/self/fd/1', 'b')
+    endif
+endfunction
+vnoremap <silent> <leader>y y:<C-U>call Yank(@0)<CR>
+]]

@@ -1,9 +1,13 @@
 #{{{ wsl
+# In powershell (local-window)
 # https://www.youtube.com/watch?v=mSXOYhfDFYo
 # wsl --install Ubuntu
 # wsl --unregister Ubuntu
+# wsl --list
+# wsl -d
 #}}}
-#{{{ MobaXterm
+#{{{ terminal emulator
+# # In mobaXterm
 # terminal color scheme config
 # https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
 # Paste the following configurations in the corresponding place in MobaXterm.ini.
@@ -31,8 +35,91 @@
 # White=186,194,222
 # BoldBlack=88,91,112
 # BoldRed=243,139,168
+
+# # In powershell or command prompt
+# ## Interaction
+# Automatically copy selection to clipboard: On
+
+# ## Setting > Appearance
+# Hide the tile bar: On
+
+# ## Setting > Color schemes
+# ref: https://github.com/catppuccin/windows-terminal/blob/main/mocha.json
+# cursorColor: #F5E0DC
+# selectionBackground: #585B70
+# background: #000000
+# foreground: #CDD6F4
+# black: #45475A -> #25273A
+# red: #F38BA8
+# green: #A6E3A1
+# yellow: #F9E2AF
+# blue: #89B4FA
+# purple: #F5C2E7
+# cyan: #94E2D5
+# white: #BAC2DE
+# brightBlack: #585B70
+# brightRed: #F38BA8
+# brightGreen: #A6E3A1
+# brightYellow: #F9E2AF
+# brightBlue: #89B4FA -> #87FFFF
+# brightPurple: #F5C2E7
+# brightCyan: #94E2D5
+# brightWhite: #A6ADC8
+
+# ## Setting > Defaults > Appearance
+# Font size: 12
+# Line height: 1
+# Cursor Shape: Filled box
+# Padding: 0
+
+# ## Setting > Control Panel > Keyboard
+# Cursor blink rate: None
+
+# ## Setting > Defaults > Advanced
+# Bell notification style: None
+
+# # In xterm (local-linux or remote-linux)
+# > vi .Xresources
+#   XTerm*background: #1E1E2E
+#   XTerm*foreground: #CDD6F4
+#   XTerm*color0: #45475A
+#   XTerm*color8: #585B70
+#   XTerm*color1: #F38BA8
+#   XTerm*color9: #F38BA8
+#   XTerm*color2: #A6E3AD
+#   XTerm*color10: #A6E3AD
+#   XTerm*color3: #F9E2AF
+#   XTerm*color11: #F9E2AF
+#   XTerm*color4: #89B4FA
+#   XTerm*color12: #89B4FA
+#   XTerm*color5: #F5C2E7
+#   XTerm*color13: #F5C2E7
+#   XTerm*color6: #94E2D5
+#   XTerm*color14: #94E2D5
+#   XTerm*color7: #BAC2DE
+#   XTerm*color15: #A6ADC8
+#   XTerm*faceName: Fira Code:size=12
+#   XTerm*faceSize: 12
+#   XTerm*selectToClipboard: true
+#   XTerm*allowWindowOps: true
+# > xrdb -merge .Xresources
 #}}}
 #{{{ X11 and ssH
+# # Concept
+# notice:
+#   X11 clipboard can interact with X11 clipboard by X11 (X11 clipboard <-> X11 <-> X11 system clipboard)
+#   tty can interact with X11 system clipboard by OSC52, which is one direction and size limitation (tty -> X11 system clipboard by OSC52)
+#   tmux can interact with X11 clipboard
+#   tmux can interact with tty
+#   nvim can interact with tmux
+#   vim can't interact with anyone
+# combination:
+#   local-window X11 enable + X11 system clipboard + tmux
+#   local-window X11 enable + X11 system clipboard + tmux + nvim (nvim interacts with tmux)
+#   local-window terminal support OSC52 + tmux
+#   local-window terminal support OSC52 + tmux + nvim
+
+# # Enable X11
 # In CentOS (remote-linux)
 # 1. > sudo yum update -y
 # 2. > sudo yum install libX11
@@ -43,14 +130,14 @@
 # X11UseLocalhost yes
 # systemctl restart sshd
 
-# # Create ~/.Xauthority Has Been Created
+# # Create ~/.Xauthority
 # In remote server (remote-linux)
 # 1. > xauth list
 export XAUTHORITY=$HOME/.Xauthority
 
-# # Easy Wat to Access ssh from ssh -Y jasonli@atcpcw10: 22 to ssh r10
-# In wezterm
-# In C:/Users/jasonli/.ssh/config (local-window)
+# # Easy Way to Access ssh from ssh -Y jasonli@atcpcw10: 22 to ssh r10
+# In wezterm or command prompt/powershell (local-window)
+# In C:/Users/jasonli/.ssh/config
 # 1. type the following on the config file
 # Host r10
 #     HostName atcpcw10
@@ -62,43 +149,56 @@ export XAUTHORITY=$HOME/.Xauthority
 # 2. > ssh r10
 
 # # Auto Login without Password
-# In wezterm
+# In wezterm or powershell
 # In C:/Users/jasonli/.ssh/config (local-window)
 # 1. > ssh-keygen
 # 2. > type id_ed25519.pub | ssh jasonli@atcpcw10 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+#    copy public key to .ssh/authorized_keys
 
-# # Login with Different Method
-# ## Method1: wezterm + mobaxterm (local-window) (recommand)
+# # ssh remote-linux with Different Method
+# ## Method1: mobaxterm + wezterm (local-window) (the most easy way)
 # In mobaxterm
 # 1. > wezterm
+#    using mobaxterm build-in X11
 # In wezterm
-# 1. ssh -Y jasonli@atcpcw10 -p 22
-# 1. ssh r10
+# 1. > ssh -Y jasonli@atcpcw10 -p 22
+# 1. > ssh r10
 
 # ## Method2: wezterm (locol-window)
 # ref: https://stackoverflow.com/questions/65468655/vs-code-remote-x11-cant-get-display-while-connecting-to-remote-server
 # ref: https://wiki.iihe.ac.be/Use_SSH_%26_X11_forwarding_on_Windows
 # In remote server (remote-linux)
 # 1. > xauth list
-# to create ~/.Xauthority
-# remind ${number} which is 49 in Xauthority
-# notice that 49 can be different number
+# 2. check ~/.Xauthority
 # In VcXsrv (local-window)
 # 1. tick Multiple windows
 # 2. type Display number: ${number}
+#    ${number} need to be the same at following setting variable
 # 3. tick Start no Client
 # 4. tick Disable access control
-# In wezterm
+# In wezterm or command prompt (local-window)
 # 1. > set DISPLAY=localhost:${number}.0
 # 2. ssh -Y jasonli@atcpcw10 -p 22
 # 2. ssh r10
+# In powershell
+# 1. > $env:DISPLAY="localhost:${number}.0"
+# 2. > echo $env:DISPLAY
+# 3. ssh -Y jasonli@atcpcw10 -p 22
+# 3. ssh r10
 
-# # fix $DISPLAY when ssh reconnect with tmux mode
+# # .bat file set DISPLAY
+# In wezterm or command prompt
+# > nvim display.bat (local-window)
+#       @echo off
+#       set DISPLAY=localhost:${number}.0
+#       echo DISPLAY is set to %DISPLAY%
+# > dispaly.bat
+
+# # fix $DISPLAY when ssh reconnect with tmux
 # ref: https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
 function fix_tmuxenv() {
     eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
 }
-
 # # test osc52
 function test_osc52() {
     local msg="OSC52 SUCCESS!!"
@@ -107,6 +207,10 @@ function test_osc52() {
     printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
 }
 #}}}
+#{{{ vim
+# # enable Ctrl-q as Ctrl-v
+stty start undef
+#}}}
 #{{{ export
 # # language config
 # ref: https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
@@ -114,8 +218,11 @@ function test_osc52() {
 # > locale
 # if en_US.utf-8 does not exist
 # > sudo locale-gen en_US.UTF-8
-export LANG="en_US.utf-8"
-export LC_ALL=
+export LC_ALL=en_IN.UTF-8
+export LANG=en_IN.UTF-8
+
+# # color config
+export LS_COLORS=none
 
 # # set $TERM
 # ref: https://unix.stackexchange.com/questions/574669/clearing-tmux-terminal-throws-error-tmux-256color-unknown-terminal-type
@@ -133,16 +240,16 @@ fi
 export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.local/script:${PATH}"
 #}}}
-#{{{ alias
+#{{{ alias and bind
 alias rebash='source $HOME/.bashrc';
-alias vim="nvim -O"
+#alias vim="nvim -O"
+alias vim="vi"
 alias tmux="tmux -u"
 alias tmuxs="tmux-sessionizer"
 alias ls="ls --color=never --classify --group-directories-first"
 alias eixt="exit"
 alias exti="exit"
-#}}}
-#{{{ bind
+alias gg="git ss"
 # ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
 #stty stop ''
 #bind '"\C-s":nop'
@@ -150,6 +257,8 @@ alias exti="exit"
 #bind '"\C-se":nop'
 bind '"\C-af":"tmux-sessionizer\n"'
 bind '"\C-ae":"tmux-session-selector\n"'
+# ref: https://zhuanlan.zhihu.com/p/34509032
+# "\C-m" is sames as EOL
 #}}}
 #{{{ git config
 # ref: https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
@@ -177,13 +286,14 @@ git config --global alias.tree "log --graph --simplify-by-decoration --pretty=fo
 git config --global alias.ft "fetch"
 # > git st -sb
 git config --global alias.st "status"
+git config --global alias.sb "st -sbuno"
 # > git br -avv
 # > git br -vv
 git config --global alias.br "branch"
 # V -> :0Gclog
 # :Gedit <commit_id>:%
 # :Gedit <commit_id>:<file_name>
-# > git sh --name-only --oneline <commit_id> 
+# > git sh --name-only --oneline <commit_id>
 # > git sh <commit_id>:<file_name> | vim -
 # > git sh <commit_id>:% | vim -
 git config --global alias.sh "show"
@@ -192,12 +302,13 @@ git config --global alias.ci "commit"
 git config --global alias.pk "cherry-pick"
 git config --global merge.commit false
 git config --global merge.ff false
+git config --global rebase.rebaseMerges true
 # do # obtain from the other file
 # dp # put to the other file
 # ]c # jump to the next diff
 # [c # jump to the previous diff
 git config --global merge.tool nvimdiff
-git config --global merge.conflictstyle diff3  
+git config --global merge.conflictstyle diff3
 git config --global mergetool.prompt false
 # > git df <commit_id> <filename>
 # > git df <commit_id> <commit_id> <filename>
@@ -213,14 +324,19 @@ git config --global difftool.prompt false
 git config --global alias.ss \
 "!f() { \
 remote_branch=\$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo ''); \
-[ -n \"\$remote_branch\" ] && remote_branch=\"{\$remote_branch}\"; \
+if [ -z \"\$remote_branch\" ]; then \
+    remote_branch=\"{L}\"; \
+else \
+    remote_branch=\"{\$remote_branch}\"; \
+fi; \
 branch=\$(git symbolic-ref --short -q HEAD 2>/dev/null); \
 if [ -z \"\$branch\" ]; then \
     branch=\"(DETACHED)\"; \
 else \
     branch=\"\$remote_branch \$branch\"; \
 fi; \
-[ -d .git/MERGE_HEAD ] && merge=\"[MERGING]\"; \
+conflicted_files=\$(git --no-pager diff --name-only --diff-filter=U | wc -l); \
+conflicted_blocks=\$(git diff --name-only --diff-filter=U 2>/dev/null | xargs grep -h '<<<<<<< ' 2>/dev/null | wc -l); \
 commit=\$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown'); \
 ahead=\$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0); \
 behind=\$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0); \
@@ -232,12 +348,12 @@ echo -n \"GIT \$branch @\$commit\"; \
 if [ \"\$ahead\" != \"0\" ] || [ \"\$behind\" != \"0\" ]; then \
     echo -n \" ↑\$ahead ↓\$behind\"; \
 fi; \
-echo -n \" | A:\$staged C:\$unstaged U:\$untracked S:\$stash\"; \
-echo -n \" \$merge\"; \
+echo -n \" | A:\$staged M:\$unstaged U:\$untracked S:\$stash X:\$conflicted_files:\$conflicted_blocks\"; \
 echo \"\"; \
 }; f"
 
-git-diff-with-abs-path() {
+
+git_diff_with_abs_path() {
     local path
 
     path=$(git rev-parse --show-toplevel) &&
@@ -269,20 +385,20 @@ if [ -f ${file} ]; then
 fi
 #}}}
 #{{{ function
-function cin () {
-    xsel -i -b
-}
-
-function cout () {
-    xsel -o -b
-}
+#function cin () {
+#    xsel -i -b
+#}
+#
+#function cout () {
+#    xsel -o -b
+#}
 
 function yy () {
     if [[ $# != 1 ]]; then
-        pwd | tr -d '\n' | xsel -i -b
+        pwd | tr -d '\n' | yank -i -b
         echo "pp $(pwd)"
     else
-        readlink -f $1 | tr -d '\n' | xsel -i -b
+        readlink -f $1 | tr -d '\n' | yank -i -b
         echo "pp $(pwd)/${1}"
     fi
 }
@@ -315,8 +431,8 @@ function pp () {
 function ff () {
     selection="$(fd | fzf | tr -d '\n')"
     selection="$(pwd)/${selection}"
-    echo "${selection}" | tr -d '\n' |xsel -i -b
-    echo "pp $(cout)"
+    echo "${selection}" | tr -d '\n' | yank
+    echo "Yank: ${selection}"
 }
 
 #function ff () {
@@ -448,4 +564,47 @@ if [ -f "${file}" ]; then
     source "${file}"
     printf "source ${file}\n"
 fi
+#}}}
+#{{{ NOT YET!!
+# ref: https://github.com/junegunn/fzf.vim/issues/970
+#fzf_rg_edit_preview(){
+#    if [[ $# == 0 ]]; then
+#        echo 'Error: search term was not provided.'
+#        return
+#    fi
+#    local match=$(
+#      rg --column --color=always --line-number --no-heading --smart-case "${*:-}" |
+#        fzf --ansi \
+#            --color "fg:15,bg:-1,hl:1,fg+:-1,bg+:-1,hl+:1,info:-1,prompt:-1,pointer:12,marker:4,spinner:11,header:-1" \
+#            --delimiter : \
+#            --preview "bat --theme=base16-256 --color=always {1} --highlight-line {2}
+#                | rg --no-heading --colors 'match:bg:yellow'
+#                     --ignore-case --color=always --context 1000 '$1'" \
+#            --preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
+#      )
+#    local file=$(echo "$match" | cut -d':' -f1)
+#    if [[ -n $file ]]; then
+#        $EDITOR "$file" +$(echo "$match" | cut -d':' -f2)
+#    fi
+#}
+#
+## ref: https://junegunn.github.io/fzf/tips/ripgrep-integration/
+## ripgrep->fzf->vim [QUERY]
+#rfv() (
+#  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+#  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+#            vim {1} +{2}     # No selection. Open the current line in Vim.
+#          else
+#            vim +cw -q {+f}  # Build quickfix list for the selected items.
+#          fi'
+#  fzf --disabled --ansi --multi \
+#      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+#      --bind "enter:become:$OPENER" \
+#      --bind "ctrl-o:execute:$OPENER" \
+#      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+#      --delimiter : \
+#      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+#      --preview-window '~4,+{2}+4/3,<80(up)' \
+#      --query "$*"
+#)
 #}}}
