@@ -285,7 +285,7 @@ git config --global alias.ls "log --decorate --oneline --graph --reflog"
 git config --global alias.ll "log --decorate --oneline --graph --reflog --date=format:%Y-%m-%d\ %H:%M --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
 git config --global alias.rl "reflog --pretty=format:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
 git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%C(auto,blue)%cr%C(auto)%d' --all"
-git config --global alias.ft "fetch -all -p"
+git config --global alias.ft "fetch --all -p"
 # > git st -sb
 git config --global alias.st "status"
 git config --global alias.sb "st -sbuno"
@@ -359,6 +359,59 @@ echo -n \" | A:\$staged M:\$unstaged U:\$untracked S:\$stashed X:\$conflicted_fi
 echo \"\"; \
 }; f"
 
+gg() {
+    remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo '');
+    [ -z "${remote_branch}" ] && remote_branch="{L}"
+    branch=$(git symbolic-ref --short -q HEAD 2>/dev/null || echo '')
+    if [ -z "$branch" ]; then
+        branch="(DETACHED)";
+    else
+        branch="$remote_branch $branch";
+    fi;
+    conflicted_files=$(git --no-pager diff --name-only --diff-filter=U | wc -l);
+    conflicted_blocks=$(git diff --name-only --diff-filter=U 2>/dev/null | xargs grep -h '<<<<<<< ' 2>/dev/null | wc -l);
+    commit=$(git rev-parse --short HEAD 2>/dev/null || echo 'UNKNOWN');
+    ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0);
+    behind=$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0);
+    staged=$(git diff --cached --name-only | wc -l);
+    unstaged=$(git diff --name-only | wc -l);
+    untracked=$(git status --porcelain | grep '^??' | wc -l | tr -d ' ');
+    stashed=$(git stash list | wc -l | tr -d ' ');
+    if [ -f "$(git rev-parse --git-path rebase-merge/interactive 2>/dev/null)" ]; then status="[REBASE-i]"
+    elif [ -d "$(git rev-parse --git-path rebase-merge 2>/dev/null)" ]; then status="[REBASE]"
+    elif [ -d "$(git rev-parse --git-path rebase-apply 2>/dev/null)" ]; then status="[REBASE]"
+    elif [ -f "$(git rev-parse --git-path MERGE_HEAD 2>/dev/null)" ]; then status="[MERGE]"
+    fi
+    echo -n "GIT $branch @$commit";
+    [ "$ahead" != "0" ] || [ "$behind" != "0" ] && echo -n " ↑$ahead ↓$behind";
+    echo " | A:$staged M:$unstaged U:$untracked S:$stashed X:$conflicted_files:$conflicted_blocks$status";
+}
+
+# - ref: https://chatgpt.com/c/6910a888-8214-8324-b8f3-57ec38bbcc68
+#git_state() {
+#  # 先確保在 git repo
+#  git rev-parse --git-dir >/dev/null 2>&1 || return
+#
+#  # interactive rebase 判斷（worktree-safe）
+#  if [ -f "$(git rev-parse --git-path rebase-merge/interactive 2>/dev/null)" ]; then
+#    printf "(rebase-i)"
+#    return
+#  fi
+#
+#  # 一般 rebase 判斷
+#  if [ -d "$(git rev-parse --git-path rebase-merge 2>/dev/null)" ] || \
+#     [ -d "$(git rev-parse --git-path rebase-apply 2>/dev/null)" ]; then
+#    printf "(rebase)"
+#    return
+#  fi
+#
+#  # merge 判斷
+#  if [ -f "$(git rev-parse --git-path MERGE_HEAD 2>/dev/null)" ]; then
+#    printf "(merge)"
+#    return
+#  fi
+#}
+
 
 git_diff_with_abs_path() {
     local path
@@ -392,14 +445,6 @@ if [ -f ${file} ]; then
 fi
 #}}}
 #{{{ function
-#function cin () {
-#    xsel -i -b
-#}
-#
-#function cout () {
-#    xsel -o -b
-#}
-
 function yy () {
     if [[ $# != 1 ]]; then
         pwd | tr -d '\n' | yank -i -b
@@ -407,22 +452,6 @@ function yy () {
     else
         readlink -f $1 | tr -d '\n' | yank -i -b
         echo "pp $(pwd)/${1}"
-    fi
-}
-
-function pp () {
-    if [[ $# != 1 ]]; then
-        target="$(cout)"
-    else
-        target="${1}"
-    fi
-
-    if [[ -d "${target}" ]]; then
-        cd "${target}"
-        echo "yy ${target}"
-    else
-        vim "${target}"
-        echo "yy ${target}"
     fi
 }
 
@@ -458,18 +487,7 @@ function ff () {
 #    fi
 #}
 
-#function cdw () {
-#    cd "$(git worktree list | fzf | awk '{print $1}')"
-#}
-
-#function fb () {
-#    selection="$(git worktree list | fzf | awk '{print $1}')"
-#
-#    echo "${selection}" | tr -d '\n' |xsel -i -b
-#    echo "Copy to clipboard: $(cout)"
-#}
-
-# ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
+# - ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
 #function cdb () {
 #    cd "$(git worktree list | fzf | awk '{print $1}')"
 #}
