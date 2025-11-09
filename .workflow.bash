@@ -346,11 +346,11 @@ staged=\$(git diff --cached --name-only | wc -l); \
 unstaged=\$(git diff --name-only | wc -l); \
 untracked=\$(git status --porcelain | grep '^??' | wc -l | tr -d ' '); \
 stashed=\$(git stash list | wc -l | tr -d ' '); \
-if [ -z \"\$(git rev-parse --git-path rebase-merge 2>/dev/null)\"] || [ -z \"\$(git rev-parse --git-path rebase-apply 2>/dev/null)\" ]; then \
-    status=\" | \[REBASE\]\"; \
+if [ -d \"\$(git rev-parse --git-path rebase-merge 2>/dev/null)\" ] || [ -d \"\$(git rev-parse --git-path rebase-apply 2>/dev/null)\" ]; then \
+    status=\" [REBASE]\"; \
 else \
     status=\"\"; \
-fi;
+fi; \
 echo -n \"GIT \$branch @\$commit\"; \
 if [ \"\$ahead\" != \"0\" ] || [ \"\$behind\" != \"0\" ]; then \
     echo -n \" ↑\$ahead ↓\$behind\"; \
