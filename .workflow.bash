@@ -345,12 +345,17 @@ behind=\$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0); \
 staged=\$(git diff --cached --name-only | wc -l); \
 unstaged=\$(git diff --name-only | wc -l); \
 untracked=\$(git status --porcelain | grep '^??' | wc -l | tr -d ' '); \
-stash=\$(git stash list | wc -l | tr -d ' '); \
+stashed=\$(git stash list | wc -l | tr -d ' '); \
+if [ -z \"\$(git rev-parse --git-path rebase-merge 2>/dev/null)\"] || [ -z \"\$(git rev-parse --git-path rebase-apply 2>/dev/null)\" ]; then \
+    status=\" | \[REBASE\]\"; \
+else \
+    status=\"\"; \
+fi;
 echo -n \"GIT \$branch @\$commit\"; \
 if [ \"\$ahead\" != \"0\" ] || [ \"\$behind\" != \"0\" ]; then \
     echo -n \" ↑\$ahead ↓\$behind\"; \
 fi; \
-echo -n \" | A:\$staged M:\$unstaged U:\$untracked S:\$stash X:\$conflicted_files:\$conflicted_blocks\"; \
+echo -n \" | A:\$staged M:\$unstaged U:\$untracked S:\$stashed X:\$conflicted_files:\$conflicted_blocks\$status\"; \
 echo \"\"; \
 }; f"
 
