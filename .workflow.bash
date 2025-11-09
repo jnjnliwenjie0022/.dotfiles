@@ -241,16 +241,14 @@ export PATH="$HOME/.local/bin:${PATH}"
 export PATH="$HOME/.local/script:${PATH}"
 #}}}
 #{{{ alias and bind
-alias rebash='source $HOME/.bashrc';
-#alias vim="nvim -O"
-alias vim="vi"
+alias rebash="source $HOME/.bashrc"
+alias vim="vi -O"
 alias tmux="tmux -u"
 alias tmuxs="tmux-sessionizer"
 alias ls="ls --color=never --classify --group-directories-first"
 alias eixt="exit"
 alias exti="exit"
-alias gg="git ss"
-# ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
+# - ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
 #stty stop ''
 #bind '"\C-s":nop'
 #bind '"\C-sf":nop'
