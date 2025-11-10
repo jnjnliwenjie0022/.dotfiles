@@ -235,7 +235,7 @@ hi PmenuSbar                  ctermfg=7  ctermbg=8
 hi PmenuSel                   ctermfg=15 ctermbg=8 cterm=NONE
 hi PmenuThumb                 ctermfg=NONE ctermbg=7
 hi FoldColumn                 ctermfg=7
-hi Folded                     ctermfg=12 ctermbg=0
+hi Folded                     ctermfg=14 ctermbg=0
 hi WildMenu                   ctermfg=15 ctermbg=0 cterm=NONE
 hi SpecialKey                 ctermfg=NONE
 hi IncSearch                  ctermfg=0 ctermbg=1
@@ -280,7 +280,7 @@ hi TabLineFill                cterm=NONE ctermfg=NONE ctermbg=0
 hi TabLineSel                 cterm=NONE ctermfg=0    ctermbg=3
 
 " - Syntax
-hi Comment ctermfg=12 cterm=italic
+hi Comment ctermfg=14 cterm=italic
 hi Constant ctermfg=3
 hi Error ctermfg=1 ctermbg=NONE
 hi Identifier ctermfg=9
@@ -299,7 +299,7 @@ hi Include ctermfg=5
 hi Macro ctermfg=5
 hi StorageClass ctermfg=11
 hi Structure ctermfg=11
-hi Todo ctermfg=0 ctermbg=12
+hi Todo ctermfg=0 ctermbg=14
 hi Type ctermfg=11
 
 " # filetype

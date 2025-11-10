@@ -47,9 +47,9 @@
 # ref: https://github.com/catppuccin/windows-terminal/blob/main/mocha.json
 # cursorColor: #F5E0DC
 # selectionBackground: #585B70
-# background: #000000
+# background: #27293C -> #000000
 # foreground: #CDD6F4
-# black: #45475A -> #25273A
+# black: #45475A -> #27293C
 # red: #F38BA8
 # green: #A6E3A1
 # yellow: #F9E2AF
@@ -61,14 +61,14 @@
 # brightRed: #F38BA8
 # brightGreen: #A6E3A1
 # brightYellow: #F9E2AF
-# brightBlue: #89B4FA -> #87FFFF
+# brightBlue: #89B4FA
 # brightPurple: #F5C2E7
-# brightCyan: #94E2D5
+# brightCyan: #94E2D5 -> #87FFFF
 # brightWhite: #A6ADC8
 
 # ## Setting > Defaults > Appearance
-# Font size: 12
-# Line height: 1
+# Font size: 20
+# Line height: 1.1
 # Cursor Shape: Filled box
 # Padding: 0
 
@@ -323,7 +323,6 @@ git config --global alias.df "difftool"
 git config --global diff.tool vim
 git config --global diff.algorithm myers
 git config --global difftool.prompt false
-git config --global alias.ss \
 gg() {
     remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo '');
     [ -z "${remote_branch}" ] && remote_branch="{L}"
@@ -352,32 +351,6 @@ gg() {
     [ "$behind" != "0" ] && echo -n " ↓·$behind";
     echo " | A:$staged M:$unstaged U:$untracked S:$stashed X:$conflicted_files:$conflicted_blocks$status";
 }
-
-# - ref: https://chatgpt.com/c/6910a888-8214-8324-b8f3-57ec38bbcc68
-#git_state() {
-#  # 先確保在 git repo
-#  git rev-parse --git-dir >/dev/null 2>&1 || return
-#
-#  # interactive rebase 判斷（worktree-safe）
-#  if [ -f "$(git rev-parse --git-path rebase-merge/interactive 2>/dev/null)" ]; then
-#    printf "(rebase-i)"
-#    return
-#  fi
-#
-#  # 一般 rebase 判斷
-#  if [ -d "$(git rev-parse --git-path rebase-merge 2>/dev/null)" ] || \
-#     [ -d "$(git rev-parse --git-path rebase-apply 2>/dev/null)" ]; then
-#    printf "(rebase)"
-#    return
-#  fi
-#
-#  # merge 判斷
-#  if [ -f "$(git rev-parse --git-path MERGE_HEAD 2>/dev/null)" ]; then
-#    printf "(merge)"
-#    return
-#  fi
-#}
-
 
 git_diff_with_abs_path() {
     local path
