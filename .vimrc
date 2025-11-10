@@ -78,6 +78,8 @@ set mouse=a
 set lazyredraw
 " - fixed cursor flicker when redraw in powershell or command prompt
 set guicursor=
+" - line count in virtual mode
+set showcmd
 " - status
 set laststatus=2
 set statusline=%f\ %m\ %r
