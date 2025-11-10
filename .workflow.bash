@@ -324,41 +324,6 @@ git config --global diff.tool vim
 git config --global diff.algorithm myers
 git config --global difftool.prompt false
 git config --global alias.ss \
-"!f() { \
-remote_branch=\$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo ''); \
-if [ -z \"\$remote_branch\" ]; then \
-    remote_branch=\"{L}\"; \
-else \
-    remote_branch=\"{\$remote_branch}\"; \
-fi; \
-branch=\$(git symbolic-ref --short -q HEAD 2>/dev/null); \
-if [ -z \"\$branch\" ]; then \
-    branch=\"(DETACHED)\"; \
-else \
-    branch=\"\$remote_branch \$branch\"; \
-fi; \
-conflicted_files=\$(git --no-pager diff --name-only --diff-filter=U | wc -l); \
-conflicted_blocks=\$(git diff --name-only --diff-filter=U 2>/dev/null | xargs grep -h '<<<<<<< ' 2>/dev/null | wc -l); \
-commit=\$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown'); \
-ahead=\$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0); \
-behind=\$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0); \
-staged=\$(git diff --cached --name-only | wc -l); \
-unstaged=\$(git diff --name-only | wc -l); \
-untracked=\$(git status --porcelain | grep '^??' | wc -l | tr -d ' '); \
-stashed=\$(git stash list | wc -l | tr -d ' '); \
-if [ -d \"\$(git rev-parse --git-path rebase-merge 2>/dev/null)\" ] || [ -d \"\$(git rev-parse --git-path rebase-apply 2>/dev/null)\" ]; then \
-    status=\" [REBASE]\"; \
-else \
-    status=\"\"; \
-fi; \
-echo -n \"GIT \$branch @\$commit\"; \
-if [ \"\$ahead\" != \"0\" ] || [ \"\$behind\" != \"0\" ]; then \
-    echo -n \" ↑\$ahead ↓\$behind\"; \
-fi; \
-echo -n \" | A:\$staged M:\$unstaged U:\$untracked S:\$stashed X:\$conflicted_files:\$conflicted_blocks\$status\"; \
-echo \"\"; \
-}; f"
-
 gg() {
     remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo '');
     [ -z "${remote_branch}" ] && remote_branch="{L}"
@@ -448,23 +413,26 @@ fi
 #{{{ function
 function yy () {
     if [[ $# != 1 ]]; then
-        pwd | tr -d '\n' | yank -i -b
-        echo "pp $(pwd)"
+        pwd | tr -d '\n' | yank
+        echo "Yank: $(pwd)"
     else
-        readlink -f $1 | tr -d '\n' | yank -i -b
-        echo "pp $(pwd)/${1}"
+        readlink -f $1 | tr -d '\n' | yank
+        echo "Yank: $(pwd)/${1}"
     fi
 }
 
-# fzf config
+# - fzf config
 #if type rg &> /dev/null; then
 #   export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
 #   export FZF_DEFAULT_OPTS='-m'
 #fi
-
-# ref: https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
+# - ref: https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
 # > fd | fzf
 # > cd $(fd | fzf)
+# - ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
+#function cdb () {
+#    cd "$(git worktree list | fzf | awk '{print $1}')"
+#}
 function ff () {
     selection="$(fd | fzf | tr -d '\n')"
     selection="$(pwd)/${selection}"
@@ -472,26 +440,6 @@ function ff () {
     echo "Yank: ${selection}"
 }
 
-#function ff () {
-#    if [ $# != 1 ]; then
-#        if [ -z $1 ]; then
-#            clear; echo "[$(pwd)]"; ls -a;
-#            selection="$(ls -a | fzf --reverse --height 70%)"
-#            if [[ -d "$selection" ]]; then
-#                cd "$selection"
-#            else
-#                vim "$selection"
-#            fi
-#        fi
-#    else
-#        cd $1
-#    fi
-#}
-
-# - ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
-#function cdb () {
-#    cd "$(git worktree list | fzf | awk '{print $1}')"
-#}
 
 function bb () {
     CUR_TIME=`date +%Y%m%d_%H%M%S`
