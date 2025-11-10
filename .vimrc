@@ -155,7 +155,7 @@ endfunction
 " ## FZFGIT function
 function! FZF_GitFiles() abort
     let l:tempname = tempname()
-    execute 'silent !git ls-files --cached --exclude-standard | fzf --multi' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+    execute 'silent !git -C $(git rev-parse --show-toplevel) ls-files --cached --exclude-standard | fzf --multi' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
     try
         execute 'cfile ' . l:tempname
         redraw!
