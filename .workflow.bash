@@ -323,7 +323,7 @@ git config --global alias.df "difftool"
 git config --global diff.tool vim
 git config --global diff.algorithm myers
 git config --global difftool.prompt false
-gg() {
+mm() {
     remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo '');
     [ -z "${remote_branch}" ] && remote_branch="{L}"
     branch=$(git symbolic-ref --short -q HEAD 2>/dev/null || echo '')
