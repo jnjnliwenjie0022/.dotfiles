@@ -332,15 +332,15 @@ mm() {
     else
         branch="$remote_branch $branch";
     fi;
-    conflicted_files=$(git --no-pager diff --name-only --diff-filter=U | wc -l);
+    conflicted_files=$(git --no-pager diff --name-only --diff-filter=U 2>/dev/null | wc -l);
     conflicted_blocks=$(git diff --name-only --diff-filter=U 2>/dev/null | xargs grep -h '<<<<<<< ' 2>/dev/null | wc -l);
     commit=$(git rev-parse --short HEAD 2>/dev/null || echo 'UNKNOWN');
     ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0);
     behind=$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0);
-    staged=$(git diff --cached --name-only | wc -l);
-    unstaged=$(git diff --name-only | wc -l);
-    untracked=$(git status --porcelain | grep '^??' | wc -l | tr -d ' ');
-    stashed=$(git stash list | wc -l | tr -d ' ');
+    staged=$(git diff --cached --name-only 2>/dev/null | wc -l);
+    unstaged=$(git diff --name-only 2>/dev/null | wc -l);
+    untracked=$(git status --porcelain 2>/dev/null | grep '^??' | wc -l | tr -d ' ');
+    stashed=$(git stash list 2>/dev/null | wc -l | tr -d ' ');
     if [ -f "$(git rev-parse --git-path rebase-merge/interactive 2>/dev/null)" ]; then status=" [REBASE-i]"
     elif [ -d "$(git rev-parse --git-path rebase-merge 2>/dev/null)" ]; then status=" [REBASE]"
     elif [ -d "$(git rev-parse --git-path rebase-apply 2>/dev/null)" ]; then status=" [REBASE]"
