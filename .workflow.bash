@@ -377,13 +377,14 @@ gg() {
     unstaged=$(git diff --name-only | wc -l);
     untracked=$(git status --porcelain | grep '^??' | wc -l | tr -d ' ');
     stashed=$(git stash list | wc -l | tr -d ' ');
-    if [ -f "$(git rev-parse --git-path rebase-merge/interactive 2>/dev/null)" ]; then status="[REBASE-i]"
-    elif [ -d "$(git rev-parse --git-path rebase-merge 2>/dev/null)" ]; then status="[REBASE]"
-    elif [ -d "$(git rev-parse --git-path rebase-apply 2>/dev/null)" ]; then status="[REBASE]"
-    elif [ -f "$(git rev-parse --git-path MERGE_HEAD 2>/dev/null)" ]; then status="[MERGE]"
+    if [ -f "$(git rev-parse --git-path rebase-merge/interactive 2>/dev/null)" ]; then status=" [REBASE-i]"
+    elif [ -d "$(git rev-parse --git-path rebase-merge 2>/dev/null)" ]; then status=" [REBASE]"
+    elif [ -d "$(git rev-parse --git-path rebase-apply 2>/dev/null)" ]; then status=" [REBASE]"
+    elif [ -f "$(git rev-parse --git-path MERGE_HEAD 2>/dev/null)" ]; then status=" [MERGE]"
     fi
     echo -n "GIT $branch @$commit";
-    [ "$ahead" != "0" ] || [ "$behind" != "0" ] && echo -n " ↑$ahead ↓$behind";
+    [ "$ahead" != "0" ] && echo -n " ↑·$ahead";
+    [ "$behind" != "0" ] && echo -n " ↓·$behind";
     echo " | A:$staged M:$unstaged U:$untracked S:$stashed X:$conflicted_files:$conflicted_blocks$status";
 }
 
