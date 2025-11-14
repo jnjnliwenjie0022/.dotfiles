@@ -260,6 +260,7 @@ bind '"\C-ae":"tmux-session-selector\n"'
 #}}}
 #{{{ git config
 git() { if [[ $@ == "pull" ]]; then command echo "Instead of pull, using > git fetch --all -p && git rebase"; else command git "$@"; fi; }
+git config --global core.editor "vim"
 # - ref: https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
 git config --global user.name "Wen-Jie Li"
 git config --global user.email "jnjn0022@gmail.com"
