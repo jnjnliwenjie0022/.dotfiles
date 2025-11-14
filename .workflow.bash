@@ -309,7 +309,7 @@ git config --global rebase.rebaseMerges true
 # dp # put to the other file
 # ]c # jump to the next diff
 # [c # jump to the previous diff
-git config --global merge.tool nvimdiff
+git config --global merge.tool vim
 git config --global merge.conflictstyle diff3
 git config --global mergetool.prompt false
 # > git df <commit_id> <filename>
@@ -320,7 +320,7 @@ git config --global mergetool.prompt false
 # :Gvdiffsplit HEAD:%
 # :Gvdiffsplit <commit_id>:%
 git config --global alias.df "difftool"
-git config --global diff.tool vim
+git config --global diff.tool vimdiff
 git config --global diff.algorithm myers
 git config --global difftool.prompt false
 mm() {

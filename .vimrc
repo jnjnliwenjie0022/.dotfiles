@@ -21,7 +21,7 @@ nnoremap <leader>b :exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR>:echo "Backup:
 nnoremap <leader>c :%s/\s\+$//e<CR>:%s/\r$//e<CR>
 vnoremap "*y y:<C-U>call YANK(@0)<CR>:echo "Yank"<CR>
 nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call YANK(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
-nnoremap <leader>f :<C-U> call FZF()<CR>
+nnoremap <leader>f :Files<CR>
 nnoremap <leader>g :GFiles<CR>
 " :<C-f> edit in command mode
 " <C-w>H window move to the left
@@ -114,12 +114,16 @@ set smartindent
 set hlsearch
 set incsearch
 " - window
-"set shortmess+=sI
 set scrolloff=8
 set splitright
 set splitbelow
 " - newtrw
 let g:netrw_banner = 0
+
+" # insert mode abbreviation
+" - Insert date at typing tds in insert mode
+" - ref https://stackoverflow.com/a/22578234
+iab <expr> _DS strftime("%Y-%m-%d %H:%M:%S")
 
 " # autcocmd
 " - disable auto comment on current current for every filetype
@@ -137,9 +141,9 @@ function! YANK(text) abort
     endif
 endfunction
 
-" ## FZF function
+" ## FILES function
 " - ref: https://dev.to/pbnj/interactive-fuzzy-finding-in-vim-without-plugins-4kkj
-function! FZF() abort
+function! FILES() abort
     let l:tempname = tempname()
     " fd -H | fzf | awk '{ print $1":1:0" }' > file
     execute 'silent !fd -H | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
@@ -150,10 +154,16 @@ function! FZF() abort
         call delete(l:tempname)
     endtry
 endfunction
+command! Files call FILES()
 
-"git -C $(git rev-parse --show-toplevel) ls-files
-" ## FZFGIT function
-function! FZF_GitFiles() abort
+" ## GFILES function
+function! GFILES() abort
+    let l:is_git = systemlist('git rev-parse --is-inside-work-tree 2>/dev/null')
+    if v:shell_error || empty(l:is_git) || l:is_git[0] !=# 'true'
+        echohl WarningMsg | echo "Not inside a git repository" | echohl None
+        return
+    endif
+
     let l:tempname = tempname()
     execute 'silent !git -C $(git rev-parse --show-toplevel) ls-files --cached --exclude-standard | fzf --multi' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
     try
@@ -163,7 +173,7 @@ function! FZF_GitFiles() abort
         call delete(l:tempname) " Clean up the temporary file
     endtry
 endfunction
-command! GFiles call FZF_GitFiles()
+command! GFiles call GFILES()
 
 " ## RG function
 function! RG(args) abort
@@ -304,11 +314,6 @@ hi Structure ctermfg=11
 hi Todo ctermfg=0 ctermbg=14
 hi Type ctermfg=11
 
-" # filetype
-autocmd BufNewFile,BufRead *.vp set filetype=systemverilog
-"" git log -p -40 | vim - -R -c 'set foldmethod=syntax'
-"autocmd BufReadPost,BufNewFile fugitive://*//.git//* setlocal foldmethod=
-
 " # vim-plug
 " - ref: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " :PlugInstall to install plugins
@@ -328,9 +333,15 @@ xmap ga <Plug>(EasyAlign)
 " - Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" # filetype
+autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
 
 "" git log -p -40 | vim - -R -c 'set foldmethod=syntax'
 "autocmd BufReadPost,BufNewFile fugitive://* setlocal foldmethod=syntax
+
+"" git log -p -40 | vim - -R -c 'set foldmethod=syntax'
+"autocmd BufReadPost,BufNewFile fugitive://* set foldmethod=syntax
+
 
 
 
