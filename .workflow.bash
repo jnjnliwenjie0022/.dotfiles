@@ -433,6 +433,27 @@ function bb () {
     fi
 }
 
+# - ref: https://github.com/junegunn/fzf.vim/issues/970
+# - ref: https://junegunn.github.io/fzf/tips/ripgrep-integration/
+# ripgrep->fzf->vim [QUERY]
+rfv() (
+  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            vim {1} +{2}     # No selection. Open the current line in Vim.
+          else
+            vim +cw -q {+f}  # Build quickfix list for the selected items.
+          fi'
+  fzf --disabled --ansi --multi \
+      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+      --bind "enter:become:$OPENER" \
+      --bind "ctrl-o:execute:$OPENER" \
+      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --delimiter : \
+      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+      --preview-window '~4,+{2}+4/3,<80(up)' \
+      --query "$*"
+)
+
 function run_install_tool() {
     # prerequisite
     sudo hwclock --hctosys
@@ -511,47 +532,4 @@ if [ -f "${file}" ]; then
     source "${file}"
     printf "source ${file}\n"
 fi
-#}}}
-#{{{ NOT YET!!
-# ref: https://github.com/junegunn/fzf.vim/issues/970
-#fzf_rg_edit_preview(){
-#    if [[ $# == 0 ]]; then
-#        echo 'Error: search term was not provided.'
-#        return
-#    fi
-#    local match=$(
-#      rg --column --color=always --line-number --no-heading --smart-case "${*:-}" |
-#        fzf --ansi \
-#            --color "fg:15,bg:-1,hl:1,fg+:-1,bg+:-1,hl+:1,info:-1,prompt:-1,pointer:12,marker:4,spinner:11,header:-1" \
-#            --delimiter : \
-#            --preview "bat --theme=base16-256 --color=always {1} --highlight-line {2}
-#                | rg --no-heading --colors 'match:bg:yellow'
-#                     --ignore-case --color=always --context 1000 '$1'" \
-#            --preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
-#      )
-#    local file=$(echo "$match" | cut -d':' -f1)
-#    if [[ -n $file ]]; then
-#        $EDITOR "$file" +$(echo "$match" | cut -d':' -f2)
-#    fi
-#}
-#
-## ref: https://junegunn.github.io/fzf/tips/ripgrep-integration/
-## ripgrep->fzf->vim [QUERY]
-#rfv() (
-#  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
-#  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
-#            vim {1} +{2}     # No selection. Open the current line in Vim.
-#          else
-#            vim +cw -q {+f}  # Build quickfix list for the selected items.
-#          fi'
-#  fzf --disabled --ansi --multi \
-#      --bind "start:$RELOAD" --bind "change:$RELOAD" \
-#      --bind "enter:become:$OPENER" \
-#      --bind "ctrl-o:execute:$OPENER" \
-#      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
-#      --delimiter : \
-#      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
-#      --preview-window '~4,+{2}+4/3,<80(up)' \
-#      --query "$*"
-#)
 #}}}

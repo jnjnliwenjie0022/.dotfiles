@@ -20,7 +20,7 @@ inoremap <C-c> <Esc>
 nnoremap <leader>b :exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR>:echo "Backup:" . expand("%:p") . ".bak." . strftime("%Y%m%d_%H%M%S")<CR>
 nnoremap <leader>c :%s/\s\+$//e<CR>:%s/\r$//e<CR>
 vnoremap "*y y:<C-U>call YANK(@0)<CR>:echo "Yank"<CR>
-nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call YANK(@0)<CR>:echo "Yank"<CR>
+nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call YANK(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
 nnoremap <leader>f :<C-U> call FZF()<CR>
 nnoremap <leader>g :GFiles<CR>
 " :<C-f> edit in command mode
@@ -306,6 +306,8 @@ hi Type ctermfg=11
 
 " # filetype
 autocmd BufNewFile,BufRead *.vp set filetype=systemverilog
+"" git log -p -40 | vim - -R -c 'set foldmethod=syntax'
+"autocmd BufReadPost,BufNewFile fugitive://*//.git//* setlocal foldmethod=
 
 " # vim-plug
 " - ref: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -314,19 +316,21 @@ autocmd BufNewFile,BufRead *.vp set filetype=systemverilog
 " :PlugDiff    to review the changes from the last update
 " :PlugClean   to remove plugins no longer in the list
 call plug#begin()
+    " - ref: https://raw.githubusercontent.com/tpope/vim-fugitive/master/doc/fugitive.txt
     Plug 'tpope/vim-fugitive'
+    " - ref: https://github.com/junegunn/vim-easy-align
     Plug 'junegunn/vim-easy-align'
     Plug 'mtdl9/vim-log-highlighting'
 call plug#end()
 
-" # vim-easy-align
-" - ref: https://github.com/junegunn/vim-easy-align
 " - Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " - Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
 
+"" git log -p -40 | vim - -R -c 'set foldmethod=syntax'
+"autocmd BufReadPost,BufNewFile fugitive://* setlocal foldmethod=syntax
 
 
 
@@ -369,3 +373,25 @@ nmap ga <Plug>(EasyAlign)
 "--vim.cmd [[ let g:gutentags_project_root = ['.root', '.git'] ]]
 "--vim.cmd [[ let g:gutentags_ctags_tagfile = '.tags' ]]
 "--vim.cmd [[ let g:gutentags_ctags_extra_args = ['-R', '--languages=systemverilog', '--extra=+q', '--fields=+i'] ]]
+
+" - ref: https://dpwright.com/posts/2018/04/06/graphical-log-with-vimfugitive/
+"command -nargs=* Glg Git! log --graph --color=always --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
+"
+"autocmd User Fugitive command! -buffer -bar Gmylog exe 'terminal' FugitivePrepare(['log', '--oneline', '--decorate', '--graph', '--all'])
+
+"syn match gitLgLine /^[_\*|\/\\ ]\+\(\<\x\{4,40\}\>.*\)\?$/
+"syn match gitLgHead /^[_\*|\/\\ ]\+\(\<\x\{4,40\}\> - ([^)]\+)\( ([^)]\+)\)\? \)\?/ contained containedin=gitLgLine
+"syn match gitLgDate /(\u\l\l \u\l\l \d\=\d \d\d:\d\d:\d\d \d\d\d\d)/ contained containedin=gitLgHead nextgroup=gitLgRefs skipwhite
+"syn match gitLgRefs /([^)]*)/ contained containedin=gitLgHead
+"syn match gitLgGraph /^[_\*|\/\\ ]\+/ contained containedin=gitLgHead,gitLgCommit nextgroup=gitHashAbbrev skipwhite
+"syn match gitLgCommit /^[^-]\+- / contained containedin=gitLgHead nextgroup=gitLgDate skipwhite
+"syn match gitLgIdentity /<[^>]*>$/ contained containedin=gitLgLine
+"hi def link gitLgGraph Comment
+"hi def link gitLgDate gitDate
+"hi def link gitLgRefs gitReference
+"hi def link gitLgIdentity gitIdentity
+
+
+
+
+" - ref: https://github.com/kablamo/vim-git-log
