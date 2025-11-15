@@ -106,93 +106,98 @@
 #}}}
 #{{{ X11 and ssH
 # # Concept
-# notice:
-#   X11 clipboard can interact with X11 clipboard by X11 (X11 clipboard <-> X11 <-> X11 system clipboard)
-#   tty can interact with X11 system clipboard by OSC52, which is one direction and size limitation (tty -> X11 system clipboard by OSC52)
-#   tmux can interact with X11 clipboard
-#   tmux can interact with tty
-#   nvim can interact with tmux
-#   vim can't interact with anyone
-# combination:
-#   local-window X11 enable + X11 system clipboard + tmux
-#   local-window X11 enable + X11 system clipboard + tmux + nvim (nvim interacts with tmux)
-#   local-window terminal support OSC52 + tmux
-#   local-window terminal support OSC52 + tmux + nvim
+# - notice
+#   - X11 clipboard can interact with X11 clipboard by X11 (X11 clipboard <-> X11 <-> X11 system clipboard)
+#   - tty can interact with X11 system clipboard by OSC52, which is one direction and size limitation (tty -> X11 system clipboard by OSC52)
+#   - tmux can interact with X11 clipboard
+#   - tmux can interact with tty
+#   - nvim can interact with tmux
+#   - vim can't interact with anyone
+# - combination
+#   - local-window X11 enable + X11 system clipboard + tmux
+#   - local-window X11 enable + X11 system clipboard + tmux + nvim (nvim interacts with tmux)
+#   - local-window terminal support OSC52 + tmux
+#   - local-window terminal support OSC52 + tmux + nvim
 
 # # Enable X11
-# In CentOS (remote-linux)
-# 1. > sudo yum update -y
-# 2. > sudo yum install libX11
-# 3. type the following ong the sshd_config file which need root authority
-# In vim /etc/ssh/sshd_config
-# X11Forwarding yes
-# X11DisplayOffset 10
-# X11UseLocalhost yes
-# systemctl restart sshd
+# - In CentOS (remote-linux)
+#    > sudo yum update -y
+#    > sudo yum install libX11
+#    type the following ong the sshd_config file which need root authority
+# > vim /etc/ssh/sshd_config
+#   X11Forwarding yes
+#   X11DisplayOffset 10
+#   X11UseLocalhost yes
+#   systemctl restart sshd
 
 # # Create ~/.Xauthority
-# In remote server (remote-linux)
-# 1. > xauth list
+# In remote-linux
+#   > xauth list
+#       - P.S: create .Xauthority at ~
 export XAUTHORITY=$HOME/.Xauthority
 
 # # Easy Way to Access ssh from ssh -Y jasonli@atcpcw10: 22 to ssh r10
-# In wezterm or command prompt/powershell (local-window)
-# In C:/Users/jasonli/.ssh/config
-# 1. type the following on the config file
-# Host r10
-#     HostName atcpcw10
-#     User jasonli
-#     Port 22
-#     ForwardX11 yes
-#     ForwardX11Trusted yes
-#     IdentitiesOnly yes
-# 2. > ssh r10
+# - In local window
+#   - In powershell or command prompt
+#       > cd ~/.ssh
+#       > nvim config
+#           Host r10
+#               HostName atcpcw10
+#               User jasonli
+#               Port 22
+#               ForwardX11 yes
+#               ForwardX11Trusted yes
+#               IdentitiesOnly yes
+#       > ssh r10
 
 # # Auto Login without Password
-# In wezterm or powershell
-# In C:/Users/jasonli/.ssh/config (local-window)
-# 1. > ssh-keygen
-# 2. > type id_ed25519.pub | ssh jasonli@atcpcw10 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
-#    copy public key to .ssh/authorized_keys
+# - In local window
+#   - In powershell or command prompt
+#       > cd ~/.ssh
+#       > ssh-keygen
+#       > type id_ed25519.pub | ssh jasonli@atcpcw10 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+#           - P.S: copy public key to .ssh/authorized_keys
 
-# # ssh remote-linux with Different Method
-# ## Method1: mobaxterm + wezterm (local-window) (the most easy way)
-# In mobaxterm
-# 1. > wezterm
-#    using mobaxterm build-in X11
-# In wezterm
-# 1. > ssh -Y jasonli@atcpcw10 -p 22
-# 1. > ssh r10
+# # ssh remote-linux
+# ## Method1: mobaxterm + wezterm
+# - In local window
+#   - In mobaxterm
+#       P.S: using mobaxterm build-in X11
+#       > wezterm
+#   - In wezterm
+#       > ssh r10
 
-# ## Method2: wezterm (locol-window)
-# ref: https://stackoverflow.com/questions/65468655/vs-code-remote-x11-cant-get-display-while-connecting-to-remote-server
-# ref: https://wiki.iihe.ac.be/Use_SSH_%26_X11_forwarding_on_Windows
-# In remote server (remote-linux)
-# 1. > xauth list
-# 2. check ~/.Xauthority
-# In VcXsrv (local-window)
-# 1. tick Multiple windows
-# 2. type Display number: ${number}
-#    ${number} need to be the same at following setting variable
-# 3. tick Start no Client
-# 4. tick Disable access control
-# In wezterm or command prompt (local-window)
-# 1. > set DISPLAY=localhost:${number}.0
-# 2. ssh -Y jasonli@atcpcw10 -p 22
-# 2. ssh r10
-# In powershell
-# 1. > $env:DISPLAY="localhost:${number}.0"
-# 2. > echo $env:DISPLAY
-# 3. ssh -Y jasonli@atcpcw10 -p 22
-# 3. ssh r10
+# ## Method2: only wezterm or powershell or command prompt
+# - ref: https://stackoverflow.com/questions/65468655/vs-code-remote-x11-cant-get-display-while-connecting-to-remote-server
+# - ref: https://wiki.iihe.ac.be/Use_SSH_%26_X11_forwarding_on_Windows
+# - In remote-linux
+#   > xauth list
+#   - check ~/.Xauthority
+# - In local window
+#   > XLaunch
+#       - P.S: App is VcXsrv
+#       - tick Multiple windows
+#       - type Display number: ${number}
+#         - ${number} need to be the same at following setting variable
+#       - tick Start no Client
+#       - tick Disable access control
+#   - In command prompt
+#       > set DISPLAY=localhost:${number}.0
+#       > echo %DISPLAY%
+#       > ssh r10
+#   - In powershell
+#       > $env:DISPLAY="localhost:${number}.0"
+#       > echo $env:DISPLAY
+#       > ssh r10
 
-# # .bat file set DISPLAY
-# In wezterm or command prompt
-# > nvim display.bat (local-window)
-#       @echo off
-#       set DISPLAY=localhost:${number}.0
-#       echo DISPLAY is set to %DISPLAY%
-# > dispaly.bat
+# # set DISPLAY with .bat
+# In local window
+#   - In command prompt
+#   > nvim display.bat
+#     @echo off
+#     set DISPLAY=localhost:${number}.0
+#     echo DISPLAY is set to %DISPLAY%
+#   > dispaly.bat
 
 # # fix $DISPLAY when ssh reconnect with tmux
 # - ref: https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
