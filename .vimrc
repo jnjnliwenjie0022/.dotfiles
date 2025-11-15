@@ -16,7 +16,6 @@ nnoremap <C-l> :noh<CR>
 inoremap <C-c> <Esc>
 " - % refers to the current buffer
 " - %:p refers to the path to the file
-"vim.keymap.set('n', '<leader>e', '<CMD>Ex<CR><CMD>echo "Path:"expand("%:p")<CR>')
 nnoremap <leader>b :exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR>:echo "Backup:" . expand("%:p") . ".bak." . strftime("%Y%m%d_%H%M%S")<CR>
 nnoremap <leader>c :%s/\s\+$//e<CR>:%s/\r$//e<CR>
 vnoremap "*y y:<C-U>call YANK(@0)<CR>:echo "Yank"<CR>
@@ -24,9 +23,8 @@ nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call YANK(@0
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>g :GFiles<CR>
 " :<C-f> edit in command mode
-" <C-w>H window move to the left
-" <C-w>J window move to the bottom
-" <C-w>L window move to the right
+" <C-w>H/J/L/K window moving
+" <C-w>f attach new window
 " @@ command repeat
 " ; keymap repeat
 " , keymap reversely repeat
@@ -41,22 +39,8 @@ nnoremap X "_D
 vnoremap X "_D
 nnoremap x "_x
 vnoremap x "_x
-" vim.keymap.set('n', 'p', '\"+p')
-" vim.keymap.set('v', 'p', '\"_d\"+P')
-" vim.keymap.set('n', 'P', '\"+P')
-" vim.keymap.set('v', 'P', '\"+P')
-" vim.keymap.set('n', 'y', '\"+y')
-" vim.keymap.set('v', 'y', '\"+y')
-" vim.keymap.set('n', 'Y', '\"+Y')
-" vim.keymap.set('v', 'Y', '\"+Y')
-" vim.keymap.set('n', 'd', '\"+d')
-" vim.keymap.set('v', 'd', '\"+d')
-" vim.keymap.set('n', 'D', '\"+D')
-" vim.keymap.set('v', 'D', '\"+D')
 vnoremap p "_dP
 vnoremap Y $y
-" vim.keymap.set('v','y','myy`y')
-" vim.keymap.set('v','Y','myY`y')
 vnoremap < <gv
 vnoremap > >gv
 nnoremap n nzzzv
@@ -246,7 +230,7 @@ hi Pmenu                      ctermfg=15 ctermbg=0
 hi PmenuSbar                  ctermfg=7  ctermbg=8
 hi PmenuSel                   ctermfg=15 ctermbg=8 cterm=NONE
 hi PmenuThumb                 ctermfg=NONE ctermbg=7
-hi FoldColumn                 ctermfg=7
+hi FoldColumn                 ctermbg=NONE
 hi Folded                     ctermfg=14 ctermbg=0
 hi WildMenu                   ctermfg=15 ctermbg=0 cterm=NONE
 hi SpecialKey                 ctermfg=NONE

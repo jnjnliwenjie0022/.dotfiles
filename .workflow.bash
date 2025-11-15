@@ -8,8 +8,8 @@
 #}}}
 #{{{ terminal emulator
 # # In mobaXterm
-# terminal color scheme config
-# https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
+# ## terminal color scheme config
+# - ref: https://sourcegraph.com/github.com/mbadolato/iTerm2-Color-Schemes/-/blob/mobaxterm/catppuccin-mocha.ini
 # Paste the following configurations in the corresponding place in MobaXterm.ini.
 # Setting->Configuration->Terminal->Default terminal color setting->import catppuccin-mocha.ini
 #
@@ -44,7 +44,7 @@
 # Hide the tile bar: On
 
 # ## Setting > Color schemes
-# ref: https://github.com/catppuccin/windows-terminal/blob/main/mocha.json
+# - ref: https://github.com/catppuccin/windows-terminal/blob/main/mocha.json
 # cursorColor: #F5E0DC
 # selectionBackground: #585B70
 # background: #27293C -> #000000
@@ -195,7 +195,7 @@ export XAUTHORITY=$HOME/.Xauthority
 # > dispaly.bat
 
 # # fix $DISPLAY when ssh reconnect with tmux
-# ref: https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
+# - ref: https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
 function fix_tmuxenv() {
     eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
 }
@@ -206,6 +206,9 @@ function test_osc52() {
     b64=$(echo -n "$msg" | base64)
     printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
 }
+
+# # .wezterm.lua
+# - ref: https://www.youtube.com/watch?v=G0_wVLhI-Ds
 #}}}
 #{{{ vim
 # # enable Ctrl-q as Ctrl-v
@@ -213,7 +216,7 @@ stty start undef
 #}}}
 #{{{ export
 # # language config
-# ref: https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
+# - ref: https://samwhelp.github.io/note-ubuntu-18.04/read/howto/install/locale/
 # > locale -a
 # > locale
 # if en_US.utf-8 does not exist
@@ -222,6 +225,7 @@ export LC_ALL=en_IN.UTF-8
 export LANG=en_IN.UTF-8
 
 # # color config
+# - disable all the color setting
 export LS_COLORS=none
 
 # # set $TERM
@@ -413,7 +417,6 @@ function ff () {
     echo "${selection}" | tr -d '\n' | yank
     echo "Yank: ${selection}"
 }
-
 
 function bb () {
     CUR_TIME=`date +%Y%m%d_%H%M%S`
