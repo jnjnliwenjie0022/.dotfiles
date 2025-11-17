@@ -416,12 +416,15 @@ function yy () {
 #function cdb () {
 #    cd "$(git worktree list | fzf | awk '{print $1}')"
 #}
-function ff () {
-    selection="$(fd | fzf | tr -d '\n')"
-    selection="$(pwd)/${selection}"
-    echo "${selection}" | tr -d '\n' | yank
-    echo "Yank: ${selection}"
+function ff() {
+#files ---> tee -----> stdout --------------> command-subst (selection)
+#                 \
+#                  \-> pipe --> yank (stdin)
+#                          yank's stdout -> /dev/null
+    selection="$(files | tee >(yank >/dev/null))"
+    printf "Yank: %s\n" "${selection}"
 }
+
 
 function bb () {
     CUR_TIME=`date +%Y%m%d_%H%M%S`

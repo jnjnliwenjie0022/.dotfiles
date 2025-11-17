@@ -129,8 +129,7 @@ endfunction
 " - ref: https://dev.to/pbnj/interactive-fuzzy-finding-in-vim-without-plugins-4kkj
 function! FILES() abort
     let l:tempname = tempname()
-    " fd -H | fzf | awk '{ print $1":1:0" }' > file
-    execute 'silent !fd -H | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+    execute 'silent !files > ' . fnameescape(l:tempname)
     try
         execute 'cfile ' . l:tempname
         redraw!
