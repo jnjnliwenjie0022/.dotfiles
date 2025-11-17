@@ -86,6 +86,7 @@ set listchars=tab:>\ ,trail:·
 set conceallevel=2
 " - file
 set undofile
+set undodir=~/.vim/undodir
 set nobackup
 set noswapfile
 " - tab
