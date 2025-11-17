@@ -129,7 +129,7 @@ endfunction
 " - ref: https://dev.to/pbnj/interactive-fuzzy-finding-in-vim-without-plugins-4kkj
 function! FILES() abort
     let l:tempname = tempname()
-    execute 'silent !files > ' . fnameescape(l:tempname)
+    execute 'silent !files | awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
     try
         execute 'cfile ' . l:tempname
         redraw!
@@ -148,7 +148,7 @@ function! GFILES() abort
     endif
 
     let l:tempname = tempname()
-    execute 'silent !git -C $(git rev-parse --show-toplevel) ls-files --cached --exclude-standard | fzf --multi' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+    execute 'silent !gfiles | awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
     try
         execute 'cfile ' . l:tempname
         redraw!
