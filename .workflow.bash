@@ -424,6 +424,10 @@ function ff () {
 }
 
 function gg () {
+    if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+        printf "Not inside a git repository\n"
+        return
+    fi
     selection="$(gfiles | tee >(yank))"
     printf "Yank: %s" "${selection}"
 }
