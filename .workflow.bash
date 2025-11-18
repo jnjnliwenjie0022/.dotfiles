@@ -394,6 +394,13 @@ if [ -f ${file} ]; then
 fi
 #}}}
 #{{{ function
+
+# - fzf config
+#if type rg &> /dev/null; then
+#   export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
+#   export FZF_DEFAULT_OPTS='-m'
+#fi
+
 function yy () {
     if [[ $# != 1 ]]; then
         pwd | tr -d '\n' | yank
@@ -404,18 +411,8 @@ function yy () {
     fi
 }
 
-# - fzf config
-#if type rg &> /dev/null; then
-#   export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
-#   export FZF_DEFAULT_OPTS='-m'
-#fi
 # - ref: https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
-# > fd | fzf
-# > cd $(fd | fzf)
 # - ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
-#function cdb () {
-#    cd "$(git worktree list | fzf | awk '{print $1}')"
-#}
 function ff () {
 #files -> tee ---> stdout ---------------> command-subst -> ${selection}
 #              |-> pipe -> yank (stdin) -> yank's stdout
@@ -424,6 +421,8 @@ function ff () {
 }
 
 function gg () {
+#files -> tee ---> stdout ---------------> command-subst -> ${selection}
+#              |-> pipe -> yank (stdin) -> yank's stdout
     if ! git rev-parse --is-inside-work-tree &>/dev/null; then
         printf "Not inside a git repository\n"
         return
