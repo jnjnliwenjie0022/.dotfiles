@@ -65,8 +65,8 @@ set guicursor=
 " - line count in virtual mode
 set showcmd
 " - status
+" - ref: https://zhung.com.tw/article/install-and-start-vim-with-minimal-vimrc/
 set laststatus=2
-set statusline=%f\ %m\ %r
 " - cursor
 " - ref: https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
 let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
