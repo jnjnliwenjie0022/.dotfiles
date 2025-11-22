@@ -1,1 +1,1 @@
-fd -H | fzf --multi
+fd -H | fzf --multi | sed "s|^|$PWD/|"
