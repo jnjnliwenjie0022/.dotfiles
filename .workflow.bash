@@ -219,7 +219,7 @@ function test_osc52() {
 # $ sftp r10
 # In server
 # $ server to local
-# $ mget
+# $ mget -r
 # In server
 # $ local to server
 # $ put
