@@ -387,7 +387,7 @@ function parse_git_branch() {
             status="*"
         fi
 
-        echo "[$branch $status]"
+        echo "[$branch$status]"
     fi
 }
 export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] $ \[\033[0m\]"
