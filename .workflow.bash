@@ -215,6 +215,13 @@ function test_osc52() {
 # # .wezterm.lua
 # - ref: https://www.youtube.com/watch?v=G0_wVLhI-Ds
 #}}}
+#{{{ sftp
+# $ sftp r10
+# $ server to local
+# $ mget
+# $ local to server
+# $ put
+#}}}
 #{{{ vim
 # # enable Ctrl-q as Ctrl-v
 stty start undef
@@ -372,26 +379,35 @@ git_diff_with_abs_path() {
 #{{{ git prompt
 # ref: https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
 function parse_git_branch() {
-     git branch  2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1]/"
-}
-export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] > \[\033[0m\]"
+     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/")
+        local status=""
 
-# bash-git-promt config
-file="${HOME}/.local/lib/bash-git-prompt/gitprompt.sh"
-if [ -f ${file} ]; then
-    GIT_PROMPT_ONLY_IN_REPO=0
-    GIT_PROMPT_SHOW_UPSTREAM=1
-    GIT_PROMPT_FETCH_REMOTE_STATUS=1
-    GIT_PROMPT_IGNORE_SUBMODULES=1
-    GIT_PROMPT_START_ROOT="\[\033[33m\][\w]\[\033[0m\]"
-    GIT_PROMPT_START_USER="\[\033[33m\][\w]\[\033[0m\]"
-    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
-    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
-    source ${file}
-    #echo "Prompt ${file}"
-#else
-    #echo "Prompt [Warning] ${file} not exist"
-fi
+        if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+            status="*"
+        fi
+
+        echo "[$branch $status]"
+    fi
+}
+export PS1="\[\033[33m\][\w] \[\e[91m\]\$(parse_git_branch) \n\[\033[33m\][\j] $ \[\033[0m\]"
+
+## bash-git-promt config
+#file="${HOME}/.local/lib/bash-git-prompt/gitprompt.sh"
+#if [ -f ${file} ]; then
+#    GIT_PROMPT_ONLY_IN_REPO=0
+#    GIT_PROMPT_SHOW_UPSTREAM=1
+#    GIT_PROMPT_FETCH_REMOTE_STATUS=1
+#    GIT_PROMPT_IGNORE_SUBMODULES=1
+#    GIT_PROMPT_START_ROOT="\[\033[33m\][\w]\[\033[0m\]"
+#    GIT_PROMPT_START_USER="\[\033[33m\][\w]\[\033[0m\]"
+#    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
+#    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
+#    source ${file}
+#    #echo "Prompt ${file}"
+##else
+#    #echo "Prompt [Warning] ${file} not exist"
+#fi
 #}}}
 #{{{ function
 

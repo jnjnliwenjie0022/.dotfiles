@@ -35,6 +35,9 @@ nnoremap [q :cp<CR>zz
 nnoremap ]q :cn<CR>zz
 nnoremap [Q :cpf<CR>zz
 nnoremap ]Q :cnf<CR>zz
+" get closed files
+" browse old
+" vert [number]
 nnoremap X "_D
 vnoremap X "_D
 nnoremap x "_x
