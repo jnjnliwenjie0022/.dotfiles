@@ -217,8 +217,10 @@ function test_osc52() {
 #}}}
 #{{{ sftp
 # $ sftp r10
+# In server
 # $ server to local
 # $ mget
+# In server
 # $ local to server
 # $ put
 #}}}
