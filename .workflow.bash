@@ -383,7 +383,7 @@ function parse_git_branch() {
         local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/")
         local status=""
 
-        if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+        if [ -n "$(git status --porcelain -uno 2>/dev/null)" ]; then
             status="*"
         fi
 
