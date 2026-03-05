@@ -37,6 +37,9 @@
 # BoldRed=243,139,168
 
 # # In powershell or command prompt
+# ## Startup
+# > Defualt profile: powershell
+
 # ## Interaction
 # Automatically copy selection to clipboard: On
 
@@ -78,8 +81,14 @@
 # ## Setting > Defaults > Advanced
 # Bell notification style: None
 
+# Only in powershell
+# $ if (!(Test-Path -Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force }
+# $ nvim $PROFILE
+#   Set-PSReadLineOption -EditMode Emacs
+#   Set-PSReadlineOption -BellStyle None
+
 # # In xterm (local-linux or remote-linux)
-# > vi .Xresources
+# $ vi .Xresources
 #   XTerm*background: #1E1E2E
 #   XTerm*foreground: #CDD6F4
 #   XTerm*color0: #45475A
@@ -181,11 +190,11 @@ export XAUTHORITY=$HOME/.Xauthority
 #         - ${number} need to be the same at following setting variable
 #       - tick Start no Client
 #       - tick Disable access control
-#   - In command prompt
+#   - In command prompt (create .bat)
 #       > set DISPLAY=localhost:${number}.0
 #       > echo %DISPLAY%
 #       > ssh r10
-#   - In powershell
+#   - In powershell (create .ps1)
 #       > $env:DISPLAY="localhost:${number}.0"
 #       > echo $env:DISPLAY
 #       > ssh r10
@@ -214,15 +223,6 @@ function test_osc52() {
 
 # # .wezterm.lua
 # - ref: https://www.youtube.com/watch?v=G0_wVLhI-Ds
-#}}}
-#{{{ sftp
-# $ sftp r10
-# In server
-# $ server to local
-# $ mget -r
-# In server
-# $ local to server
-# $ put
 #}}}
 #{{{ vim
 # # enable Ctrl-q as Ctrl-v
