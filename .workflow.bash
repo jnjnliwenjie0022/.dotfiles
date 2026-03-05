@@ -68,7 +68,7 @@
 
 # ## Setting > Defaults > Appearance
 # Font size: 20
-# Line height: 1.1
+# Line height: 1
 # Cursor Shape: Filled box
 # Padding: 0
 
