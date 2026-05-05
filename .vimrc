@@ -309,16 +309,16 @@ hi Type ctermfg=11
 " :PlugClean   to remove plugins no longer in the list
 call plug#begin()
     " - ref: https://raw.githubusercontent.com/tpope/vim-fugitive/master/doc/fugitive.txt
-    Plug 'tpope/vim-fugitive'
+    "Plug 'tpope/vim-fugitive'
     " - ref: https://github.com/junegunn/vim-easy-align
-    Plug 'junegunn/vim-easy-align'
+    "Plug 'junegunn/vim-easy-align'
     Plug 'mtdl9/vim-log-highlighting'
 call plug#end()
 
 " - Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
+"xmap ga <Plug>(EasyAlign)
 " - Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+"nmap ga <Plug>(EasyAlign)
 
 " # filetype
 autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
