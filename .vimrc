@@ -227,8 +227,8 @@ hi LineNr                     ctermfg=NONE
 hi CursorLineNr               ctermfg=NONE cterm=NONE
 hi helpLeadBlank              ctermfg=NONE ctermbg=NONE
 hi helpNormal                 ctermfg=NONE ctermbg=NONE
-hi Visual                     cterm=bold ctermfg=15 ctermbg=8
-hi VisualNOS                  cterm=bold ctermfg=15 ctermbg=8
+hi Visual                     cterm=NONE ctermfg=None ctermbg=8
+hi VisualNOS                  cterm=NONE ctermfg=None ctermbg=8
 hi Pmenu                      ctermfg=15 ctermbg=0
 hi PmenuSbar                  ctermfg=7  ctermbg=8
 hi PmenuSel                   ctermfg=15 ctermbg=8 cterm=NONE
