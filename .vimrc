@@ -209,60 +209,60 @@ hi clear
 set notermguicolors
 " - Editor Elements
 hi NonText                    ctermfg=0
-hi Ignore                     cterm=NONE ctermfg=NONE  ctermbg=NONE
-hi Underlined                 cterm=underline
-hi Bold                       cterm=bold
-hi Italic                     cterm=italic
-hi StatusLine                 ctermfg=0 ctermbg=3 cterm=NONE
-hi StatusLineNC               ctermfg=NONE ctermbg=0 cterm=NONE
-hi VertSplit                  ctermfg=0 cterm=NONE
-hi TabLine                    ctermfg=7 ctermbg=0
-hi TabLineFill                ctermfg=0 ctermbg=NONE
-hi TabLineSel                 ctermfg=0 ctermbg=11
-hi Title                      ctermfg=4 cterm=NONE
-hi CursorLine                 ctermfg=NONE ctermbg=0 cterm=NONE
-hi Cursor                     ctermfg=0 ctermbg=15
+hi Ignore                     ctermfg=NONE ctermbg=NONE cterm=NONE
+hi Underlined                                           cterm=underline
+hi Bold                                                 cterm=bold
+hi Italic                                               cterm=italic
+hi StatusLine                 ctermfg=0    ctermbg=3    cterm=NONE
+hi StatusLineNC               ctermfg=NONE ctermbg=0    cterm=NONE
+hi VertSplit                  ctermfg=0                 cterm=NONE
+hi TabLine                    ctermfg=7    ctermbg=0
+hi TabLineFill                ctermfg=0    ctermbg=NONE
+hi TabLineSel                 ctermfg=0    ctermbg=11
+hi Title                      ctermfg=4                 cterm=NONE
+hi CursorLine                 ctermfg=NONE ctermbg=0    cterm=NONE
+hi Cursor                     ctermfg=0    ctermbg=15
 hi CursorColumn               ctermfg=NONE ctermbg=0
 hi LineNr                     ctermfg=NONE
-hi CursorLineNr               ctermfg=NONE cterm=NONE
-hi helpLeadBlank              ctermfg=NONE ctermbg=NONE
-hi helpNormal                 ctermfg=NONE ctermbg=NONE
-hi Visual                     cterm=NONE ctermfg=None ctermbg=8
-hi VisualNOS                  cterm=NONE ctermfg=None ctermbg=8
-hi Pmenu                      ctermfg=15 ctermbg=0
-hi PmenuSbar                  ctermfg=7  ctermbg=8
-hi PmenuSel                   ctermfg=15 ctermbg=8 cterm=NONE
+hi CursorLineNr               ctermfg=NONE              cterm=NONE
+hi helpLeadBlank              ctermfg=NONE              ctermbg=NONE
+hi helpNormal                 ctermfg=NONE              ctermbg=NONE
+hi Visual                     ctermfg=None ctermbg=8    cterm=NONE
+hi VisualNOS                  ctermfg=None ctermbg=8    cterm=NONE
+hi Pmenu                      ctermfg=15   ctermbg=0
+hi PmenuSbar                  ctermfg=7    ctermbg=8
+hi PmenuSel                   ctermfg=15   ctermbg=8    cterm=NONE
 hi PmenuThumb                 ctermfg=NONE ctermbg=7
 hi FoldColumn                 ctermbg=NONE
-hi Folded                     ctermfg=14 ctermbg=0
-hi WildMenu                   ctermfg=15 ctermbg=0 cterm=NONE
+hi Folded                     ctermfg=14   ctermbg=0
+hi WildMenu                   ctermfg=15   ctermbg=0    cterm=NONE
 hi SpecialKey                 ctermfg=NONE
-hi IncSearch                  ctermfg=0 ctermbg=1
-hi CurSearch                  ctermfg=0 ctermbg=3
-hi Search                     ctermfg=0 ctermbg=11
+hi IncSearch                  ctermfg=0    ctermbg=1
+hi CurSearch                  ctermfg=0    ctermbg=3
+hi Search                     ctermfg=0    ctermbg=11
 hi Directory                  ctermfg=4
-hi MatchParen                 ctermfg=3 ctermbg=0 cterm=underline
-hi SpellBad                   cterm=undercurl
-hi SpellCap                   cterm=undercurl
-hi SpellLocal                 cterm=undercurl
-hi SpellRare                  cterm=undercurl
-hi ColorColumn                ctermbg=8
+hi MatchParen                 ctermfg=3    ctermbg=0    cterm=underline
+hi SpellBad                                             cterm=undercurl
+hi SpellCap                                             cterm=undercurl
+hi SpellLocal                                           cterm=undercurl
+hi SpellRare                                            cterm=undercurl
+hi ColorColumn                             ctermbg=8
 hi SignColumn                 ctermfg=7
 hi ModeMsg                    ctermfg=NONE ctermbg=0
 hi MoreMsg                    ctermfg=4
 hi Question                   ctermfg=4
-hi QuickFixLine               ctermfg=14 ctermbg=0
+hi QuickFixLine               ctermfg=14   ctermbg=0
 hi Conceal                    ctermfg=8
-hi ToolbarLine                ctermfg=15 ctermbg=0
-hi ToolbarButton              ctermfg=15 ctermbg=8
+hi ToolbarLine                ctermfg=15   ctermbg=0
+hi ToolbarButton              ctermfg=15   ctermbg=8
 hi debugPC                    ctermfg=7
 hi debugBreakpoint            ctermfg=8
-hi ErrorMsg                   ctermfg=1 ctermbg=NONE cterm=bold,italic
+hi ErrorMsg                   ctermfg=1    ctermbg=NONE cterm=italic
 hi WarningMsg                 ctermfg=11
-hi DiffAdd                    ctermfg=0 ctermbg=10
-hi DiffChange                 ctermfg=0 ctermbg=12
-hi DiffDelete                 ctermfg=0 ctermbg=9
-hi DiffText                   ctermfg=0 ctermbg=14
+hi DiffAdd                    ctermfg=0    ctermbg=10
+hi DiffChange                 ctermfg=0    ctermbg=12
+hi DiffDelete                 ctermfg=0    ctermbg=9
+hi DiffText                   ctermfg=0    ctermbg=14
 hi diffAdded                  ctermfg=10
 hi diffRemoved                ctermfg=9
 hi diffChanged                ctermfg=12
@@ -271,35 +271,34 @@ hi diffNewFile                ctermfg=13
 hi diffFile                   ctermfg=12
 hi diffLine                   ctermfg=7
 hi diffIndexLine              ctermfg=14
-hi healthError                ctermfg=1 ctermbg=NONE
+hi healthError                ctermfg=1    ctermbg=NONE
 hi healthSuccess              ctermfg=2
 hi healthWarning              ctermfg=3
-hi TabLine                    cterm=NONE ctermfg=NONE ctermbg=0
-hi TabLineFill                cterm=NONE ctermfg=NONE ctermbg=0
-hi TabLineSel                 cterm=NONE ctermfg=0    ctermbg=3
-
+hi TabLine                    ctermfg=NONE ctermbg=0    cterm=NONE
+hi TabLineFill                ctermfg=NONE ctermbg=0    cterm=NONE
+hi TabLineSel                 ctermfg=0    ctermbg=3    cterm=NONE
 " - Syntax
-hi Comment ctermfg=14 cterm=italic
-hi Constant ctermfg=3
-hi Error ctermfg=1 ctermbg=NONE
-hi Identifier ctermfg=9
-hi Function ctermfg=4
-hi Special ctermfg=13
-hi Statement ctermfg=5
-hi String ctermfg=2
-hi Operator ctermfg=6
-hi Boolean ctermfg=3
-hi Label ctermfg=14
-hi Keyword ctermfg=5
-hi Exception ctermfg=5
-hi Conditional ctermfg=5
-hi PreProc ctermfg=13
-hi Include ctermfg=5
-hi Macro ctermfg=5
-hi StorageClass ctermfg=11
-hi Structure ctermfg=11
-hi Todo ctermfg=0 ctermbg=14
-hi Type ctermfg=11
+hi Comment                    ctermfg=14                cterm=italic
+hi Constant                   ctermfg=3
+hi Error                      ctermfg=1    ctermbg=NONE
+hi Identifier                 ctermfg=9
+hi Function                   ctermfg=4
+hi Special                    ctermfg=13
+hi Statement                  ctermfg=5
+hi String                     ctermfg=2
+hi Operator                   ctermfg=6
+hi Boolean                    ctermfg=3
+hi Label                      ctermfg=14
+hi Keyword                    ctermfg=5
+hi Exception                  ctermfg=5
+hi Conditional                ctermfg=5
+hi PreProc                    ctermfg=13
+hi Include                    ctermfg=5
+hi Macro                      ctermfg=5
+hi StorageClass               ctermfg=11
+hi Structure                  ctermfg=11
+hi Todo                       ctermfg=0    ctermbg=14
+hi Type                       ctermfg=11
 
 " # vim-plug
 " - ref: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
