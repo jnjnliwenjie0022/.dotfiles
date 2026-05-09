@@ -268,12 +268,12 @@ alias ll='ls -alF -rvt'
 alias eixt="exit"
 alias exti="exit"
 # - ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
-#stty stop ''
-#bind '"\C-s":nop'
-#bind '"\C-sf":nop'
-#bind '"\C-se":nop'
-bind '"\C-af":"tmux-sessionizer\n"'
-bind '"\C-ae":"tmux-session-selector\n"'
+stty -ixon
+bind '"\C-s":nop'
+bind '"\C-sf":nop'
+bind '"\C-se":nop'
+bind '"\C-sf":"tmux-sessionizer\n"'
+bind '"\C-se":"tmux-session-selector\n"'
 # ref: https://zhuanlan.zhihu.com/p/34509032
 # "\C-m" is sames as EOL
 #}}}
