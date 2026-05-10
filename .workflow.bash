@@ -253,7 +253,8 @@ export LS_COLORS=none
 #else
 #    export TERM=xterm-256color
 #fi
-export TERM=xterm-256color
+#export TERM=xterm-256color
+export TERM=xterm
 
 # set $PATH
 export PATH="$HOME/.local/bin:${PATH}"
@@ -281,6 +282,7 @@ bind '"\C-se":"tmux-session-selector\n"'
 #{{{ git config
 git() { if [[ $@ == "pull" ]]; then command echo "Instead of pull, using > git fetch --all -p && git rebase"; else command git "$@"; fi; }
 git config --global core.editor "vim"
+#git config --global core.pager "less -S"
 # - ref: https://www.youtube.com/watch?v=aolI_Rz0ZqY&t=905s
 git config --global user.name "Wen-Jie Li"
 git config --global user.email "jnjn0022@gmail.com"
@@ -303,9 +305,9 @@ git config --global alias.root 'rev-parse --show-toplevel'
 # > git ls/ll --author="Wen-Jie"
 # > git ls/ll -- ${filepath}
 git config --global alias.ls "log --decorate --oneline --graph --reflog"
-git config --global alias.ll "log --decorate --oneline --graph --reflog --date=format:%Y-%m-%d\ %H:%M --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
-git config --global alias.rl "reflog --pretty=format:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
-git config --global alias.tree "log --graph --simplify-by-decoration --pretty=format:'%C(auto,blue)%cr%C(auto)%d' --all"
+git config --global alias.ll "log --decorate --oneline --graph --reflog --date=format:%Y-%m-%d\ %H:%M --pretty=tformat:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset)%<(70,trunc) %s'"
+git config --global alias.rl "reflog --pretty=tformat:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
+git config --global alias.tree "log --graph --simplify-by-decoration --pretty=tformat:'%C(auto,blue)%cr%C(auto)%d' --all"
 git config --global alias.ft "fetch --all -p"
 # > git st -sb
 git config --global alias.st "status"
@@ -572,7 +574,7 @@ fi
 #}}}
 
 
-# - ref: https://github.com/andrew8088/dotfiles/blob/main/zsh/git.zsh
+## - ref: https://github.com/andrew8088/dotfiles/blob/main/zsh/git.zsh
 ##!/bin/bash
 #
 ## Copied from Gary Bernhardt (destroyallsoftware.com) dot files repository.
