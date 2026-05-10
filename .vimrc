@@ -87,10 +87,18 @@ set list
 set listchars=tab:>\ ,trail:·
 " - conceal special symbol
 set conceallevel=2
-" - file
-set undofile
-set undodir=~/.vim/undodir
+" - undofile
+if has('persistent_undo')
+    let target_path = expand('~/.vim/undodir')
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+    let &undodir = target_path
+    set undofile
+endif
+" - backfile
 set nobackup
+" - swapfile
 set noswapfile
 " - tab
 set tabstop=4
