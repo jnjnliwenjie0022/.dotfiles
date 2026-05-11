@@ -1,3 +1,4 @@
+# - ref: https://draculatheme.com/tig
 #set git-colors = no
 # color default         white   black
 color   cursor          black   yellow
