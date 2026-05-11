@@ -210,23 +210,21 @@ export XAUTHORITY=$HOME/.Xauthority
 
 # # fix $DISPLAY when ssh reconnect with tmux
 # - ref: https://www.reddit.com/r/ssh/comments/1aurs0x/ssh_x_forwarding_for_active_tmux_session/
-function fix_tmuxenv() {
-    eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
-}
+#function fix_tmuxenv() {
+#    eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
+#}
 # # test osc52
 function test_osc52() {
     local msg="OSC52 SUCCESS!!"
     local b64
     b64=$(echo -n "$msg" | base64)
-    printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
+    # - if tmux > 3.2a then must waive it
+    #printf "\033Ptmux;\033\033]52;c;%s\007\033\\" "$b64"
+    printf "\033]52;c;%s\007" "$b64"
 }
 
 # # .wezterm.lua
 # - ref: https://www.youtube.com/watch?v=G0_wVLhI-Ds
-#}}}
-#{{{ vim
-# # enable Ctrl-q as Ctrl-v
-stty start undef
 #}}}
 #{{{ export
 # # language config
@@ -266,6 +264,8 @@ export PATH="$HOME/.local/script:${PATH}"
 #{{{ alias and bind
 alias rebash="source $HOME/.bashrc"
 alias vim="vi -O"
+# - download no dynamic executable
+# - ref: https://github.com/tmux/tmux-builds
 alias tmux="tmux -u"
 alias tmuxs="tmux-sessionizer"
 alias ls="ls --color=never --classify --group-directories-first"
@@ -273,12 +273,15 @@ alias ll='ls -alF -rvt'
 alias eixt="exit"
 alias exti="exit"
 # - ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
+# - disalbe Ctrl-s
 stty -ixon
 bind '"\C-s":nop'
 bind '"\C-sf":nop'
 bind '"\C-se":nop'
 bind '"\C-sf":"tmux-sessionizer\n"'
 bind '"\C-se":"tmux-session-selector\n"'
+# - enable Ctrl-q as Ctrl-v in vim
+stty start undef
 # ref: https://zhuanlan.zhihu.com/p/34509032
 # "\C-m" is sames as EOL
 #}}}
