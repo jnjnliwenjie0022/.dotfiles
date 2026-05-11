@@ -229,22 +229,22 @@ hi TabLine                    ctermfg=7    ctermbg=0
 hi TabLineFill                ctermfg=0    ctermbg=NONE
 hi TabLineSel                 ctermfg=0    ctermbg=11
 hi Title                      ctermfg=4                 cterm=NONE
-hi CursorLine                 ctermfg=NONE ctermbg=0    cterm=NONE
-hi Cursor                     ctermfg=0    ctermbg=15
-hi CursorColumn               ctermfg=NONE ctermbg=0
-hi LineNr                     ctermfg=NONE
-hi CursorLineNr               ctermfg=NONE              cterm=NONE
-hi helpLeadBlank              ctermfg=NONE              ctermbg=NONE
-hi helpNormal                 ctermfg=NONE              ctermbg=NONE
-hi Visual                     ctermfg=None ctermbg=8    cterm=NONE
-hi VisualNOS                  ctermfg=None ctermbg=8    cterm=NONE
-hi Pmenu                      ctermfg=15   ctermbg=0
-hi PmenuSbar                  ctermfg=7    ctermbg=8
-hi PmenuSel                   ctermfg=15   ctermbg=8    cterm=NONE
+hi CursorLine                 ctermfg=NONE ctermbg=NONE cterm=NONE
+hi Cursor                     ctermfg=NONE ctermbg=NONE cterm=NONE
+hi CursorColumn               ctermfg=NONE ctermbg=NONE cterm=NONE
+hi LineNr                     ctermfg=NONE ctermbg=NONE cterm=NONE
+hi CursorLineNr               ctermfg=NONE ctermbg=NONE cterm=NONE
+hi helpLeadBlank              ctermfg=NONE ctermbg=NONE cterm=NONE
+hi helpNormal                 ctermfg=NONE ctermbg=NONE cterm=NONE
+hi Visual                     ctermfg=NONE ctermbg=8    cterm=NONE
+hi VisualNOS                  ctermfg=NONE ctermbg=8    cterm=NONE
+hi Pmenu                      ctermfg=7    ctermbg=0    cterm=NONE
+hi PmenuSbar                  ctermfg=7    ctermbg=8    cterm=NONE
+hi PmenuSel                   ctermfg=7    ctermbg=8    cterm=NONE
 hi PmenuThumb                 ctermfg=NONE ctermbg=7
-hi FoldColumn                 ctermbg=NONE
+hi FoldColumn                              ctermbg=NONE
 hi Folded                     ctermfg=14   ctermbg=0
-hi WildMenu                   ctermfg=15   ctermbg=0    cterm=NONE
+hi WildMenu                   ctermfg=7    ctermbg=0    cterm=NONE
 hi SpecialKey                 ctermfg=NONE
 hi IncSearch                  ctermfg=0    ctermbg=1
 hi CurSearch                  ctermfg=0    ctermbg=3
@@ -262,8 +262,8 @@ hi MoreMsg                    ctermfg=4
 hi Question                   ctermfg=4
 hi QuickFixLine               ctermfg=14   ctermbg=0
 hi Conceal                    ctermfg=8
-hi ToolbarLine                ctermfg=15   ctermbg=0
-hi ToolbarButton              ctermfg=15   ctermbg=8
+hi ToolbarLine                ctermfg=7   ctermbg=0
+hi ToolbarButton              ctermfg=7   ctermbg=8
 hi debugPC                    ctermfg=7
 hi debugBreakpoint            ctermfg=8
 hi ErrorMsg                   ctermfg=1    ctermbg=NONE cterm=italic
