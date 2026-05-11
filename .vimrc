@@ -395,22 +395,70 @@ autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
 
 
 
-" - ref: https://github.com/kablamo/vim-git-log
+"" - ref: https://github.com/kablamo/vim-git-log
+"
+"" 只在 [No Name] 緩衝區生效的映射
+"autocmd BufEnter * if bufname("") == "" | nnoremap <buffer> <CR> :call OpenPathInLastWindow()<CR> | endif
 
-" 只在 [No Name] 緩衝區生效的映射
-autocmd BufEnter * if bufname("") == "" | nnoremap <buffer> <CR> :call OpenPathInLastWindow()<CR> | endif
+nnoremap <leader>a :call writefile([expand('%:p')], g:harpoon_session_file, "a")<CR>:echo "已加入 Session 紀錄"<CR>
 
-function! OpenPathInLastWindow()
-    " 1. 獲取當前行內容 (路徑)
-    let l:path = trim(getline('.'))
+" --- Harpoon 全局變數 ---
+let g:harpoon_session_file = ""
+let g:harpoon_dir = expand('~/.vim/harpoon/')
 
-    " 2. 如果路徑為空則不執行
-    if empty(l:path) | return | endif
+" --- 1. 初始化 Session (排除 harpoon 資料夾) ---
+autocmd BufReadPost,BufNewFile * call InitHarpoonSession()
+function! InitHarpoonSession()
+    if g:harpoon_session_file != "" | return | endif
+    let l:anchor_path = expand('%:p')
 
-    " 3. 切換到上一個視窗 (通常是 tab1 的視窗)
-    1wincmd w
-    execute 'tabfirst'
+    " 如果是在 harpoon 目錄內或是無效緩衝區，不進行初始化
+    if l:anchor_path =~# 'harpoon' || empty(l:anchor_path) || &buftype != '' || isdirectory(l:anchor_path)
+        return
+    endif
 
-    " 4. 開啟檔案
-    execute 'edit ' . l:path
+    if !isdirectory(g:harpoon_dir) | call mkdir(g:harpoon_dir, "p") | endif
+    let l:safe_name = substitute(l:anchor_path, '/', '%', 'g') . ".txt"
+    let g:harpoon_session_file = g:harpoon_dir . l:safe_name
+
+    if !filereadable(g:harpoon_session_file) | call writefile([], g:harpoon_session_file) | endif
+endfunction
+
+" --- 2. 修改後的開啟邏輯 ---
+nnoremap <leader>m :call HarpoonToggle()<CR>
+function! HarpoonToggle()
+    if empty(g:harpoon_session_file) | echo "Harpoon: 無法鎖定 Session" | return | endif
+
+"    " 如果目前已經在紀錄檔裡，再按一次就關閉它
+    if expand('%:p') ==# g:harpoon_session_file
+        execute "bdelete"
+        return
+    endif
+
+    " 【核心修改】：在離開當前檔案前，記住這個視窗的 ID
+    let g:harpoon_last_win_id = win_getid()
+
+    execute 'tabnew' . fnameescape(g:harpoon_session_file)
+    setlocal winfixwidth
+    setlocal noswapfile
+    setlocal buftype=
+endfunction
+
+" --- 3. 修改後的跳轉邏輯 ---
+autocmd BufRead,BufNewFile ~/.vim/harpoon/*.txt nnoremap <buffer> <CR> :call HarpoonJump()<CR>
+function! HarpoonJump()
+    let l:target_path = trim(getline('.'))
+    if empty(l:target_path) | return | endif
+
+    let l:harpoon_buf = bufnr('%')
+
+    " 【核心修改】：不再使用 wincmd p，而是直接跳回紀錄的 ID
+    " win_gotoid 會自動處理跨 Tab 的跳轉
+    if g:harpoon_last_win_id != -1
+        call win_gotoid(g:harpoon_last_win_id)
+    endif
+    " 在該視窗開啟目標檔案
+    execute 'edit ' . fnameescape(l:target_path)
+    " 關閉紀錄檔緩衝區
+    execute 'bdelete! ' . l:harpoon_buf
 endfunction
