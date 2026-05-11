@@ -396,3 +396,21 @@ autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
 
 
 " - ref: https://github.com/kablamo/vim-git-log
+
+" 只在 [No Name] 緩衝區生效的映射
+autocmd BufEnter * if bufname("") == "" | nnoremap <buffer> <CR> :call OpenPathInLastWindow()<CR> | endif
+
+function! OpenPathInLastWindow()
+    " 1. 獲取當前行內容 (路徑)
+    let l:path = trim(getline('.'))
+
+    " 2. 如果路徑為空則不執行
+    if empty(l:path) | return | endif
+
+    " 3. 切換到上一個視窗 (通常是 tab1 的視窗)
+    1wincmd w
+    execute 'tabfirst'
+
+    " 4. 開啟檔案
+    execute 'edit ' . l:path
+endfunction
