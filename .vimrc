@@ -189,6 +189,58 @@ function! RG(args) abort
 endfunction
 command! -nargs=* Rg call RG(<q-args>)
 
+" ## Harpoon
+let g:harpoon_session_file = ""
+let g:harpoon_dir = expand('~/.vim/harpoon/')
+
+autocmd BufReadPost,BufNewFile * call InitHarpoonSession()
+function! InitHarpoonSession()
+    if g:harpoon_session_file != "" | return | endif
+    let l:anchor_path = expand('%:p')
+
+    if l:anchor_path =~# 'harpoon' || empty(l:anchor_path) || &buftype != '' || isdirectory(l:anchor_path)
+        return
+    endif
+
+    if !isdirectory(g:harpoon_dir) | call mkdir(g:harpoon_dir, "p") | endif
+    let l:safe_name = substitute(l:anchor_path, '/', '%', 'g') . ".txt"
+    let g:harpoon_session_file = g:harpoon_dir . l:safe_name
+
+    if !filereadable(g:harpoon_session_file) | call writefile([], g:harpoon_session_file) | endif
+endfunction
+
+nnoremap <leader>m :call HarpoonToggle()<CR>
+function! HarpoonToggle()
+    if empty(g:harpoon_session_file) | echo "Warning: Can't open harpoon session" | return | endif
+    if expand('%:p') ==# g:harpoon_session_file
+        execute "bdelete"
+        return
+    endif
+
+    let g:harpoon_last_win_id = win_getid()
+
+    execute 'tabnew' . fnameescape(g:harpoon_session_file)
+    setlocal winfixwidth
+    setlocal noswapfile
+    setlocal buftype=
+endfunction
+
+autocmd BufRead,BufNewFile ~/.vim/harpoon/*.txt nnoremap <buffer> <CR> :call HarpoonJump()<CR>
+function! HarpoonJump()
+    let l:target_path = trim(getline('.'))
+    if empty(l:target_path) | return | endif
+
+    let l:harpoon_buf = bufnr('%')
+
+    if g:harpoon_last_win_id != -1
+        call win_gotoid(g:harpoon_last_win_id)
+    endif
+    execute 'edit ' . fnameescape(l:target_path)
+    execute 'bdelete! ' . l:harpoon_buf
+endfunction
+
+nnoremap <leader>a :call writefile([expand('%:p')], g:harpoon_session_file, "a")<CR>:echo "Add harpoon session"<CR>
+
 " # color
 " - ref: https://hamvocke.com/blog/ansi-vim-color-scheme/
 "
@@ -375,90 +427,3 @@ autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
 "--vim.cmd [[ let g:gutentags_ctags_tagfile = '.tags' ]]
 "--vim.cmd [[ let g:gutentags_ctags_extra_args = ['-R', '--languages=systemverilog', '--extra=+q', '--fields=+i'] ]]
 
-" - ref: https://dpwright.com/posts/2018/04/06/graphical-log-with-vimfugitive/
-"command -nargs=* Glg Git! log --graph --color=always --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
-"
-"autocmd User Fugitive command! -buffer -bar Gmylog exe 'terminal' FugitivePrepare(['log', '--oneline', '--decorate', '--graph', '--all'])
-
-"syn match gitLgLine /^[_\*|\/\\ ]\+\(\<\x\{4,40\}\>.*\)\?$/
-"syn match gitLgHead /^[_\*|\/\\ ]\+\(\<\x\{4,40\}\> - ([^)]\+)\( ([^)]\+)\)\? \)\?/ contained containedin=gitLgLine
-"syn match gitLgDate /(\u\l\l \u\l\l \d\=\d \d\d:\d\d:\d\d \d\d\d\d)/ contained containedin=gitLgHead nextgroup=gitLgRefs skipwhite
-"syn match gitLgRefs /([^)]*)/ contained containedin=gitLgHead
-"syn match gitLgGraph /^[_\*|\/\\ ]\+/ contained containedin=gitLgHead,gitLgCommit nextgroup=gitHashAbbrev skipwhite
-"syn match gitLgCommit /^[^-]\+- / contained containedin=gitLgHead nextgroup=gitLgDate skipwhite
-"syn match gitLgIdentity /<[^>]*>$/ contained containedin=gitLgLine
-"hi def link gitLgGraph Comment
-"hi def link gitLgDate gitDate
-"hi def link gitLgRefs gitReference
-"hi def link gitLgIdentity gitIdentity
-
-
-
-
-"" - ref: https://github.com/kablamo/vim-git-log
-"
-"" 只在 [No Name] 緩衝區生效的映射
-"autocmd BufEnter * if bufname("") == "" | nnoremap <buffer> <CR> :call OpenPathInLastWindow()<CR> | endif
-
-nnoremap <leader>a :call writefile([expand('%:p')], g:harpoon_session_file, "a")<CR>:echo "已加入 Session 紀錄"<CR>
-
-" --- Harpoon 全局變數 ---
-let g:harpoon_session_file = ""
-let g:harpoon_dir = expand('~/.vim/harpoon/')
-
-" --- 1. 初始化 Session (排除 harpoon 資料夾) ---
-autocmd BufReadPost,BufNewFile * call InitHarpoonSession()
-function! InitHarpoonSession()
-    if g:harpoon_session_file != "" | return | endif
-    let l:anchor_path = expand('%:p')
-
-    " 如果是在 harpoon 目錄內或是無效緩衝區，不進行初始化
-    if l:anchor_path =~# 'harpoon' || empty(l:anchor_path) || &buftype != '' || isdirectory(l:anchor_path)
-        return
-    endif
-
-    if !isdirectory(g:harpoon_dir) | call mkdir(g:harpoon_dir, "p") | endif
-    let l:safe_name = substitute(l:anchor_path, '/', '%', 'g') . ".txt"
-    let g:harpoon_session_file = g:harpoon_dir . l:safe_name
-
-    if !filereadable(g:harpoon_session_file) | call writefile([], g:harpoon_session_file) | endif
-endfunction
-
-" --- 2. 修改後的開啟邏輯 ---
-nnoremap <leader>m :call HarpoonToggle()<CR>
-function! HarpoonToggle()
-    if empty(g:harpoon_session_file) | echo "Harpoon: 無法鎖定 Session" | return | endif
-
-"    " 如果目前已經在紀錄檔裡，再按一次就關閉它
-    if expand('%:p') ==# g:harpoon_session_file
-        execute "bdelete"
-        return
-    endif
-
-    " 【核心修改】：在離開當前檔案前，記住這個視窗的 ID
-    let g:harpoon_last_win_id = win_getid()
-
-    execute 'tabnew' . fnameescape(g:harpoon_session_file)
-    setlocal winfixwidth
-    setlocal noswapfile
-    setlocal buftype=
-endfunction
-
-" --- 3. 修改後的跳轉邏輯 ---
-autocmd BufRead,BufNewFile ~/.vim/harpoon/*.txt nnoremap <buffer> <CR> :call HarpoonJump()<CR>
-function! HarpoonJump()
-    let l:target_path = trim(getline('.'))
-    if empty(l:target_path) | return | endif
-
-    let l:harpoon_buf = bufnr('%')
-
-    " 【核心修改】：不再使用 wincmd p，而是直接跳回紀錄的 ID
-    " win_gotoid 會自動處理跨 Tab 的跳轉
-    if g:harpoon_last_win_id != -1
-        call win_gotoid(g:harpoon_last_win_id)
-    endif
-    " 在該視窗開啟目標檔案
-    execute 'edit ' . fnameescape(l:target_path)
-    " 關閉紀錄檔緩衝區
-    execute 'bdelete! ' . l:harpoon_buf
-endfunction

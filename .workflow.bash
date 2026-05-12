@@ -280,6 +280,15 @@ bind '"\C-sf":nop'
 bind '"\C-se":nop'
 bind '"\C-sf":"tmux-sessionizer\n"'
 bind '"\C-se":"tmux-session-selector\n"'
+# - print yank
+bind -x '"\C-V": print_yank'
+print_yank() {
+    if [ -n "~/yank" ]; then
+        local data=$(cat ~/yank 2>/dev/null)
+        READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}${data}${READLINE_LINE:$READLINE_POINT}"
+        READLINE_POINT=$(( READLINE_POINT + ${#data} ))
+    fi
+}
 # - enable Ctrl-q as Ctrl-v in vim
 stty start undef
 # ref: https://zhuanlan.zhihu.com/p/34509032
@@ -597,8 +606,6 @@ if [ -f "${file}" ]; then
     printf "source ${file}\n"
 fi
 #}}}
-
-
 # - ref: https://github.com/andrew8088/dotfiles/blob/main/zsh/git.zsh
 #!/bin/bash
 
