@@ -1,3 +1,4 @@
+#!/bin/bash -euo pipefail
 #{{{ wsl
 # In powershell (local-window)
 # https://www.youtube.com/watch?v=mSXOYhfDFYo
@@ -600,32 +601,7 @@ if [ -f "${file}" ]; then
     printf "source ${file}\n"
 fi
 #}}}
-
-
-
-
 # - ref: https://github.com/andrew8088/dotfiles/blob/main/zsh/git.zsh
-#!/bin/bash
-
-# Copied from Gary Bernhardt (destroyallsoftware.com) dot files repository.
-#
-# Log output:
-#
-# * 51c333e    (12 days)    <Gary Bernhardt>   add vim-eunuch
-#
-# Branch output:
-#
-# * release/v1.1    (13 days)    <Leyan Lo>   add pretty_git_branch
-#
-# The time massaging regexes start with ^[^<]* because that ensures that they
-# only operate before the first "<". That "<" will be the beginning of the
-# author name, ensuring that we don't destroy anything in the commit message
-# that looks like time.
-#
-# The log format uses } characters between each field, and `column` is later
-# used to split on them. A } in the commit subject or any other field will
-# break this.
-
 LOG_HASH="%C(always,yellow)%h%C(always,reset)"
 LOG_RELATIVE_TIME="%C(always,green)(%ar)%C(always,reset)"
 LOG_AUTHOR="%C(always,blue)<%an>%C(always,reset)"
