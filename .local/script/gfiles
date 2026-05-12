@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 git -C "$(git rev-parse --show-toplevel)" ls-files --full-name --cached --exclude-standard \
   | fzf --multi \
   | awk -v root="$(git rev-parse --show-toplevel)" '{ print root "/" $0 }'
