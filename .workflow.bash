@@ -281,8 +281,8 @@ bind '"\C-se":nop'
 bind '"\C-sf":"tmux-sessionizer\n"'
 bind '"\C-se":"tmux-session-selector\n"'
 # - print yank
-source ~/.local/bash/print_yank.bash
-bind -x '"\C-l": print_yank'
+#source ~/.local/bash/print_yank.bash
+#bind -x '"\C-l": print_yank'
 # - enable Ctrl-q as Ctrl-v in vim
 stty start undef
 # ref: https://zhuanlan.zhihu.com/p/34509032
