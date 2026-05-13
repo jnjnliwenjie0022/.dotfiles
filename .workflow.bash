@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # - ref: https://github.com/bahamas10/bash-style-guide
 #{{{ wsl
 # In powershell (local-window)
