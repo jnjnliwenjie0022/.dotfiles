@@ -391,6 +391,57 @@ git_diff_with_abs_path() {
     path=$(git rev-parse --show-toplevel) &&
     git diff --name-only "$@" | sed "s,^,$path/,"
 }
+
+# - ref: https://github.com/andrew8088/dotfiles/blob/main/zsh/git.zsh
+LOG_HASH="%C(always,yellow)%h%C(always,reset)"
+LOG_RELATIVE_TIME="%C(always,green)(%ar)%C(always,reset)"
+LOG_AUTHOR="%C(always,blue)<%an>%C(always,reset)"
+LOG_REFS="%C(always,red)%d%C(always,reset)"
+LOG_SUBJECT="%s"
+
+LOG_FORMAT="$LOG_HASH}$LOG_AUTHOR}$LOG_RELATIVE_TIME}$LOG_SUBJECT $LOG_REFS"
+
+BRANCH_PREFIX="%(HEAD)"
+BRANCH_REF="%(color:red)%(color:bold)%(refname:short)%(color:reset)"
+BRANCH_HASH="%(color:yellow)%(objectname:short)%(color:reset)"
+BRANCH_DATE="%(color:green)(%(committerdate:relative))%(color:reset)"
+BRANCH_AUTHOR="%(color:blue)%(color:bold)<%(authorname)>%(color:reset)"
+BRANCH_CONTENTS="%(contents:subject)"
+
+BRANCH_FORMAT="}$BRANCH_PREFIX}$BRANCH_REF}$BRANCH_HASH}$BRANCH_DATE}$BRANCH_AUTHOR}$BRANCH_CONTENTS"
+
+pretty_git_branch_sorted() {
+    git branch -v --color=always --format=${BRANCH_FORMAT} --sort=-committerdate $* | pretty_git_format | git_page_maybe
+}
+
+pretty_git_format() {
+    # Replace (2 years ago) with (2 years)
+    sed -Ee 's/(^[^)]*) ago\)/\1)/' |
+    # Replace (2 years, 5 months) with (2 years)
+    sed -Ee 's/(^[^)]*), [[:digit:]]+ .*months?\)/\1)/' |
+    # Shorten time
+    sed -Ee 's/ seconds?\)/s\)/' |
+    sed -Ee 's/ minutes?\)/m\)/' |
+    sed -Ee 's/ hours?\)/h\)/' |
+    sed -Ee 's/ days?\)/d\)/' |
+    sed -Ee 's/ weeks?\)/w\)/' |
+    sed -Ee 's/ months?\)/M\)/' |
+    # Shorten names
+    sed -Ee $'s/\033\\[34m<Andrew Burgess>/\033[31m<me>/' |
+    sed -Ee 's/<([^ >]+) [^>]*>/<\1>/' |
+    # Line columns up based on } delimiter
+    column -s '}' -t
+}
+
+git_page_maybe() {
+    # Page only if we're asked to.
+    if [ -n "${GIT_NO_PAGER}" ]; then
+        cat
+    else
+        # Page only if needed.
+        less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
+    fi
+}
 #}}}
 #{{{ git prompt
 # ref: https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
@@ -425,7 +476,7 @@ BRIGHT_MAGENTA='\[\033[95m\]'
 BRIGHT_CYAN='\[\033[96m\]'
 BRIGHT_WHITE='\[\033[97m\]'
 
-export PS1="${BRIGHT_GREEN}[\W] ${BRIGHT_BLUE}git:(${BRIGHT_RED}\$(parse_git_branch)${BRIGHT_BLUE}) \[\033[33m\][\j] $ ${RESET}"
+export PS1="${BRIGHT_GREEN}[\w] ${BRIGHT_BLUE}git:(${BRIGHT_RED}\$(parse_git_branch)${BRIGHT_BLUE}) \[\033[33m\][\j] $ ${RESET}"
 
 ## bash-git-promt config
 #file="${HOME}/.local/lib/bash-git-prompt/gitprompt.sh"
@@ -601,75 +652,3 @@ if [ -f "${file}" ]; then
     printf "source ${file}\n"
 fi
 #}}}
-# - ref: https://github.com/andrew8088/dotfiles/blob/main/zsh/git.zsh
-LOG_HASH="%C(always,yellow)%h%C(always,reset)"
-LOG_RELATIVE_TIME="%C(always,green)(%ar)%C(always,reset)"
-LOG_AUTHOR="%C(always,blue)<%an>%C(always,reset)"
-LOG_REFS="%C(always,red)%d%C(always,reset)"
-LOG_SUBJECT="%s"
-
-LOG_FORMAT="$LOG_HASH}$LOG_AUTHOR}$LOG_RELATIVE_TIME}$LOG_SUBJECT $LOG_REFS"
-
-BRANCH_PREFIX="%(HEAD)"
-BRANCH_REF="%(color:red)%(color:bold)%(refname:short)%(color:reset)"
-BRANCH_HASH="%(color:yellow)%(objectname:short)%(color:reset)"
-BRANCH_DATE="%(color:green)(%(committerdate:relative))%(color:reset)"
-BRANCH_AUTHOR="%(color:blue)%(color:bold)<%(authorname)>%(color:reset)"
-BRANCH_CONTENTS="%(contents:subject)"
-
-BRANCH_FORMAT="}$BRANCH_PREFIX}$BRANCH_REF}$BRANCH_HASH}$BRANCH_DATE}$BRANCH_AUTHOR}$BRANCH_CONTENTS"
-
-show_git_head() {
-    pretty_git_log -1
-    git show -p --pretty="tformat:"
-}
-
-pretty_git_log() {
-    git log --since="1 months ago" --graph --pretty="tformat:${LOG_FORMAT}" $* | pretty_git_format | git_page_maybe
-}
-
-pretty_git_log_long() {
-    git log --since="12 months ago" --graph --pretty="tformat:${LOG_FORMAT}" $* | pretty_git_format | git_page_maybe
-}
-
-pretty_git_log_all() {
-    git log --all --since="12 months ago" --graph --pretty="tformat:${LOG_FORMAT}" $* | pretty_git_format | git_page_maybe
-}
-
-
-pretty_git_branch() {
-    git branch -v --color=always --format=${BRANCH_FORMAT} $* | pretty_git_format
-}
-
-pretty_git_branch_sorted() {
-    git branch -v --color=always --format=${BRANCH_FORMAT} --sort=-committerdate $* | pretty_git_format
-}
-
-pretty_git_format() {
-    # Replace (2 years ago) with (2 years)
-    sed -Ee 's/(^[^)]*) ago\)/\1)/' |
-    # Replace (2 years, 5 months) with (2 years)
-    sed -Ee 's/(^[^)]*), [[:digit:]]+ .*months?\)/\1)/' |
-    # Shorten time
-    sed -Ee 's/ seconds?\)/s\)/' |
-    sed -Ee 's/ minutes?\)/m\)/' |
-    sed -Ee 's/ hours?\)/h\)/' |
-    sed -Ee 's/ days?\)/d\)/' |
-    sed -Ee 's/ weeks?\)/w\)/' |
-    sed -Ee 's/ months?\)/M\)/' |
-    # Shorten names
-    sed -Ee $'s/\033\\[34m<Andrew Burgess>/\033[31m<me>/' |
-    sed -Ee 's/<([^ >]+) [^>]*>/<\1>/' |
-    # Line columns up based on } delimiter
-    column -s '}' -t
-}
-
-git_page_maybe() {
-    # Page only if we're asked to.
-    if [ -n "${GIT_NO_PAGER}" ]; then
-        cat
-    else
-        # Page only if needed.
-        less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
-    fi
-}
