@@ -242,7 +242,7 @@ export LANG="C.UTF-8"
 
 # # color config
 # - disable all the color setting
-export LS_COLORS=none
+#export LS_COLORS=none
 
 # # set $TERM
 # ref: https://unix.stackexchange.com/questions/574669/clearing-tmux-terminal-throws-error-tmux-256color-unknown-terminal-type
@@ -477,23 +477,6 @@ BRIGHT_CYAN='\[\033[96m\]'
 BRIGHT_WHITE='\[\033[97m\]'
 
 export PS1="${BRIGHT_GREEN}[\w] ${BRIGHT_BLUE}git:(${BRIGHT_RED}\$(parse_git_branch)${BRIGHT_BLUE}) \[\033[33m\][\j] $ ${RESET}"
-
-## bash-git-promt config
-#file="${HOME}/.local/lib/bash-git-prompt/gitprompt.sh"
-#if [ -f ${file} ]; then
-#    GIT_PROMPT_ONLY_IN_REPO=0
-#    GIT_PROMPT_SHOW_UPSTREAM=1
-#    GIT_PROMPT_FETCH_REMOTE_STATUS=1
-#    GIT_PROMPT_IGNORE_SUBMODULES=1
-#    GIT_PROMPT_START_ROOT="\[\033[33m\][\w]\[\033[0m\]"
-#    GIT_PROMPT_START_USER="\[\033[33m\][\w]\[\033[0m\]"
-#    GIT_PROMPT_END_ROOT=" \n\[\033[33m\][\j] > \[\033[0m\]"
-#    GIT_PROMPT_END_USER=" \n\[\033[33m\][\j] > \[\033[0m\]"
-#    source ${file}
-#    #echo "Prompt ${file}"
-##else
-#    #echo "Prompt [Warning] ${file} not exist"
-#fi
 #}}}
 #{{{ function
 
