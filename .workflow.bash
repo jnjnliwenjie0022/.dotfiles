@@ -292,7 +292,7 @@ print_yank () {
         READLINE_POINT=$(( READLINE_POINT + ${#data} ))
     fi
 }
-#bind -x '"\C-k": print_yank'
+bind -x '"\C-k": print_yank'
 # - enable Ctrl-q as Ctrl-v in vim
 stty start undef
 # ref: https://zhuanlan.zhihu.com/p/34509032
