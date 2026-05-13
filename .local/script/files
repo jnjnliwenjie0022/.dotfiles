@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 fd -H | fzf --multi | sed "s|^|$PWD/|"

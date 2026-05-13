@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+set -euo pipefail
 # https://github.com/omerxx/tmux-sessionx/tree/main
 # https://www.youtube.com/watch?v=GH3kpsbbERo
 
@@ -10,8 +10,11 @@ if [[ $# -eq 1 ]]; then
 else
     #selected=$(zoxide query -l | fzf)
     items+=$(printf "%s\n\b" "${HOME}")
-    items+=$(find /NOBACKUP/$HOSTNAME/jasonli/*project* -mindepth 1 -maxdepth 1 -type d)
-    selected=$(printf "%s" "${items[@]}" | fzf)
+    #items+=$(find /NOBACKUP/$HOSTNAME/jasonli/*project* -mindepth 1 -maxdepth 1 -type d)
+    while IFS= read -r line; do
+        items+=("$line")
+    done < <(find /NOBACKUP/"$HOSTNAME"/jasonli/*project* -mindepth 1 -maxdepth 1 -type d 2>/dev/null || true)
+    selected=$(printf "%s" "${items[@]}" | fzf) || true
 fi
 
 if [[ -z $selected ]]; then

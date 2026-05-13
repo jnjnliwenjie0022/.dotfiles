@@ -1,4 +1,5 @@
-#!/bin/bash -euo pipefail
+#!/bin/bash
+# - ref: https://github.com/bahamas10/bash-style-guide
 #{{{ wsl
 # In powershell (local-window)
 # https://www.youtube.com/watch?v=mSXOYhfDFYo
@@ -282,8 +283,16 @@ bind '"\C-se":nop'
 bind '"\C-sf":"tmux-sessionizer\n"'
 bind '"\C-se":"tmux-session-selector\n"'
 # - print yank
-#source ~/.local/bash/print_yank.bash
-#bind -x '"\C-l": print_yank'
+print_yank () {
+    if [[ -s "$HOME/yank" ]]; then
+        data=$(<"$HOME/yank")
+        # insert at current position
+        READLINE_LINE="${READLINE_LINE:0:READLINE_POINT}${data}${READLINE_LINE:READLINE_POINT}"
+        # prompt move to the right hand side after the content
+        READLINE_POINT=$(( READLINE_POINT + ${#data} ))
+    fi
+}
+#bind -x '"\C-k": print_yank'
 # - enable Ctrl-q as Ctrl-v in vim
 stty start undef
 # ref: https://zhuanlan.zhihu.com/p/34509032
@@ -486,7 +495,7 @@ export PS1="${BRIGHT_GREEN}[\w] ${BRIGHT_BLUE}git:(${BRIGHT_RED}\$(parse_git_bra
 #   export FZF_DEFAULT_OPTS='-m'
 #fi
 
-function yy () {
+yy () {
     if [[ $# != 1 ]]; then
         pwd | tr -d '\n' | yank
         echo "Yank: $(pwd)"
@@ -498,14 +507,14 @@ function yy () {
 
 # - ref: https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
 # - ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
-function ff () {
+ff () {
 #files -> tee ---> stdout ---------------> command-subst -> ${selection}
 #              |-> pipe -> yank (stdin) -> yank's stdout
     selection="$(files | tee >(yank))"
     printf "Yank: %s" "${selection}"
 }
 
-function gg () {
+gg () {
 #files -> tee ---> stdout ---------------> command-subst -> ${selection}
 #              |-> pipe -> yank (stdin) -> yank's stdout
     if ! git rev-parse --is-inside-work-tree &>/dev/null; then
@@ -516,7 +525,7 @@ function gg () {
     printf "Yank: %s" "${selection}"
 }
 
-function bb () {
+bb () {
     CUR_TIME=`date +%Y%m%d_%H%M%S`
     if [ $# != 1 ]; then
         selection="$(fd | fzf | tr -d '\n')"
@@ -556,7 +565,7 @@ rfv() (
       --query "$*"
 )
 
-function run_install_tool() {
+run_install_tool() {
     # prerequisite
     sudo hwclock --hctosys
     sudo apt-get update
@@ -603,13 +612,6 @@ function run_install_tool() {
     sudo pip3 install neovim
     # nodejs porvider
     sudo npm install -g neovim
-
-    # install bash-git-promt
-    folder="${HOME}/.local/lib/bash-git-prompt"
-    url="https://github.com/magicmonty/bash-git-prompt.git"
-    if [ ! -d "$folder" ] ; then
-        git clone "$url" "$folder" --depth=1
-    fi
 }
 #sudo apt install -y gcc wget iputils-ping python3-pip git bear tig shellcheck ripgrep
 #
