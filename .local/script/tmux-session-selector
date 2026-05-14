@@ -11,7 +11,7 @@ if [[ -z $(${tmux} ls 2> /dev/null) ]]; then
     exit 0
 fi
 
-if [[ -z "${TMUX}" ]]; then
+if [[ -z "${TMUX-}" ]]; then
     # if not in tmux
     selected=$(${tmux} list-sessions |\
         sed "s/:.*//g" |\
@@ -41,7 +41,7 @@ fi
 
 selected_name=${selected}
 
-if [[ -z "${TMUX}" ]]; then
+if [[ -z "${TMUX-}" ]]; then
     # if not in tmux
     ${tmux} attach -t $selected_name
 else

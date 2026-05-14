@@ -8,12 +8,11 @@ tmux="tmux -u" # imperative
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    #selected=$(zoxide query -l | fzf)
     items+=$(printf "%s\n\b" "${HOME}")
-    #items+=$(find /NOBACKUP/$HOSTNAME/jasonli/*project* -mindepth 1 -maxdepth 1 -type d)
-    while IFS= read -r line; do
-        items+=("$line")
-    done < <(find /NOBACKUP/"$HOSTNAME"/jasonli/*project* -mindepth 1 -maxdepth 1 -type d 2>/dev/null || true)
+    items+=$(find /NOBACKUP/$HOSTNAME/jasonli/*project* -mindepth 1 -maxdepth 1 -type d 2>/dev/null) || true
+    #while IFS= read -r line; do
+    #    items+=("$line")
+    #done < <(find /NOBACKUP/"$HOSTNAME"/jasonli/*project* -mindepth 1 -maxdepth 1 -type d 2>/dev/null || true)
     selected=$(printf "%s" "${items[@]}" | fzf) || true
 fi
 

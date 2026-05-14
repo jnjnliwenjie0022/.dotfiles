@@ -488,7 +488,6 @@ BRIGHT_WHITE='\[\033[97m\]'
 export PS1="${BRIGHT_GREEN}[\w] ${BRIGHT_BLUE}git:(${BRIGHT_RED}\$(parse_git_branch)${BRIGHT_BLUE}) \[\033[33m\][\j] $ ${RESET}"
 #}}}
 #{{{ function
-
 # - fzf config
 #if type rg &> /dev/null; then
 #   export FZF_DEFAULT_COMMAND='find $(cd ..; pwd)'
@@ -507,22 +506,56 @@ yy () {
 
 # - ref: https://www.youtube.com/watch?v=F8dgIPYjvH8&ab_channel=AndrewCourter
 # - ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
+#ff () {
+##files -> tee ---> stdout ---------------> command-subst -> ${selection}
+##              |-> pipe -> yank (stdin) -> yank's stdout
+#    selection="$(files | tee >(yank))"
+#
+#    if [[ -z ${selection} ]]; then
+#        exit 0
+#    fi
+#
+#    printf "Yank: %s" "${selection}"
+#}
+
 ff () {
-#files -> tee ---> stdout ---------------> command-subst -> ${selection}
-#              |-> pipe -> yank (stdin) -> yank's stdout
-    selection="$(files | tee >(yank))"
-    printf "Yank: %s" "${selection}"
+    selection=$(files)
+
+    if [[ -n "${selection}" ]]; then
+        echo "${selection}" | yank
+        printf "Yank: %s\n" "${selection}"
+    fi
 }
 
+#gg () {
+##files -> tee ---> stdout ---------------> command-subst -> ${selection}
+##              |-> pipe -> yank (stdin) -> yank's stdout
+#    if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+#        printf "Not inside a git repository\n"
+#        return
+#    fi
+#
+#    selection="$(gfiles | tee >(yank))"
+#
+#    if [[ -z ${selection} ]]; then
+#        exit 0
+#    fi
+#
+#    printf "Yank: %s" "${selection}"
+#}
+
 gg () {
-#files -> tee ---> stdout ---------------> command-subst -> ${selection}
-#              |-> pipe -> yank (stdin) -> yank's stdout
     if ! git rev-parse --is-inside-work-tree &>/dev/null; then
         printf "Not inside a git repository\n"
         return
     fi
-    selection="$(gfiles | tee >(yank))"
-    printf "Yank: %s" "${selection}"
+
+    selection=$(gfiles)
+
+    if [[ -n "${selection}" ]]; then
+        echo "${selection}" | yank
+        printf "Yank: %s\n" "${selection}"
+    fi
 }
 
 bb () {
