@@ -39,6 +39,8 @@ nnoremap ]Q :cnf<CR>zz
 " get closed files
 " browse old
 " vert [number]
+" - ref: https://www.youtube.com/watch?v=APUzjye4fPk&list=PLfDYHelvG44BNGMqjVizsKFpJRsrmqfsJ
+" - advanced vim interaction
 nnoremap X "_D
 vnoremap X "_D
 nnoremap x "_x
