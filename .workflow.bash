@@ -411,7 +411,7 @@ LOG_SUBJECT="%s"
 
 LOG_FORMAT="$LOG_HASH}$LOG_AUTHOR}$LOG_RELATIVE_TIME}$LOG_SUBJECT $LOG_REFS"
 
-BRANCH_PREFIX="%(HEAD)"
+BRANCH_PREFIX="%(color:yellow)%(describe:tags=true)%(HEAD)%(color:reset)"
 BRANCH_REF="%(color:red)%(color:bold)%(refname:short)%(color:reset)"
 BRANCH_HASH="%(color:yellow)%(objectname:short)%(color:reset)"
 BRANCH_DATE="%(color:green)(%(committerdate:relative))%(color:reset)"
@@ -420,7 +420,7 @@ BRANCH_CONTENTS="%(contents:subject)"
 
 BRANCH_FORMAT="}$BRANCH_PREFIX}$BRANCH_REF}$BRANCH_HASH}$BRANCH_DATE}$BRANCH_AUTHOR}$BRANCH_CONTENTS"
 
-pretty_git_branch_sorted() {
+gitb () {
     git branch -v --color=always --format=${BRANCH_FORMAT} --sort=-committerdate $* | pretty_git_format | git_page_maybe
 }
 
@@ -455,7 +455,7 @@ git_page_maybe() {
 #}}}
 #{{{ git prompt
 # ref: https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
-function parse_git_branch() {
+parse_git_branch() {
      if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/")
         local status=""
