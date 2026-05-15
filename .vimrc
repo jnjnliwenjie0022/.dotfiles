@@ -387,7 +387,7 @@ autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
 "autocmd BufReadPost,BufNewFile fugitive://* set foldmethod=syntax
 
 
-
+"!column -t -s '|' -o '|'
 
 
 
