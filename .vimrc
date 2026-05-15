@@ -278,11 +278,11 @@ hi Bold                                                 cterm=bold
 hi Italic                                               cterm=italic
 hi StatusLine                 ctermfg=0    ctermbg=3    cterm=NONE
 hi StatusLineNC               ctermfg=NONE ctermbg=0    cterm=NONE
-hi VertSplit                  ctermfg=0                 cterm=NONE
-hi TabLine                    ctermfg=7    ctermbg=0
-hi TabLineFill                ctermfg=0    ctermbg=NONE
-hi TabLineSel                 ctermfg=0    ctermbg=11
-hi Title                      ctermfg=4                 cterm=NONE
+hi VertSplit                  ctermfg=0    ctermbg=NONE cterm=NONE
+hi TabLine                    ctermfg=7    ctermbg=0    cterm=NONE
+hi TabLineFill                ctermfg=0    ctermbg=NONE cterm=NONE
+hi TabLineSel                 ctermfg=0    ctermbg=11   cterm=NONE
+hi Title                      ctermfg=4    ctermbg=NONE cterm=NONE
 hi CursorLine                 ctermfg=NONE ctermbg=NONE cterm=NONE
 hi Cursor                     ctermfg=NONE ctermbg=NONE cterm=NONE
 hi CursorColumn               ctermfg=NONE ctermbg=NONE cterm=NONE

@@ -18,6 +18,7 @@
   git remote add origin git@github.com:jnjnliwenjie0022/.dotfiles.git
   git pull git@github.com:jnjnliwenjie0022/.dotfiles.git master
   git push --set-upstream origin master
+  git config --local status.showUntrackedFiles no
   ```
 
 ## without_ssh
@@ -27,6 +28,7 @@
   git remote add origin https://github.com/jnjnliwenjie0022/.dotfiles.git
   git pull https://github.com/jnjnliwenjie0022/.dotfiles.git master
   git push --set-upstream origin master
+  git config --local status.showUntrackedFiles no
   ```
 - method 1
 - ```
