@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 git -C "$(git rev-parse --show-toplevel)" ls-files --full-name --cached --exclude-standard \
   | fzf --multi \

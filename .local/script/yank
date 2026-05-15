@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
-#
 # Usage: yank [FILE...]
 #
 # Copies the contents of the given files (or stdin, if no files are given) to
@@ -37,10 +35,10 @@ maybe() { known "$1" && input | "$@" ;}
 alive() { known "$1" && "$@" >/dev/null 2>&1 ;}
 
 # copy to tmux
-test -n "${TMUX-}" && maybe tmux load-buffer -
+test -n "${TMUX}" && maybe tmux load-buffer -
 
 # copy via X11
-test -n "${DISPLAY-}" && alive xhost && {
+test -n "${DISPLAY}" && alive xhost && {
   maybe xsel -i -b || maybe xclip -sel c
 }
 
@@ -48,7 +46,7 @@ test -n "${DISPLAY-}" && alive xhost && {
 printf_escape() {
   esc=$1
   # if tmux -V >= 3.2a, must waive it
-  #test -n "${TMUX-}" -o -z "${TERM##screen*}" && esc="\033Ptmux;\033$esc\033\\"
+  #test -n "${TMUX}" -o -z "${TERM##screen*}" && esc="\033Ptmux;\033$esc\033\\"
   printf "$esc"
 }
 len=$( input | wc -c ) max=74994

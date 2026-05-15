@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 # https://github.com/omerxx/tmux-sessionx/tree/main
 # https://www.youtube.com/watch?v=GH3kpsbbERo
 
@@ -28,7 +27,7 @@ if ! ${tmux} has-session -t=$selected_name 2> /dev/null; then
     ${tmux} new-session -ds $selected_name -c $selected
 fi
 
-if [[ -z "${TMUX-}" ]]; then
+if [[ -z "${TMUX}" ]]; then
     # if not in tmux
     ${tmux} attach -t $selected_name
 else
