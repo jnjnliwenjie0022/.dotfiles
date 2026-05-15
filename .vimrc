@@ -211,7 +211,7 @@ function! InitHarpoonSession()
     if !filereadable(g:harpoon_session_file) | call writefile([], g:harpoon_session_file) | endif
 endfunction
 
-nnoremap <leader>m :call HarpoonToggle()<CR>
+nnoremap <leader>e :call HarpoonToggle()<CR>
 function! HarpoonToggle()
     if empty(g:harpoon_session_file) | echo "Warning: Can't open harpoon session" | return | endif
     if expand('%:p') ==# g:harpoon_session_file
