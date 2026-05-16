@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-fd -H | fzf --multi | sed "s|^|$PWD/|"
+if command -v fd >/dev/null 2>&1; then
+    SEARCH_CMD="fd -H"
+else
+    SEARCH_CMD="find . -mindepth 1 -not -path '*/.git/*'"
+fi
+
+$SEARCH_CMD | fzf --multi | sed "s|^|$PWD/|"

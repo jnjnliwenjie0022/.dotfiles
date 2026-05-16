@@ -581,7 +581,7 @@ bb () {
 # - ref: https://github.com/junegunn/fzf.vim/issues/970
 # - ref: https://junegunn.github.io/fzf/tips/ripgrep-integration/
 # ripgrep->fzf->vim [QUERY]
-rfv() (
+frep () (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
             vim {1} +{2}     # No selection. Open the current line in Vim.
