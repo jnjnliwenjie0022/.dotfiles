@@ -42,4 +42,21 @@
   git remote -v
   ```
 
+## tmux static executable
+
+- ref: https://github.com/tmux/tmux/wiki/Installing
+- ```
+  sudo apt-get install gcc
+  sudo apt-get install make
+  sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config
+  sudo apt-get install update
+  curl -OL https://github.com/tmux/tmux/releases/download/2.7/tmux-2.7.tar.gz
+  tar -xvzf tmux-2.7.tar.gz
+  cd tmux-2.7
+  LDFLAGS="-L/usr/local/lib -Wl,-rpath=/usr/local/lib" ./configure --prefix=/usr/local --enable-static
+  make
+  sudo make install
+  pkill tmux
+  tmux -V
+  ```
 
