@@ -256,8 +256,8 @@ export LANG="C.UTF-8"
 #else
 #    export TERM=xterm-256color
 #fi
-#export TERM=xterm-256color
-export TERM=xterm
+#export TERM=xterm
+export TERM=xterm-256color
 
 # set $PATH
 export PATH="$HOME/.local/bin:${PATH}"
