@@ -580,6 +580,7 @@ bb () {
 
 # - ref: https://github.com/junegunn/fzf.vim/issues/970
 # - ref: https://junegunn.github.io/fzf/tips/ripgrep-integration/
+# - ref: https://zenn.dev/eetann/articles/2022-08-27-fzf-preview
 # ripgrep->fzf->vim [QUERY]
 frep () (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
@@ -598,6 +599,8 @@ frep () (
       --preview-window '~4,+{2}+4/3,<80(up)' \
       --query "$*"
 )
+      #--preview 'cat {1}' \
+      #--preview-window '~4,+{2}+4/3,<80(hidden)' \
 
 run_install_tool() {
     # prerequisite
