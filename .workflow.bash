@@ -582,7 +582,7 @@ bb () {
 # - ref: https://junegunn.github.io/fzf/tips/ripgrep-integration/
 # - ref: https://zenn.dev/eetann/articles/2022-08-27-fzf-preview
 # ripgrep->fzf->vim [QUERY]
-frep () (
+frep () {
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
             vim {1} +{2}     # No selection. Open the current line in Vim.
@@ -598,7 +598,7 @@ frep () (
       --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
       --preview-window '~4,+{2}+4/3,<80(up)' \
       --query "$*"
-)
+  }
       #--preview 'cat {1}' \
       #--preview-window '~4,+{2}+4/3,<80(hidden)' \
 
