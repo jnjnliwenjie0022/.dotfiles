@@ -7,9 +7,10 @@ tmux="tmux -u" # imperative
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    items+=$(printf "%s\n\b" "${HOME}") || true
-    items+=$(find /NOBACKUP/$HOSTNAME/jasonli/*project* -mindepth 1 -maxdepth 1 -type d 2>/dev/null) || true
-    selected=$(printf "%s" "${items[@]}" | fzf) || true
+    items=()
+    items+=("${HOME}")
+    items+=$(find /NOBACKUP/$HOSTNAME/jasonli/*project* -mindepth 1 -maxdepth 1 -type d 2>/dev/null)
+    selected=$(printf "%s" "${items[@]}" | fzf)
 fi
 
 if [[ -z $selected ]]; then
