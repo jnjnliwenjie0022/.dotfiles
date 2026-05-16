@@ -15,6 +15,8 @@ nnoremap <Space> <nop>
 vnoremap <Space> <nop>
 nnoremap <C-l> :noh<CR>
 inoremap <C-c> <Esc>
+" - vim with read only mode
+" $ vim -R -
 " - % refers to the current buffer
 " - %:p refers to the path to the file
 nnoremap <leader>b :exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR>:echo "Backup:" . expand("%:p") . ".bak." . strftime("%Y%m%d_%H%M%S")<CR>
