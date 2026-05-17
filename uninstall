@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# 定義你的 dotfiles 來源目錄
+DOTFILES_DIR="$HOME/.dotfiles"
+
+echo "正在搜尋並刪除所有連結到 $DOTFILES_DIR 的軟連結..."
+echo "--------------------------------------------------"
+
+# 1. 在 $HOME 底下搜尋，但排除 .dotfiles 資料夾本身（避免自己刪自己）
+# 2. -type l 代表專門搜尋「軟連結 (Symbolic Link)」
+find "$HOME" -path "$DOTFILES_DIR" -prune -o -type l -print0 | while read -r -d '' link; do
+
+    # 取得這個軟連結實際指向的完整真實路徑
+    target=$(realpath "$link" 2>/dev/null)
+
+    # 檢查這個真實路徑是不是以 $DOTFILES_DIR 開頭
+    if [[ "$target" == "$DOTFILES_DIR"* ]]; then
+        echo "斷開並刪除連結: $link -> $target"
+
+        # 刪除軟連結檔案本身
+        rm "$link"
+
+        # 【選擇性功能】如果斷開後，父目錄變成空的，就順便把空目錄刪掉
+        parent_dir=$(dirname "$link")
+        if [ "$parent_dir" != "$HOME" ]; then
+            rmdir "$parent_dir" 2>/dev/null
+        fi
+    fi
+done
+
+echo "--------------------------------------------------"
+echo "清理完成！所有指向 .dotfiles 的連結皆已安全移除。"

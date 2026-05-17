@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# 定義來源與目標的根目錄
+SRC_ROOT="$HOME/.dotfiles"
+DST_ROOT="$HOME"
+
+# 確保來源目錄存在，避免 find 報錯
+if [ ! -d "$SRC_ROOT" ]; then
+    echo "錯誤: 找不到來源目錄 $SRC_ROOT" >&2
+    exit 1
+fi
+
+# 使用 find 搜尋，並用 -print0 搭配 read -d '' 處理包含空白字元的檔名
+find "$SRC_ROOT" -type f -not -path '*/.git*' -print0 | while read -r -d '' src; do
+
+    # 1. 計算相對於 $SRC_ROOT 的相對路徑
+    #    例如: /home/user/.dotfiles/.config/nvim/init.lua -> .config/nvim/init.lua
+    rel_path="${src#$SRC_ROOT/}"
+
+    # 2. 組合出目標的絕對路徑 (在 $HOME 底下)
+    dst="$DST_ROOT/$rel_path"
+
+    # 建立目標檔案所在的父目錄
+    mkdir -p "$(dirname "$dst")"
+
+    if [ -e "$dst" ]; then
+        if [ ! -L "$dst" ]; then
+            echo "備份舊檔案: $dst -> ${dst}.bak"
+            mv "$dst" "${dst}.bak"
+        fi
+    fi
+
+    # 建立軟連結 (-f 強制覆蓋舊連結, -n 如果目標是目錄的連結不進入)
+    echo "建立連結: $dst -> $src"
+    ln -sfn "$src" "$dst"
+
+done
