@@ -311,6 +311,7 @@ git config --global http.postBuffer "524288000"
 git config --global https.proxy "http://cache1:3128"
 git config --global push.default simple
 git config --global pull.rebase true
+git config --global fetch.prune true
 # - ref: https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
 git config --global alias.wt "worktree"
 git config --global alias.root 'rev-parse --show-toplevel'
