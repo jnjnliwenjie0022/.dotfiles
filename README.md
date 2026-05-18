@@ -42,6 +42,12 @@
   git remote -v
   ```
 
+## with_ssh_and_install_script
+- ```
+  cd ~/.dotfiles
+  ./install
+  ```
+
 ## tmux static executable
 
 - ref: https://github.com/tmux/tmux/wiki/Installing
