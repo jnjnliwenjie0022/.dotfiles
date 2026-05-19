@@ -349,6 +349,7 @@ git config --global alias.pk "cherry-pick"
 git config --global merge.commit false
 git config --global merge.ff false
 git config --global rebase.rebaseMerges true
+#git config --global rebase.reapplyCherryPicks true
 # do # obtain from the other file
 # dp # put to the other file
 # ]c # jump to the next diff
