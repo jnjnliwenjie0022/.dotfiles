@@ -4,7 +4,7 @@ tmux="tmux -u"
 
 if [[ -z $(${tmux} ls 2> /dev/null) ]]; then
     selected="$(pwd)"
-    selected_name=$(basename "${selected}")
+    selected_name=$(basename "${selected}" | tr '.:' '_')
     ${tmux} new-session -ds $selected_name -c $selected
     ${tmux} attach -t $selected_name
     exit 0
