@@ -265,14 +265,16 @@ export PATH="$HOME/.local/script:${PATH}"
 #}}}
 #{{{ alias and bind
 alias rebash='source $HOME/.bashrc'
-alias vim='vi -O'
+alias vim='vim -O'
+alias vi='vi -O'
+alias h='history'
+alias j='jobs'
 # - download no dynamic executable
 # - ref: https://github.com/tmux/tmux-builds
 alias tmux='tmux -u'
 alias tmuxs='tmux-sessionizer'
-alias ls='ls --color=never'
-alias ll='ls --group-directories-first --block-size=K --time-style=long-iso -alFtr'
-alias ld='ll -d .*/'
+alias ll='ls --color=never --group-directories-first --block-size=K --time-style=long-iso -alFtr'
+alias lld='ll -d .*/ */'
 alias eixt='exit'
 alias exti='exit'
 # - ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
