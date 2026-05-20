@@ -1,3 +1,11 @@
+" - ref: https://www.reddit.com/r/neovim/comments/1n53u4u/you_dont_need_a_fuzzy_finder_vim_tips_tricks/
+" - ref: https://codeinthehole.com/tips/vim-lists/
+set path=.,
+set path+=**,
+set wildmenu
+"(Vim 8.2+)
+set wildoptions=pum
+set wildmode=longest:full,full
 "" - Ignore focus escape sequences sent by the terminal in all modes
 noremap <Esc>[I <nop>
 noremap! <Esc>[I <nop>
@@ -159,7 +167,7 @@ function! FILES() abort
         call delete(l:tempname)
     endtry
 endfunction
-command! Files call FILES()
+command! -nargs=* Files call FILES()
 
 " ## GFILES function
 function! GFILES() abort
