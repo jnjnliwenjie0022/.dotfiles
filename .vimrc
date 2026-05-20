@@ -1,4 +1,4 @@
-" - Ignore focus escape sequences sent by the terminal in all modes
+"" - Ignore focus escape sequences sent by the terminal in all modes
 noremap <Esc>[I <nop>
 noremap! <Esc>[I <nop>
 noremap <Esc>[O <nop>
@@ -285,6 +285,8 @@ hi Bold                                                 cterm=bold
 hi Italic                                               cterm=italic
 hi StatusLine                 ctermfg=0    ctermbg=3    cterm=NONE
 hi StatusLineNC               ctermfg=NONE ctermbg=0    cterm=NONE
+hi StatusLineTerm             ctermfg=0    ctermbg=3    cterm=NONE
+hi StatusLineTermNC           ctermfg=NONE ctermbg=0    cterm=NONE
 hi VertSplit                  ctermfg=0    ctermbg=NONE cterm=NONE
 hi TabLine                    ctermfg=7    ctermbg=0    cterm=NONE
 hi TabLineFill                ctermfg=0    ctermbg=NONE cterm=NONE
