@@ -1,4 +1,9 @@
-" # paste
+" - Ignore focus escape sequences sent by the terminal in all modes
+noremap <Esc>[I <nop>
+noremap! <Esc>[I <nop>
+noremap <Esc>[O <nop>
+noremap! <Esc>[O <nop>
+" - paste
 " - fixed format for Ctrl-v/Ctrl-Shift-v/Shift-Insert paste
 " - ref: https://vi.stackexchange.com/questions/23110/pasting-text-on-vim-inside-tmux-breaks-indentation
 let &t_BE = "\e[?2004h"
