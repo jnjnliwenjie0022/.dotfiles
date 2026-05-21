@@ -243,7 +243,9 @@ export LANG="C.UTF-8"
 
 # # color config
 # - disable all the color setting
-#export LS_COLORS=none
+export LS_COLORS=none
+# - enable all the color setting
+#eval "$(dircolors -b)"
 
 # # set $TERM
 # ref: https://unix.stackexchange.com/questions/574669/clearing-tmux-terminal-throws-error-tmux-256color-unknown-terminal-type
@@ -251,13 +253,11 @@ export LANG="C.UTF-8"
 # > tic -x saved
 # check terminfo
 # > infocmp tmux-256color
-#if [ -n "$TMUX" ]; then
-#    export TERM=tmux-256color
+#if [[ -n "$TMUX" ]]; then
+    export TERM=xterm-256color
 #else
-#    export TERM=xterm-256color
+#    export TERM=screen-256color
 #fi
-#export TERM=xterm
-export TERM=xterm-256color
 
 # set $PATH
 export PATH="$HOME/.local/bin:${PATH}"

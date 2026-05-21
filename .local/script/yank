@@ -44,10 +44,16 @@ test -n "${DISPLAY}" && alive xhost && {
 
 # copy via OSC 52
 printf_escape() {
-  esc=$1
-  # if tmux -V >= 3.2a, must waive it
-  test -n "${TMUX}" -o -z "${TERM##screen*}" && esc="\033Ptmux;\033$esc\033\\"
-  printf "$esc"
+    esc=$1
+
+    if [[ -n "$STY" ]] || [[ "$TERM" == screen* ]]; then
+        esc="\033P\033$esc\033\\"
+    elif [[ -n "$TMUX" ]]; then
+        esc="\033Ptmux;\033$esc\033\\"
+    fi
+    # if tmux -V >= 3.2a then bypass
+
+    printf "$esc"
 }
 len=$( input | wc -c ) max=74994
 test $len -gt $max && echo "$0: input is $(( len - max )) bytes too long" >&2

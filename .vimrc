@@ -1,12 +1,20 @@
-" - ref: https://www.reddit.com/r/neovim/comments/1n53u4u/you_dont_need_a_fuzzy_finder_vim_tips_tricks/
-" - ref: https://codeinthehole.com/tips/vim-lists/
-set path=.,
-set path+=**,
-set wildmenu
-"(Vim 8.2+)
-set wildoptions=pum
-set wildmode=longest:full,full
-"" - Ignore focus escape sequences sent by the terminal in all modes
+" - 16 ANSI color
+set t_Co=16
+if &term =~ "screen"
+    " - force vim to use ANSI escape sequences for italics
+    let &t_ZH = "\e[3m"
+    let &t_ZR = "\e[23m"
+    " - force vim to use ANSI escape sequences for cursor
+    let &t_SI = "\<Esc>P\<Esc>[6 q\<Esc>\\" "SI = INSERT mode
+    let &t_SR = "\<Esc>P\<Esc>[4 q\<Esc>\\" "SR = REPLACE mode
+    let &t_EI = "\<Esc>P\<Esc>[2 q\<Esc>\\" "EI = NORMAL mode (ELSE)
+else
+    " - ref: https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+    let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
+    let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
+    let &t_EI = "\<Esc>[2 q" "EI = NORMAL mode (ELSE)
+endif
+" - ignore focus escape sequences sent by the terminal in all modes
 noremap <Esc>[I <nop>
 noremap! <Esc>[I <nop>
 noremap <Esc>[O <nop>
@@ -14,11 +22,19 @@ noremap! <Esc>[O <nop>
 " - paste
 " - fixed format for Ctrl-v/Ctrl-Shift-v/Shift-Insert paste
 " - ref: https://vi.stackexchange.com/questions/23110/pasting-text-on-vim-inside-tmux-breaks-indentation
+"set paste
 let &t_BE = "\e[?2004h"
 let &t_BD = "\e[?2004l"
 exec "set t_PS=\e[200~"
 exec "set t_PE=\e[201~"
-set t_Co=16
+" - ref: https://www.reddit.com/r/neovim/comments/1n53u4u/you_dont_need_a_fuzzy_finder_vim_tips_tricks/
+" - ref: https://codeinthehole.com/tips/vim-lists/
+set path=.,
+set path+=**,
+"set wildmenu
+""(Vim 8.2+)
+"set wildoptions=pum
+"set wildmode=longest:full,full
 " # keymap
 let mapleader = ' '
 nnoremap Q <nop>
@@ -39,7 +55,6 @@ nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call YANK(@0
 nnoremap <C-k> :@" = join(readfile(expand('~/yank')), "\n")<CR>:r ~/yank<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>g :GFiles<CR>
-
 " :<C-f> edit in command mode
 " <C-w>H/J/L/K window moving
 " <C-w>f attach new window
@@ -90,11 +105,6 @@ set showcmd
 " - status
 " - ref: https://zhung.com.tw/article/install-and-start-vim-with-minimal-vimrc/
 set laststatus=2
-" - cursor
-" - ref: https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
-let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
-let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
-let &t_EI = "\<Esc>[2 q" "EI = NORMAL mode (ELSE)
 " - number
 set number
 set numberwidth=4
