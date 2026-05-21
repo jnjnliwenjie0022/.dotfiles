@@ -256,7 +256,7 @@ export LS_COLORS=none
 #if [[ -n "$TMUX" ]]; then
     export TERM=xterm-256color
 #else
-#    export TERM=screen-256color
+    #export TERM=screen-256color
 #fi
 
 # set $PATH
@@ -278,14 +278,14 @@ alias lld='ll -d .*/ */'
 alias eixt='exit'
 alias exti='exit'
 # - ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
-# - disalbe Ctrl-s
+# - Ctrl-S acts as the standard terminal flow control (XOFF) in Linux, it may freeze your screen when pressed. To disable this terminal behavior and prevent freezes, add the following to your ~/.bashrc
 stty -ixon
 bind '"\C-s":nop'
 bind '"\C-sf":nop'
 bind '"\C-se":nop'
 bind '"\C-sf":"tmux-sessionizer\n"'
 bind '"\C-se":"tmux-session-selector\n"'
-bind -x '"\C-k": print_y'
+bind -x '"\C-k": printy'
 # - print y
 printy () {
     if [[ -s "$HOME/y" ]]; then

@@ -46,14 +46,17 @@ test -n "${DISPLAY}" && alive xhost && {
 printf_escape() {
     esc=$1
 
-    if [[ -n "$STY" ]] || [[ "$TERM" == screen* ]]; then
-        esc="\033P\033$esc\033\\"
-    elif [[ -n "$TMUX" ]]; then
+    if [[ -n "$STY" ]] && [[ "$TERM" == screen* ]]; then
+        # - ref: https://chromium.googlesource.com/apps/libapps/+/HEAD/hterm/etc/osc52.sh
+        # - ref: https://nieko.net/blog/osc-52-and-nested-gnu-screen
+        local limit=256
+        printf "$esc" "$1" | fold -b -w "$(( limit - 4 ))" | awk '{printf "\033P%s\033\\", $0}'
+    elif [[ -n "$TMUX" ]] && [[ "$(tmux -V)" == tmux*2.* ]]; then
         esc="\033Ptmux;\033$esc\033\\"
+        printf "$esc"
+    else
+        printf "$esc"
     fi
-    # if tmux -V >= 3.2a then bypass
-
-    printf "$esc"
 }
 len=$( input | wc -c ) max=74994
 test $len -gt $max && echo "$0: input is $(( len - max )) bytes too long" >&2
