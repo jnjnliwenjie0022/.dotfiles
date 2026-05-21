@@ -285,17 +285,17 @@ bind '"\C-sf":nop'
 bind '"\C-se":nop'
 bind '"\C-sf":"tmux-sessionizer\n"'
 bind '"\C-se":"tmux-session-selector\n"'
-# - print yank
-print_yank () {
-    if [[ -s "$HOME/yank" ]]; then
-        data=$(<"$HOME/yank")
+bind -x '"\C-k": print_y'
+# - print y
+printy () {
+    if [[ -s "$HOME/y" ]]; then
+        data=$(<"$HOME/y")
         # insert at current position
         READLINE_LINE="${READLINE_LINE:0:READLINE_POINT}${data}${READLINE_LINE:READLINE_POINT}"
         # prompt move to the right hand side after the content
         READLINE_POINT=$(( READLINE_POINT + ${#data} ))
     fi
 }
-bind -x '"\C-k": print_yank'
 # - enable Ctrl-q as Ctrl-v in vim
 stty start undef
 # ref: https://zhuanlan.zhihu.com/p/34509032
@@ -501,10 +501,10 @@ export PS1="${BRIGHT_GREEN}[\w] ${BRIGHT_BLUE}git:(${BRIGHT_RED}\$(parse_git_bra
 
 yy () {
     if [[ $# != 1 ]]; then
-        pwd | tr -d '\n' | yank
+        pwd | tr -d '\n' | y
         echo "Yank: $(pwd)"
     else
-        readlink -f $1 | tr -d '\n' | yank
+        readlink -f $1 | tr -d '\n' | y
         echo "Yank: $(pwd)/${1}"
     fi
 }
@@ -513,8 +513,8 @@ yy () {
 # - ref: https://www.olafalders.com/2024/06/14/one-line-fuzzy-find-for-git-worktree/
 #ff () {
 ##files -> tee ---> stdout ---------------> command-subst -> ${selection}
-##              |-> pipe -> yank (stdin) -> yank's stdout
-#    selection="$(files | tee >(yank))"
+##              |-> pipe -> y (stdin) -> y's stdout
+#    selection="$(files | tee >(y))"
 #
 #    if [[ -z ${selection} ]]; then
 #        exit 0
@@ -527,20 +527,20 @@ ff () {
     selection=$(files)
 
     if [[ -n "${selection}" ]]; then
-        echo "${selection}" | yank
+        echo "${selection}" | y
         printf "Yank: %s\n" "${selection}"
     fi
 }
 
 #gg () {
 ##files -> tee ---> stdout ---------------> command-subst -> ${selection}
-##              |-> pipe -> yank (stdin) -> yank's stdout
+##              |-> pipe -> y (stdin) -> y's stdout
 #    if ! git rev-parse --is-inside-work-tree &>/dev/null; then
 #        printf "Not inside a git repository\n"
 #        return
 #    fi
 #
-#    selection="$(gfiles | tee >(yank))"
+#    selection="$(gfiles | tee >(y))"
 #
 #    if [[ -z ${selection} ]]; then
 #        exit 0
@@ -558,7 +558,7 @@ gg () {
     selection=$(gfiles)
 
     if [[ -n "${selection}" ]]; then
-        echo "${selection}" | yank
+        echo "${selection}" | y
         printf "Yank: %s\n" "${selection}"
     fi
 }

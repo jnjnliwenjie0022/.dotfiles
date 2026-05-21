@@ -52,7 +52,7 @@ nnoremap <leader>b :exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR>:echo "Backup:
 nnoremap <leader>c :%s/\s\+$//e<CR>:%s/\r$//e<CR>
 vnoremap "*y y:<C-U>call YANK(@0)<CR>:echo "Yank"<CR>
 nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call YANK(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
-nnoremap <C-k> :@" = join(readfile(expand('~/yank')), "\n")<CR>:r ~/yank<CR>
+nnoremap <C-k> :@" = join(readfile(expand('~/y')), "\n")<CR>:r ~/y<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>g :GFiles<CR>
 " :<C-f> edit in command mode
@@ -159,7 +159,7 @@ autocmd FileType * setlocal formatoptions-=cro
 " ## YANK function
 " - ref: https://sunaku.github.io/tmux-yank-osc52.html#configure-your-vimrc
 function! YANK(text) abort
-    let escape = system('yank', a:text)
+    let escape = system('y', a:text)
     if v:shell_error
         echoerr escape
     else
