@@ -52,8 +52,7 @@ printf_escape() {
         local limit=256
         printf "$esc" "$1" | fold -b -w "$(( limit - 4 ))" | awk '{printf "\033P%s\033\\", $0}'
     elif [[ -n "$TMUX" ]] && [[ "$(tmux -V)" == tmux*2.* ]]; then
-        esc="\033Ptmux;\033$esc\033\\"
-        printf "$esc"
+        printf "$esc" "$1" | awk '{printf "\033Ptmux;\033%s\033\\", $0}'
     else
         printf "$esc"
     fi
