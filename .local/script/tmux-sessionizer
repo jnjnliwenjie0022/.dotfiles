@@ -9,6 +9,7 @@ if [[ $# -eq 1 ]]; then
 else
     items=()
     items+=("$HOME")
+    items+=("$HOME/.dotfiles")
     items+=($(find /NOBACKUP/$HOSTNAME/jasonli/*project* -mindepth 1 -maxdepth 1 -type d 2>/dev/null))
     selected=$(printf "%s\n" "${items[@]}" | fzf)
 fi
