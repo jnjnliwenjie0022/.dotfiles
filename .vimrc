@@ -171,9 +171,17 @@ endfunction
 " - ref: https://dev.to/pbnj/interactive-fuzzy-finding-in-vim-without-plugins-4kkj
 function! FILES() abort
     let l:tempname = tempname()
-    execute 'silent !files | awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+    execute 'silent !files | awk ''{ print $1 }'' > ' . fnameescape(l:tempname)
+    let l:qf_list = map(copy(readfile(l:tempname)), '{ "filename": v:val, "lnum": 1, "col": 1, "text": "FILES" }')
+
     try
-        execute 'cfile ' . l:tempname
+        call setqflist(l:qf_list, 'r')
+        if !empty(getqflist())
+            cfirst
+            if line("'\"") >= 1 && line("'\"") <= line("$")
+                silent! normal! g`"
+            endif
+        endif
         redraw!
     finally
         call delete(l:tempname)
@@ -190,33 +198,42 @@ function! GFILES() abort
     endif
 
     let l:tempname = tempname()
-    execute 'silent !gfiles | awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
-    try
-        execute 'cfile ' . l:tempname
-        redraw!
-    finally
-        call delete(l:tempname) " Clean up the temporary file
-    endtry
-endfunction
-command! GFiles call GFILES()
+    execute 'silent !gfiles | awk ''{ print $1 }'' > ' . fnameescape(l:tempname)
+    let l:qf_list = map(copy(readfile(l:tempname)), '{ "filename": v:val, "lnum": 1, "col": 1, "text": "GFILES" }')
 
-" ## RG function
-function! RG(args) abort
-    let l:tempname = tempname()
-    let l:pattern = '.'
-    if len(a:args) > 0
-        let l:pattern = a:args
-    endif
-    " rg --max-depth 1 --vimgrep <pattern> | fzf -m > file
-    execute 'silent !rg --max-depth 1 --vimgrep ''' . l:pattern . ''' | fzf -m > ' . fnameescape(l:tempname)
     try
-        execute 'cfile ' . l:tempname
+        call setqflist(l:qf_list, 'r')
+        if !empty(getqflist())
+            cfirst
+            if line("'\"") >= 1 && line("'\"") <= line("$")
+                silent! normal! g`"
+            endif
+        endif
         redraw!
     finally
         call delete(l:tempname)
     endtry
+
 endfunction
-command! -nargs=* Rg call RG(<q-args>)
+command!  -nargs=* GFiles call GFILES()
+
+" ## RG function
+"function! RG(args) abort
+"    let l:tempname = tempname()
+"    let l:pattern = '.'
+"    if len(a:args) > 0
+"        let l:pattern = a:args
+"    endif
+"    " rg --max-depth 1 --vimgrep <pattern> | fzf -m > file
+"    execute 'silent !rg --max-depth 1 --vimgrep ''' . l:pattern . ''' | fzf -m > ' . fnameescape(l:tempname)
+"    try
+"        execute 'cfile ' . l:tempname
+"        redraw!
+"    finally
+"        call delete(l:tempname)
+"    endtry
+"endfunction
+"command! -nargs=* Rg call RG(<q-args>)
 
 " ## Harpoon
 let g:harpoon_session_file = ""
@@ -232,7 +249,7 @@ function! InitHarpoonSession()
     endif
 
     if !isdirectory(g:harpoon_dir) | call mkdir(g:harpoon_dir, "p") | endif
-    let l:safe_name = substitute(l:anchor_path, '/', '%', 'g') . ".txt"
+    let l:safe_name = substitute(l:anchor_path, '/', '%', 'g')
     let g:harpoon_session_file = g:harpoon_dir . l:safe_name
 
     if !filereadable(g:harpoon_session_file) | call writefile([], g:harpoon_session_file) | endif
@@ -254,7 +271,13 @@ function! HarpoonToggle()
     setlocal buftype=
 endfunction
 
-autocmd BufRead,BufNewFile ~/.vim/harpoon/*.txt nnoremap <buffer> <CR> :call HarpoonJump()<CR>
+augroup HarpoonConfig
+    autocmd!
+    autocmd BufRead,BufNewFile ~/.vim/harpoon/* nnoremap <buffer> <CR> :call HarpoonJump()<CR>
+    autocmd TextChanged,TextChangedI ~/.vim/harpoon/* silent! write
+    autocmd BufLeave ~/.vim/harpoon/* silent! write
+augroup END
+
 function! HarpoonJump()
     let l:target_path = trim(getline('.'))
     if empty(l:target_path) | return | endif
@@ -268,7 +291,28 @@ function! HarpoonJump()
     execute 'bdelete! ' . l:harpoon_buf
 endfunction
 
-nnoremap <leader>a :call writefile([expand('%:p')], g:harpoon_session_file, "a")<CR>:echo "Add harpoon session"<CR>
+"nnoremap <leader>a :call writefile([expand('%:p')], g:harpoon_session_file, "a")<CR>:echo "Add harpoon session"<CR>
+nnoremap <leader>a :call AddHarpoonSession()<CR>
+
+function! AddHarpoonSession()
+    " 1. 確保 session 檔案變數已經存在
+    if empty(g:harpoon_session_file)
+        echo "Warning: Harpoon session file is not initialized"
+        return
+    endif
+
+    let l:current_path = expand('%:p')
+
+    " 2. 防禦機制：排除 harpoon 相關檔案、空路徑、終端機等特殊 buffer 或目錄
+    if l:current_path =~# 'harpoon' || empty(l:current_path) || &buftype != '' || isdirectory(l:current_path)
+        echo "Warning: Cannot add this file to harpoon session"
+        return
+    endif
+
+    " 3. 檢查通過，執行寫入並提示
+    call writefile([l:current_path], g:harpoon_session_file, "a")
+    echo "Add harpoon session: " . expand('%:t')
+endfunction
 
 " # color
 " - ref: https://hamvocke.com/blog/ansi-vim-color-scheme/
