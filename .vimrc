@@ -291,9 +291,7 @@ function! HarpoonJump()
     execute 'bdelete! ' . l:harpoon_buf
 endfunction
 
-"nnoremap <leader>a :call writefile([expand('%:p')], g:harpoon_session_file, "a")<CR>:echo "Add harpoon session"<CR>
 nnoremap <leader>a :call AddHarpoonSession()<CR>
-
 function! AddHarpoonSession()
     " 1. 確保 session 檔案變數已經存在
     if empty(g:harpoon_session_file)
