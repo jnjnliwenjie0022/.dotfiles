@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# 檢查是否提供了參數
+if [ -z "$1" ]; then
+    echo "使用方式: $0 <目標分支>"
+    exit 1
+fi
+
+target=$1
+
+# 檢查分支是否存在
+if ! git show-ref --verify --quiet "refs/heads/$target"; then
+    echo "錯誤: 分支 '$target' 不存在。"
+    exit 1
+fi
+
+echo "分析分支 '$target' 的分叉歷史..."
+echo "--------------------------------------------------"
+
+# 執行分析邏輯
+for branch in $(git branch --format='%(refname:short)'); do
+    if [ "$branch" != "$target" ]; then
+        base=$(git merge-base "$target" "$branch")
+        count=$(git rev-list --count "$base..$target")
+
+        if [ "$count" -gt 0 ]; then
+            echo "$count commits from $branch (base: ${base:0:7})"
+        fi
+    fi
+done | sort -n
