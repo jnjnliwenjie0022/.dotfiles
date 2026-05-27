@@ -283,9 +283,11 @@ stty -ixon
 bind '"\C-s":nop'
 bind '"\C-sf":nop'
 bind '"\C-se":nop'
-bind '"\C-sf":"tmux-sessionizer\n"'
-bind '"\C-se":"tmux-session-selector\n"'
-bind -x '"\C-k": printy'
+bind '"\C-l":nop'
+bind -x '"\C-sf":"tmux-sessionizer"'
+bind -x '"\C-se":"tmux-session-selector"'
+bind -x '"\C-k":printy'
+bind -x '"\C-l": clear && printf "\033[3J"'
 # - print y
 printy () {
     if [[ -s "$HOME/y" ]]; then
