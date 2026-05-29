@@ -441,13 +441,13 @@ hi Type                       ctermfg=11
 " :PlugUpdate  to update plugins
 " :PlugDiff    to review the changes from the last update
 " :PlugClean   to remove plugins no longer in the list
-call plug#begin()
-    " - ref: https://raw.githubusercontent.com/tpope/vim-fugitive/master/doc/fugitive.txt
-    "Plug 'tpope/vim-fugitive'
-    " - ref: https://github.com/junegunn/vim-easy-align
-    "Plug 'junegunn/vim-easy-align'
-    Plug 'mtdl9/vim-log-highlighting'
-call plug#end()
+"call plug#begin()
+"    " - ref: https://raw.githubusercontent.com/tpope/vim-fugitive/master/doc/fugitive.txt
+"    "Plug 'tpope/vim-fugitive'
+"    " - ref: https://github.com/junegunn/vim-easy-align
+"    "Plug 'junegunn/vim-easy-align'
+"    Plug 'mtdl9/vim-log-highlighting'
+"call plug#end()
 
 " # filetype
 autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
