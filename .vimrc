@@ -141,6 +141,7 @@ set hlsearch
 set incsearch
 " - window
 set scrolloff=8
+set sidescrolloff=8
 set splitright
 set splitbelow
 " - newtrw
