@@ -319,33 +319,27 @@ git config --global fetch.prune true
 # - ref: https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
 git config --global alias.wt "worktree"
 git config --global alias.root 'rev-parse --show-toplevel'
-# :G ls
-# :G ls %
-# :G ls --grep=<pattern> --author=<author>
-# --name-only
-# --stat
 # - ref: https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
-# > git ls/ll -n ${number}
-# > git ls/ll --since="2week/2day"
-# > git ls/ll --author="Wen-Jie"
-# > git ls/ll -- ${filepath}
+# $ git ls/ll -n ${number}
+# $ git ls/ll --since="2week/2day"
+# $ git ls/ll --author="Wen-Jie"
+# $ git ls/ll -- ${filepath}
+# $ git ls/ll --after="2025-01-01"
+# $ git ls/ll --grep="[RTL]"
 git config --global alias.ls "log --decorate --oneline --graph --reflog"
 git config --global alias.ll "log --decorate --oneline --graph --reflog --date=format:%Y-%m-%d\ %H:%M --pretty=tformat:'%C(auto,yellow)%h %C(auto,blue)%ad %C(auto,green)%<(7,trunc)%aN%C(reset)%C(auto)%d%C(reset) %s'"
 git config --global alias.rl "reflog --pretty=tformat:'%Cred%h%Creset %C(yellow)%gd%C(reset) %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset' --abbrev-commit"
 git config --global alias.tree "log --graph --simplify-by-decoration --pretty=tformat:'%C(auto,blue)%cr%C(auto)%d' --all"
 git config --global alias.ft "fetch --all -p"
-# > git st -sb
+# $ git st -sb
+# $ git st -sbuno
 git config --global alias.st "status"
-git config --global alias.sb "st -sbuno"
-# > git br -avv
-# > git br -vv
+# $ git br -avv
+# $ git br -vv
 git config --global alias.br "branch"
-# V -> :0Gclog
-# :Gedit <commit_id>:%
-# :Gedit <commit_id>:<file_name>
-# > git sh --name-only --oneline <commit_id>
-# > git sh <commit_id>:<file_name> | vim -
-# > git sh <commit_id>:% | vim -
+# $ git sh --name-only --oneline <commit_id>
+# $ git sh <commit_id>:<file_name> | vim -R -
+# $ git sh <commit_id>:% | vim -R -
 git config --global alias.sh "show"
 git config --global alias.co "checkout"
 git config --global alias.ci "commit"
@@ -361,13 +355,10 @@ git config --global rebase.rebaseMerges true
 git config --global merge.tool vim
 git config --global merge.conflictstyle diff3
 git config --global mergetool.prompt false
-# > git df <commit_id> <filename>
-# > git df <commit_id> <commit_id> <filename>
-# > git df --stat <commit_id>
-# > git df --stat <commit_id> <commit_id>
-# :Gvdiffsplit :0
-# :Gvdiffsplit HEAD:%
-# :Gvdiffsplit <commit_id>:%
+# $ git df <commit_id> <filename>
+# $ git df <commit_id> <commit_id> <filename>
+# $ git df --stat <commit_id>
+# $ git df --stat <commit_id> <commit_id>
 git config --global alias.df "difftool"
 git config --global diff.tool vimdiff
 git config --global diff.algorithm myers
