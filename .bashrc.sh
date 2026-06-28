@@ -243,7 +243,7 @@ export LANG="C.UTF-8"
 
 # # color config
 # - disable all the color setting
-export LS_COLORS=none
+#export LS_COLORS=none
 # - enable all the color setting
 #eval "$(dircolors -b)"
 
@@ -273,7 +273,7 @@ alias j='jobs'
 # - ref: https://github.com/tmux/tmux-builds
 alias tmux='tmux -u'
 alias tmuxs='tmux-sessionizer'
-alias ll='ls --color=never --group-directories-first --block-size=K --time-style=long-iso -alFtr'
+alias ll='ls --color=never --group-directories-first --block-size=K --time-style=long-iso -alFtrgo'
 alias lld='ll -d .*/ */'
 alias eixt='exit'
 alias exti='exit'
