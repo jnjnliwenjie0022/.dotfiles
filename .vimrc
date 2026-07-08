@@ -435,6 +435,13 @@ hi Structure                  ctermfg=11
 hi Todo                       ctermfg=0    ctermbg=14
 hi Type                       ctermfg=11
 
+" # filetype
+autocmd BufRead,BufNewFile *.vp setlocal filetype=systemverilog
+autocmd FileType asciidoc setlocal filetype=text
+
+" # alignment
+" : !column -t -s '|' -o '|'
+
 " # vim-plug
 " - ref: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " :PlugInstall to install plugins
@@ -449,21 +456,7 @@ hi Type                       ctermfg=11
 "    Plug 'mtdl9/vim-log-highlighting'
 "call plug#end()
 
-" # filetype
-autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
-
-"" git log -p -40 | vim - -R -c 'set foldmethod=syntax'
-"autocmd BufReadPost,BufNewFile fugitive://* setlocal foldmethod=syntax
-
-"" git log -p -40 | vim - -R -c 'set foldmethod=syntax'
-"autocmd BufReadPost,BufNewFile fugitive://* set foldmethod=syntax
-
-
-"!column -t -s '|' -o '|'
-
-
-
-
+" # ctags
 "local function run_ctags_uvm()
 "    vim.cmd [[!rm -rf $HOME/.local/tags ]]
 "    vim.cmd [[!mkdir $HOME/.local/tags ]]
@@ -484,12 +477,7 @@ autocmd BufNewFile,BufRead *.vp setlocal filetype=systemverilog
 "-- :ltag(:lt) to load tag to quitfixlist
 "-- :lope to open quitfixlist with tag
 
-
-
-
-
-
-
+" # gutentags
 "--vim.cmd [[
 "--    let s:vim_tags = expand('~/.cache/tags')
 "--    let g:gutentags_cache_dir = s:vim_tags
