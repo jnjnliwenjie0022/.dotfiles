@@ -441,6 +441,8 @@ autocmd FileType asciidoc setlocal filetype=text
 
 " # alignment
 " : !column -t -s '|' -o '|'
+" # tab2space
+" : retab
 
 " # vim-plug
 " - ref: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
