@@ -273,8 +273,11 @@ alias j='jobs'
 # - ref: https://github.com/tmux/tmux-builds
 alias tmux='tmux -u'
 alias tmuxs='tmux-sessionizer'
-alias ll='ls --color=never --group-directories-first --block-size=K --time-style=long-iso -alFtrgo'
-alias lld='ls --color=never --group-directories-first --block-size=K --time-style=long-iso -alFtrgo -d .*/ */'
+alias ll='ls --color=never --group-directories-first --block-size=K --time-style=long-iso -alFgo'
+# - sort by time
+# $ ll -tr
+# - only ls directory
+# $ ll -d .*/ */
 alias eixt='exit'
 alias exti='exit'
 # - ref: https://superuser.com/questions/1786563/how-do-i-run-a-bash-script-automatically-everytime-i-hit-ctrl-s
