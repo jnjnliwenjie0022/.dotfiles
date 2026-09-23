@@ -676,4 +676,5 @@ fi
 #}}}
 #{{{ claude
 # - ref: https://vip.studycamp.tw/t/claude-code-%E9%80%90%E6%AD%A5%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%EF%BC%88ms-windows%EF%BC%89/7981
+# - ref TODO: https://www.youtube.com/watch?v=GCx5MnDs_lA
 #}}}
