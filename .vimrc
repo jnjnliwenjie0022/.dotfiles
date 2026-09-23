@@ -256,7 +256,7 @@ function! InitHarpoonSession()
     if !filereadable(g:harpoon_session_file) | call writefile([], g:harpoon_session_file) | endif
 endfunction
 
-nnoremap <leader>e :call HarpoonToggle()<CR>
+nnoremap <silent> <leader>e :call HarpoonToggle()<CR>
 function! HarpoonToggle()
     if empty(g:harpoon_session_file) | echo "Warning: Can't open harpoon session" | return | endif
     if expand('%:p') ==# g:harpoon_session_file
@@ -292,7 +292,7 @@ function! HarpoonJump()
     execute 'bdelete! ' . l:harpoon_buf
 endfunction
 
-nnoremap <leader>a :call AddHarpoonSession()<CR>
+nnoremap <silent> <leader>a :call AddHarpoonSession()<CR>
 function! AddHarpoonSession()
     " 1. 確保 session 檔案變數已經存在
     if empty(g:harpoon_session_file)
@@ -308,9 +308,16 @@ function! AddHarpoonSession()
         return
     endif
 
-    " 3. 檢查通過，執行寫入並提示
+    " 3. 檢查是否已經存在於 session 檔案中
+    let l:existing_lines = filereadable(g:harpoon_session_file) ? readfile(g:harpoon_session_file) : []
+    if index(l:existing_lines, l:current_path) != -1
+        echo "Warning: " . expand('%:t') . " already exists in harpoon session"
+        return
+    endif
+
+    " 4. 檢查通過，執行寫入並提示
     call writefile([l:current_path], g:harpoon_session_file, "a")
-    echo "Add harpoon session: " . expand('%:t')
+    echo "Info: Add harpoon session: " . expand('%:t')
 endfunction
 
 " # color
