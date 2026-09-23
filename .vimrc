@@ -311,7 +311,7 @@ function! AddHarpoonSession()
     " 3. 檢查是否已經存在於 session 檔案中
     let l:existing_lines = filereadable(g:harpoon_session_file) ? readfile(g:harpoon_session_file) : []
     if index(l:existing_lines, l:current_path) != -1
-        echo "Warning: " . expand('%:t') . " already exists in harpoon session"
+        echo "Warning: Already exists in harpoon session"
         return
     endif
 
