@@ -456,17 +456,77 @@ git_page_maybe() {
 #{{{ git prompt
 # ref: https://blog.sasworkshops.com/showing-status-in-the-git-bash-prompt/
 parse_git_branch() {
-     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/")
-        local status=""
+    [ -n "$GIT_PROMPT_OFF" ] && return
 
-        if [ -n "$(git status --porcelain -uno 2>/dev/null)" ]; then
-            status="*"
-        fi
+    local out branch="" oid="" ahead=0 behind=0 dirty=0 conflict=0 stash=0
+    local dty="" conf="" sta="" ab=""
+    out=$(git status --porcelain=v2 --branch --show-stash -uno 2>/dev/null) || return
 
-        echo "$branch$status"
+    # $out 範例：
+    #   # branch.oid 3f2a9c1e8b...
+    #   # branch.head main
+    #   # branch.upstream origin/main
+    #   # branch.ab +2 -1
+    #   # stash 2                           <- stash 數量（沒有 stash 時不會出現）
+    #   1 .M N... 100644 ... src/top.v      <- 1 或 2 開頭 = 一般修改的檔案
+    #   u UU N... 100644 ... src/core.v     <- u 開頭     = merge 衝突的檔案
+    local mark key val1 val2
+    while read -r mark key val1 val2; do
+        case "$mark" in
+            "#") ;;                                        # 標頭行，交給下面處理
+            u)   conflict=$((conflict + 1)); continue ;;   # merge 衝突的檔案
+            *)   dirty=$((dirty + 1));       continue ;;   # 一般修改的檔案
+        esac
+
+        case "$key" in
+            branch.oid)  oid=$val1 ;;
+            branch.head) branch=$val1 ;;
+            branch.ab)   ahead=${val1#+}; behind=${val2#-} ;;
+            stash)       stash=$val1 ;;
+        esac
+    done <<< "$out"
+
+    # 進行中的操作：git 會在 .git 目錄留下對應的標記檔
+    local gitdir op="" step="" total=""
+    gitdir=$(git rev-parse --git-dir 2>/dev/null)
+
+    if [ -d "$gitdir/rebase-merge" ]; then
+        op="REBASE"
+        read -r step  2>/dev/null < "$gitdir/rebase-merge/msgnum"
+        read -r total 2>/dev/null < "$gitdir/rebase-merge/end"
+    elif [ -d "$gitdir/rebase-apply" ]; then
+        if [ -f "$gitdir/rebase-apply/applying" ]; then op="AM"; else op="REBASE"; fi
+        read -r step  2>/dev/null < "$gitdir/rebase-apply/next"
+        read -r total 2>/dev/null < "$gitdir/rebase-apply/last"
+    elif [ -f "$gitdir/MERGE_HEAD" ];       then op="MERGING"
+    elif [ -f "$gitdir/CHERRY_PICK_HEAD" ]; then op="CHERRY-PICKING"
+    elif [ -f "$gitdir/REVERT_HEAD" ];      then op="REVERTING"
+    elif [ -f "$gitdir/BISECT_LOG" ];       then op="BISECTING"
     fi
+    [ -n "$step" ] && [ -n "$total" ] && op+=" $step/$total"
+
+    [ "$branch" = "(detached)" ] && branch=${oid:0:7}
+    [ "$dirty"    -gt 0 ] && dty="*$dirty"
+    [ "$conflict" -gt 0 ] && conf="✗$conflict"
+    [ "$stash"    -gt 0 ] && sta="≡$stash"
+    [ "$ahead"    -gt 0 ] && ab+="↑$ahead"
+    [ "$behind"   -gt 0 ] && ab+="↓$behind"
+
+    echo "$branch${op:+|$op}${ab:+ $ab}${dty:+ $dty}${conf:+ $conf}${sta:+ $sta}"
 }
+
+#parse_git_branch() {
+#     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+#        local branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/")
+#        local status=""
+#
+#        if [ -n "$(git status --porcelain -uno 2>/dev/null)" ]; then
+#            status="*"
+#        fi
+#
+#        echo "$branch$status"
+#    fi
+#}
 
 RESET='\[\033[0m\]'
 BLACK='\[\033[30m\]'
