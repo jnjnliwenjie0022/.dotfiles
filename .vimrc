@@ -1,19 +1,9 @@
 " - 16 ANSI color
 set t_Co=16
-if &term =~ "screen"
-    " - force vim to use ANSI escape sequences for italics
-    let &t_ZH = "\e[3m"
-    let &t_ZR = "\e[23m"
-    " - force vim to use ANSI escape sequences for cursor
-    let &t_SI = "\<Esc>P\<Esc>[6 q\<Esc>\\" "SI = INSERT mode
-    let &t_SR = "\<Esc>P\<Esc>[4 q\<Esc>\\" "SR = REPLACE mode
-    let &t_EI = "\<Esc>P\<Esc>[2 q\<Esc>\\" "EI = NORMAL mode (ELSE)
-else
-    " - ref: https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
-    let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
-    let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
-    let &t_EI = "\<Esc>[2 q" "EI = NORMAL mode (ELSE)
-endif
+" - ref: https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
+let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
+let &t_EI = "\<Esc>[2 q" "EI = NORMAL mode (ELSE)
 " - ignore focus escape sequences sent by the terminal in all modes
 noremap <Esc>[I <nop>
 noremap! <Esc>[I <nop>
@@ -50,8 +40,6 @@ inoremap <C-c> <Esc>
 " - %:p refers to the path to the file
 nnoremap <leader>b :exe "w %:p.bak.".strftime("%Y%m%d_%H%M%S")<CR>:echo "Backup:" . expand("%:p") . ".bak." . strftime("%Y%m%d_%H%M%S")<CR>
 nnoremap <leader>c :%s/\s\+$//e<CR>:%s/\r$//e<CR>
-vnoremap "*y y:<C-U>call YANK(@0)<CR>:echo "Yank"<CR>
-nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call YANK(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
 nnoremap <C-k> :@" = join(readfile(expand('~/y')), "\n")<CR>:r ~/y<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>g :GFiles<CR>
@@ -119,13 +107,17 @@ set listchars=tab:>\ ,trail:·
 set conceallevel=2
 " - undofile
 if has('persistent_undo')
-    let target_path = expand('~/.vim/undodir')
-    if !isdirectory(target_path)
-        call mkdir(target_path, "p", 0700)
+    let s:undodir = expand('~/.vim/undodir')
+    if !isdirectory(s:undodir)
+        call mkdir(s:undodir, 'p', 0700)
     endif
-    let &undodir = target_path
-    set undofile
+    if isdirectory(s:undodir)
+        let &undodir = s:undodir
+        set undofile
+    endif
 endif
+set undolevels=10000
+set undoreload=100000
 " - backfile
 set nobackup
 " - swapfile
@@ -157,14 +149,16 @@ iab <expr> _DS strftime("%Y-%m-%d %H:%M:%S")
 autocmd FileType * setlocal formatoptions-=cro
 
 " # function
-" ## YANK function
+" ## Yank function
 " - ref: https://sunaku.github.io/tmux-yank-osc52.html#configure-your-vimrc
-function! YANK(text) abort
-    let escape = system('y', a:text)
+vnoremap "*y y:<C-U>call Yank(@0)<CR>:echo "Yank"<CR>
+nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call Yank(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
+function! Yank(text) abort
+    let l:output = system('y 2>&1', a:text)
     if v:shell_error
-        echoerr escape
+        echoerr l:output
     else
-        call writefile([escape], '/dev/tty', 'b')
+        call writefile([l:output], '/dev/tty', 'b')
     endif
 endfunction
 
