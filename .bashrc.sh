@@ -152,13 +152,16 @@ export XAUTHORITY=$HOME/.Xauthority
 #   - In powershell or command prompt
 #       > cd ~/.ssh
 #       > nvim config
+#           Host *
+#               ForwardAgent yes
+#               ForwardX11 yes
+#
 #           Host r10
 #               HostName atcpcw10
 #               User jasonli
 #               Port 22
-#               ForwardX11 yes
-#               ForwardX11Trusted yes
 #               IdentitiesOnly yes
+#               ForwardX11Trusted yes
 #       > ssh r10
 
 # # Auto Login without Password
@@ -166,7 +169,7 @@ export XAUTHORITY=$HOME/.Xauthority
 #   - In powershell or command prompt
 #       > cd ~/.ssh
 #       > ssh-keygen
-#       > type id_ed25519.pub | ssh jasonli@atcpcw10 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+#       > type id_xxx.pub | ssh jasonli@atcpcw10 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
 #           - P.S: copy public key to .ssh/authorized_keys
 
 # # ssh remote-linux
@@ -738,3 +741,10 @@ fi
 # - ref: https://vip.studycamp.tw/t/claude-code-%E9%80%90%E6%AD%A5%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8%EF%BC%88ms-windows%EF%BC%89/7981
 # - ref TODO: https://www.youtube.com/watch?v=GCx5MnDs_lA
 #}}}
+#git clone https://github.com/neovim/neovim.git
+#cd neovim
+#git checkout stable   # 或指定版本 tag,例如 v0.10.2
+#
+## 編譯並安裝到自己的家目錄,不需要 root
+#make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=$HOME/.local
+#make install
