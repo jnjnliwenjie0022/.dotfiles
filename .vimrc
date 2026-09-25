@@ -151,8 +151,9 @@ autocmd FileType * setlocal formatoptions-=cro
 " # function
 " ## Yank function
 " - ref: https://sunaku.github.io/tmux-yank-osc52.html#configure-your-vimrc
+nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:call Yank(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
+vnoremap <leader>y :<C-U>let @0 = expand("%:p") . ":" . line("'<") . "-" . line("'>")<CR>:let @" = @0<CR>:call Yank(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
 vnoremap "*y y:<C-U>call Yank(@0)<CR>:echo "Yank"<CR>
-nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:<C-U>call Yank(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
 function! Yank(text) abort
     let l:output = system('y 2>&1', a:text)
     if v:shell_error
@@ -286,7 +287,7 @@ function! HarpoonJump()
     execute 'bdelete! ' . l:harpoon_buf
 endfunction
 
-nnoremap <silent> <leader>a :call AddHarpoonSession()<CR>
+nnoremap <silent> <leader>m :call AddHarpoonSession()<CR>
 function! AddHarpoonSession()
     " 1. 確保 session 檔案變數已經存在
     if empty(g:harpoon_session_file)
