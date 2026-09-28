@@ -1,4 +1,5 @@
-" ref: /home/jnjn0022/.dotfiles/.vimrc #TODO
+" ref: https://www.youtube.com/watch?v=otRvw9neQkg #TODO
+" ref: https://www.youtube.com/watch?v=v1c3VMF_bkw #TODO
 " - 16 ANSI color
 set t_Co=16
 " - ref: https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
