@@ -23,24 +23,24 @@ local function get_harpoon_file()
 end
 
 local function close_window()
-  if state.win and vim.api.nvim_win_is_valid(state.win) then
-    vim.cmd('silent! write')
-    vim.api.nvim_win_close(state.win, true)
-  end
-  state.win = nil
+    if state.win and vim.api.nvim_win_is_valid(state.win) then
+        vim.api.nvim_win_close(state.win, true)
+    end
+    state.win = nil
 end
 
 local function jump()
-  local target = vim.trim(vim.api.nvim_get_current_line())
-  if target == '' then
-    return
-  end
+    local target = vim.trim(vim.api.nvim_get_current_line())
+    if vim.fn.filereadable(target) == 0 then
+        vim.notify('[Warning] harpoon: file not found: ' .. target, vim.log.levels.WARN)
+        return
+    end
 
-  close_window()
-  if state.prev_win and vim.api.nvim_win_is_valid(state.prev_win) then
-    vim.api.nvim_set_current_win(state.prev_win)
-  end
-  vim.cmd('edit ' .. vim.fn.fnameescape(target))
+    close_window()
+    if state.prev_win and vim.api.nvim_win_is_valid(state.prev_win) then
+        vim.api.nvim_set_current_win(state.prev_win)
+    end
+    vim.cmd.edit(target)
 end
 
 local function toggle()
