@@ -10,7 +10,7 @@ local function is_invalid(path)
   return path == '' or vim.startswith(path, harpoon_path)
 end
 
-local function session_file()
+local function get_harpoon_file()
     -- create harpoon directory "~/.vim/harpoon/"
     vim.fn.mkdir(harpoon_path, 'p')
 
@@ -49,10 +49,10 @@ local function toggle()
     return
   end
 
-  local file = session_file()
+  local file = get_harpoon_file()
   if not file then
-    vim.notify("Can't open harpoon session", vim.log.levels.WARN)
-    return
+      vim.notify("Can't open harpoon session", vim.log.levels.WARN)
+      return
   end
 
   state.prev_win = vim.api.nvim_get_current_win()
@@ -97,7 +97,7 @@ local function add()
     return
   end
 
-  local file = session_file()
+  local file = get_harpoon_file()
   if not file then
     vim.notify("Can't create harpoon session", vim.log.levels.WARN)
     return
