@@ -1,4 +1,9 @@
 # .dotfiles
+## version
+* vim 8.0 + tmux 2.7 or tmux 3.x
+* nvim 0.12 + tmux 2.7 or tmux 3.x
+- ref: https://github.com/neovim/neovim-releases
+
 ## with_ssh
 
 - ref: https://www.notion.so/tnvim_workflow-d885d9ff0f2049e4b9ea04e6002b2701#107e22b24f9b4ee9b2be2daf213d0892
