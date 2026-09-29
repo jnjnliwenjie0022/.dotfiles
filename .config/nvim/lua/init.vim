@@ -219,6 +219,7 @@ augroup END
 " (if your terminal and font support it), bold, reverse, underlined, etc.
 " See ':help attr-list' for possible options.
 set background=dark
+"vim.cmd.colorscheme("catppuccin")
 hi clear
 " - Force nvim to use 16 colors only
 set notermguicolors
