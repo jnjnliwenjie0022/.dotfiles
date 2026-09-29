@@ -3,6 +3,7 @@ vim.cmd('source ' .. vim.fn.stdpath('config') .. '/lua/init.vim')
 require('osc52')
 require('find')
 require('grep')
+require('cursor')
 require('harpoon')
 local ok, ai = pcall(require, "ai_visual")
 if ok then
