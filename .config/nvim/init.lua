@@ -1,9 +1,9 @@
 -- ref: https://www.youtube.com/watch?v=otRvw9neQkg&t=1111s
 vim.cmd('source ' .. vim.fn.stdpath('config') .. '/lua/init.vim')
+require('cursor')
 require('osc52')
 require('find')
 require('grep')
-require('cursor')
 require('harpoon')
 local ok, ai = pcall(require, "ai_visual")
 if ok then
