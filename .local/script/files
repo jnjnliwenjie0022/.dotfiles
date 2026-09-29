@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-
-find . -mindepth 1 -not -path '*/.git/*' | sed 's|^./||' | fzf --multi | sed "s|^|$PWD/|"
+find . -mindepth 1 -not -path '*/.git/*' \
+  | sed 's|^./||' \
+  | fzf --multi \
+  | awk -v p="$PWD" '{print p "/" $0}'
