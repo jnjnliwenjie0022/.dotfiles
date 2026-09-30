@@ -1,5 +1,5 @@
 -- ## Harpoon
-local harpoon_path = vim.fn.expand('~/.vim/harpoon/')
+local harpoon_dir = vim.fn.expand('~/.vim/harpoon/')
 
 local state = {
   harpoon_win = nil,
@@ -7,16 +7,16 @@ local state = {
 }
 
 local function is_invalid(path)
-  return path == '' or vim.startswith(path, harpoon_path)
+  return path == '' or vim.startswith(path, harpoon_dir) or vim.fn.isdirectory(path) == 1
 end
 
 local function get_harpoon_file()
     -- create harpoon directory "~/.vim/harpoon/"
-    vim.fn.mkdir(harpoon_path, 'p')
+    vim.fn.mkdir(harpoon_dir, 'p')
 
     -- create harpoon file
     local file_path = vim.fn.getcwd()
-    local file = harpoon_path .. (file_path:gsub('/', '%%'))
+    local file = harpoon_dir .. (file_path:gsub('/', '%%'))
     vim.fn.writefile({}, file, 'a')
 
     return file
@@ -41,21 +41,14 @@ local function jump()
     end
 
     close_harpoon_win()
-    if state.parent_win and vim.api.nvim_win_is_valid(state.parent_win) then
-        vim.api.nvim_set_current_win(state.parent_win)
-    end
     vim.cmd.edit(file)
+    vim.cmd.cd(vim.fn.getcwd())
 end
 
 local function open_harpoon_win()
     state.parent_win = vim.api.nvim_get_current_win()
 
     local buf = vim.fn.bufadd(get_harpoon_file())
-    vim.fn.bufload(buf)
-    vim.bo[buf].bufhidden = 'wipe'
-    vim.bo[buf].swapfile = false
-    vim.bo[buf].buflisted = false
-
     local width = math.floor(vim.o.columns)
     local height = math.floor(vim.o.lines)
     local row = math.floor((vim.o.lines - height) / 2)
@@ -69,12 +62,19 @@ local function open_harpoon_win()
         style = 'minimal',
         border = 'rounded',
         title = ' Harpoon ',
-        title_pos = 'center',
+--        title_pos = 'center',
     })
 
     vim.keymap.set('n', '<CR>', jump, { buffer = buf, silent = true })
     vim.keymap.set('n', 'q', close_harpoon_win, { buffer = buf, silent = true })
     vim.keymap.set('n', '<Esc>', close_harpoon_win, { buffer = buf, silent = true })
+
+    vim.api.nvim_create_autocmd('CmdlineEnter', {
+        buffer = buf,
+        callback = function()
+            vim.api.nvim_feedkeys(vim.keycode('<C-c>'), 'n', false)
+        end,
+    })
 
     vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'BufLeave' }, {
         buffer = buf,
