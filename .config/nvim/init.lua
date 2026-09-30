@@ -1,4 +1,5 @@
 -- ref: https://www.youtube.com/watch?v=otRvw9neQkg&t=1111s
+-- ref: https://www.youtube.com/watch?v=pyV3SEIWsKQ&t=113s
 vim.cmd('source ' .. vim.fn.stdpath('config') .. '/lua/init.vim')
 require('cursor')
 require('osc52')
