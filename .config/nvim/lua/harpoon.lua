@@ -97,7 +97,7 @@ local function add()
     local harpoon_file = get_harpoon_file()
 
     if is_invalid(file) then
-        vim.notify('[Warning hdwarpoon] invalid file', vim.log.levels.WARN)
+        vim.notify('[Warning Harpoon] invalid file', vim.log.levels.WARN)
         return
     end
 
