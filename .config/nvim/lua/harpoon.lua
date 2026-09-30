@@ -84,7 +84,7 @@ local function open_harpoon_win()
     })
 end
 
-function toggle()
+local function toggle()
     if is_harpoon_win() then
         close_harpoon_win()
     else
