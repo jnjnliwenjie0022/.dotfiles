@@ -20,6 +20,34 @@ vim.g.clipboard = {
     paste = { ['+'] = osc52_paste, ['*'] = osc52_paste },
 }
 
---nnoremap <leader>y :let @0 = expand("%:p")<CR>:let @" = @0<CR>:call Yank(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
---vnoremap <leader>y :<C-U>let @0 = expand("%:p") . ":" . line("'<") . "-" . line("'>")<CR>:let @" = @0<CR>:call Yank(@0)<CR>:echo "Yank: " . getreg('@0')<CR>
---vnoremap "*y y:<C-U>call Yank(@0)<CR>:echo "Yank"<CR>
+vim.keymap.set('n', '<leader>y', function()
+    local path = vim.fn.expand('%:p')
+    if path == ''  then
+        vim.notify('[Warning Yank] file is nil' .. path, vim.log.levels.WARN)
+        return
+    end
+    vim.fn.setreg('0', path)
+    vim.fn.setreg('"', path)
+    vim.fn.setreg('*', path)
+    vim.fn.setreg('+', path)
+    vim.notify('Yank: ' .. path)
+end, { desc = 'Yank file path via OSC52' })
+
+vim.keymap.set('x', '<leader>y', function()
+    local path = vim.fn.expand('%:p')
+    if path == ''  then
+        vim.api.nvim_feedkeys(vim.keycode('<Esc>'), 'nx', false)  -- 離開 visual mode
+        vim.notify('[Warning Yank] file is nil' .. path, vim.log.levels.WARN)
+        return
+    end
+
+    local s, e = vim.fn.line('v'), vim.fn.line('.')
+    if s > e then s, e = e, s end
+    target = string.format('%s#L%d-L%d', path, s, e)
+    vim.api.nvim_feedkeys(vim.keycode('<Esc>'), 'nx', false)  -- 離開 visual mode
+    vim.fn.setreg('0', target)
+    vim.fn.setreg('"', target)
+    vim.fn.setreg('*', target)
+    vim.fn.setreg('+', target)
+    vim.notify('Yank: ' .. target)
+end, { desc = 'Yank file path with line range via OSC52' })
