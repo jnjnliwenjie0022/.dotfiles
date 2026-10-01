@@ -42,6 +42,7 @@ local function jump()
 
     close_harpoon_win()
     vim.cmd.edit(file)
+    -- rename file path according to the root
     vim.cmd.cd(vim.fn.getcwd())
 end
 
@@ -69,11 +70,13 @@ local function open_harpoon_win()
     vim.keymap.set('n', 'q', close_harpoon_win, { buffer = buf, silent = true })
     vim.keymap.set('n', '<Esc>', close_harpoon_win, { buffer = buf, silent = true })
 
+    -- disable command line
     local o = { buffer = buf, silent = true, nowait = true }
     for _, lhs in ipairs({ ':', 'q:', 'Q', 'gQ' }) do
         vim.keymap.set({ 'n', 'x' }, lhs, '<Nop>', o)
     end
 
+    -- auto save
     vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'BufLeave' }, {
         buffer = buf,
         callback = function()
