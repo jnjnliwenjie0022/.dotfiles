@@ -43,7 +43,11 @@ vim.keymap.set('x', '<leader>y', function()
 
     local s, e = vim.fn.line('v'), vim.fn.line('.')
     if s > e then s, e = e, s end
-    target = string.format('%s#L%d-L%d', path, s, e)
+    if s == e then
+        target = string.format('%s#L%d', path, s)
+    else
+        target = string.format('%s#L%d-L%d', path, s, e)
+    end
     vim.api.nvim_feedkeys(vim.keycode('<Esc>'), 'nx', false)  -- 離開 visual mode
     vim.fn.setreg('0', target)
     vim.fn.setreg('"', target)

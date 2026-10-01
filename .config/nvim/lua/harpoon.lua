@@ -69,12 +69,10 @@ local function open_harpoon_win()
     vim.keymap.set('n', 'q', close_harpoon_win, { buffer = buf, silent = true })
     vim.keymap.set('n', '<Esc>', close_harpoon_win, { buffer = buf, silent = true })
 
-    vim.api.nvim_create_autocmd('CmdlineEnter', {
-        buffer = buf,
-        callback = function()
-            vim.api.nvim_feedkeys(vim.keycode('<C-c>'), 'n', false)
-        end,
-    })
+    local o = { buffer = buf, silent = true, nowait = true }
+    for _, lhs in ipairs({ ':', 'q:', 'Q', 'gQ' }) do
+        vim.keymap.set({ 'n', 'x' }, lhs, '<Nop>', o)
+    end
 
     vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'BufLeave' }, {
         buffer = buf,
