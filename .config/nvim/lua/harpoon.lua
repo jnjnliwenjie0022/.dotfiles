@@ -2,12 +2,12 @@
 local harpoon_dir = vim.fn.expand('~/.vim/harpoon/')
 
 local state = {
-  harpoon_win = nil,
-  parent_win = nil,
+    harpoon_win = nil,
+    parent_win = nil,
 }
 
 local function is_invalid(path)
-  return path == '' or vim.startswith(path, harpoon_dir) or vim.fn.isdirectory(path) == 1
+    return path == '' or vim.startswith(path, harpoon_dir) or vim.fn.isdirectory(path) == 1
 end
 
 local function get_harpoon_file()
