@@ -83,6 +83,7 @@ local function pick_to_quickfix(cmd)
         vim.cmd('copen')
       else
         vim.cmd('cfirst')
+        vim.cmd.cd(vim.fn.getcwd())
       end
     end,
   })
